@@ -2,8 +2,8 @@ import { useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
 import { GrFormAdd } from "react-icons/gr";
 import Modal from "react-modal";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -24,7 +24,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 const AddressModal = (props) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [address, setAddress] = useState({
     firstName: "",
     lastName: "",
@@ -45,9 +45,6 @@ const AddressModal = (props) => {
     //   navigate("/account");
     // }
     console.log(address);
-  };
-  const handle = (e) => {
-    console.log(e.target.checked);
   };
   return (
     <div>

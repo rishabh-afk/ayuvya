@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+// import { Pagination } from "swiper";
 import Tabs from "../components/accounts/Tabs";
 import CardHoc from "../components/UI/CardHoc";
 import "swiper/css";
@@ -37,7 +37,9 @@ const Account = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="flex justify-between mx-4 items-center mt-8 md:mb-8">
-        <h2 className="text-xl text-[#5e0d8b] font-bold">Hi, Parekh</h2>
+        <h2 className="text-xl text-[#5e0d8b] font-bold">
+          Hi, {userData.firstName} {userData.lastName}
+        </h2>
         <button className="px-6 py-[7px] text-lg bg-[#5e0d8b] rounded text-white">
           Log Out
         </button>
