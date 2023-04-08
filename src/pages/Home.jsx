@@ -1,8 +1,9 @@
-import React from "react";
-import Layouts from "../components/UI/Layouts";
-
 const Home = () => {
-  return <Layouts>Home</Layouts>;
+  return (
+    <div>
+      <h1 className="text-3xl">Home</h1>
+    </div>
+  );
 };
 
 export default Home;
