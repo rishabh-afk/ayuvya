@@ -1,12 +1,12 @@
 .move {
-    animation: move 20s linear infinite;
+    animation: flower 6s ease-in-out infinite alternate;
 }
 
 
-@keyframes move {
-    0%, 100% {
-        transform: rotate(-10deg);
-    } 50% {
-        transform: rotate(10deg);
+@keyframes flower {
+    from {
+        rotate: -5deg;
+    } to {
+        rotate: 5deg;
     }
 }
