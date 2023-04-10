@@ -2,6 +2,8 @@ import { useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
 import { GrFormAdd } from "react-icons/gr";
 import Modal from "react-modal";
+import FormInput from "../common/FormInput";
+import Button from "../common/Button";
 // import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
@@ -47,26 +49,24 @@ const AddressModal = (props) => {
         isOpen={props.addressModalIsOpen}
         onRequestClose={props.handleClose}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="Address Modal"
       >
         <div className="p-2 max-w-4xl">
-          <h2 className="text-[#5e0d8b] py-4 mb-8 text-3xl font-bold border-b-2 border-[#909090]">
+          <h2 className="text-blue-900 py-4 mb-8 text-3xl font-bold border-b-2 border-gray-500">
             Add New Address
           </h2>
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
-              <input
+            <div className="flex flex-col md:flex-row gap-px md:gap-3">
+              <FormInput
                 type="text"
                 placeholder="Address Line 1"
                 name="addressLine1"
                 id="addressLine1"
-                required
                 onChange={(e) =>
                   setAddress({ ...address, addressLine1: e.target.value })
                 }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
-              <input
+              <FormInput
                 type="text"
                 placeholder="Address Line 2"
                 name="addressLine2"
@@ -74,46 +74,39 @@ const AddressModal = (props) => {
                 onChange={(e) =>
                   setAddress({ ...address, addressLine2: e.target.value })
                 }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
             </div>
-            <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
-              <input
+            <div className="flex flex-col md:flex-row gap-px md:gap-3">
+              <FormInput
                 type="number"
                 placeholder="zipcode"
                 name="zipcode"
                 id="zipcode"
-                required
                 onChange={(e) =>
                   setAddress({ ...address, zipcode: e.target.value })
                 }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
-              <input
+              <FormInput
                 type="text"
                 placeholder="country"
                 name="country"
                 id="country"
-                required
                 onChange={(e) =>
                   setAddress({ ...address, country: e.target.value })
                 }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
             </div>
-            <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
-              <input
+            <div className="flex flex-col md:flex-row gap-px md:gap-3">
+              <FormInput
                 type="text"
                 placeholder="City"
                 name="city"
                 id="city"
-                required
                 onChange={(e) =>
                   setAddress({ ...address, city: e.target.value })
                 }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
-              <input
+              <FormInput
                 type="text"
                 placeholder="area"
                 name="area"
@@ -121,7 +114,6 @@ const AddressModal = (props) => {
                 onChange={(e) =>
                   setAddress({ ...address, area: e.target.value })
                 }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
             </div>
             <div className="flex gap-2 items-center">
@@ -133,26 +125,21 @@ const AddressModal = (props) => {
                 onChange={(e) =>
                   setAddress({ ...address, default: e.target.checked })
                 }
-                className="border w-auto border-[#cbcbcb] rounded-sm outline-none"
               />
               <p className="font-medium text-sm">Set as default address</p>
             </div>
             <div className="flex gap-4 mt-5">
-              <button
-                type="button"
-                onClick={props.handleClose}
-                className="flex gap-1 items-center bg-[#5e0d8b] cursor-none lg:cursor-pointer text-white border-2 border-[#5e0d8b] px-3 py-[5px] rounded"
+              <Button
+                handler={props.handleClose}
+                className="bg-blue-900 border-blue-900 text-white border-2"
               >
                 <VscChromeClose size={20} />
                 <span className="font-semibold">Cancel</span>
-              </button>
-              <button
-                type="submit"
-                className="flex gap-1 items-center border cursor-none lg:cursor-pointer border-[#e3abf9] px-3 py-[7px] rounded"
-              >
+              </Button>
+              <Button className="border-blue-200 border-2" type="submit">
                 <GrFormAdd size={20} />
                 <span className="font-semibold">Add Address</span>
-              </button>
+              </Button>
             </div>
           </form>
         </div>

@@ -4,6 +4,8 @@ import { CgAdd } from "react-icons/cg";
 import { RxCrossCircled } from "react-icons/rx";
 import placeholder from "../../assets/images/userPlaceholder.jpg";
 import Modal from "react-modal";
+import Button from "../common/Button";
+import FormInput from "../common/FormInput";
 // import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
@@ -52,10 +54,10 @@ const UserModal = (props) => {
         isOpen={props.userModalIsOpen}
         onRequestClose={props.handleClose}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="User Details Modal"
       >
         <div className="p-2 max-w-4xl">
-          <h2 className="text-[#5e0d8b] py-4 text-3xl font-bold border-b-2 border-[#909090]">
+          <h2 className="text-blue-900 py-4 text-3xl font-bold border-b-2 border-gray-500">
             Edit your details
           </h2>
           <form onSubmit={handleSubmit}>
@@ -71,10 +73,9 @@ const UserModal = (props) => {
                 <div className="flex gap-2 required left-0 items-center justify-start my-4">
                   <CgAdd
                     size={25}
-                    color="#5e0d8b"
-                    className="cursor-none lg:cursor-pointer"
+                    className="cursor-none lg:cursor-pointer text-blue-900"
                   />
-                  <p className="text-[#5e0d8b] font-bold text-lg">
+                  <p className="text-blue-900 font-bold text-lg">
                     Upload Your Profile Picture
                   </p>
                 </div>
@@ -98,16 +99,14 @@ const UserModal = (props) => {
                 }
               </div>
               <div className="flex flex-col gap-1">
-                <label>Name:</label>
-                <input
+                <FormInput
+                  label={"Name"}
                   type="text"
                   placeholder="Name"
                   name="name"
                   id="name"
                   value={user.name}
-                  required
                   onChange={(e) => setUser({ ...user, name: e.target.value })}
-                  className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
                 />
                 <div className="flex flex-col gap-1">
                   <label>Gender:</label>
@@ -116,7 +115,7 @@ const UserModal = (props) => {
                     onChange={(e) =>
                       setUser({ ...user, gender: e.target.value })
                     }
-                    className="rounded-sm p-2 w-80 mb-3 outline-none bg-white border border-[#cbcbcb]"
+                    className="rounded-sm p-2 w-80 mb-3 outline-none bg-white border border-gray-300"
                   >
                     <option disabled selected>
                       Select Option
@@ -127,8 +126,8 @@ const UserModal = (props) => {
                   </select>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <label>Date of Birth</label>
-                  <input
+                  <FormInput
+                    label={"Date of Birth"}
                     type="date"
                     placeholder="Date Of Birth"
                     name="dateOfBirth"
@@ -137,26 +136,21 @@ const UserModal = (props) => {
                     onChange={(e) =>
                       setUser({ ...user, dateOfBirth: e.target.value })
                     }
-                    className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
                   />
                 </div>
               </div>
             </div>
             <div className="flex gap-4 mt-5">
-              <button
-                type="button"
-                onClick={props.handleClose}
-                className="flex gap-1 items-center bg-[#5e0d8b] cursor-none lg:cursor-pointer text-white border-2 border-[#5e0d8b] px-3 py-[5px] rounded"
+              <Button
+                handler={props.handleClose}
+                className="bg-blue-900 border-blue-900 text-white border"
               >
                 <VscChromeClose size={20} />
                 <span className="font-semibold">Cancel</span>
-              </button>
-              <button
-                type="submit"
-                className="flex gap-1 items-center cursor-none lg:cursor-pointer border border-[#e3abf9] px-3 py-[7px] rounded"
-              >
+              </Button>
+              <Button className="border-blue-200 border-2" type="submit">
                 <span className="font-semibold">Update</span>
-              </button>
+              </Button>
             </div>
           </form>
         </div>

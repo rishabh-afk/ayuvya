@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import { VscChromeClose } from "react-icons/vsc";
 import { BiLogOutCircle } from "react-icons/bi";
+import Button from "../common/Button";
 
 const customStyles = {
   content: {
@@ -26,28 +27,24 @@ const LogoutModal = (props) => {
         isOpen={props.logoutModalIsOpen}
         onRequestClose={props.handleClose}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="Logout Modal"
       >
         <div className="p-2 max-w-lg">
-          <p className="text-xl md:text-3xl mb-8 font-semibold text-[#5e0d8b]">
+          <p className="text-xl md:text-3xl mb-8 font-semibold text-blue-900">
             Do you really want to Logout?
           </p>
           <div className="flex gap-4 mt-5 justify-center">
-            <button
-              type="button"
-              onClick={props.handleClose}
-              className="flex gap-1 items-center bg-[#5e0d8b] cursor-none lg:cursor-pointer text-white border-2 border-[#5e0d8b] px-3 py-[5px] rounded"
+            <Button
+              handler={props.handleClose}
+              className="bg-blue-900 border-blue-900 text-white border"
             >
               <VscChromeClose size={20} />
               <span className="font-semibold">Cancel</span>
-            </button>
-            <button
-              type="submit"
-              className="flex gap-1 items-center cursor-none lg:cursor-pointer border border-[#e3abf9] px-3 py-[7px] rounded"
-            >
+            </Button>
+            <Button className="border-blue-200 border-2" type="submit">
               <BiLogOutCircle size={20} />
               <span className="font-semibold">Logout</span>
-            </button>
+            </Button>
           </div>
         </div>
       </Modal>

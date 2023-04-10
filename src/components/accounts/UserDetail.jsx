@@ -19,43 +19,42 @@ const UserDetail = ({ user }) => {
         user={user}
       />
       <div className="flex items-center gap-3">
-        <h2 className="text-2xl py-3 text-[#5e0d8b] font-extrabold">
+        <h2 className="text-2xl py-3 text-blue-900 font-extrabold">
           My Details
         </h2>
         <CiEdit
           onClick={openUserModal}
-          className="cursor-none lg:cursor-pointer"
+          className="cursor-none lg:cursor-pointer text-blue-900"
           size={25}
-          color="#5e0d8b"
         />
       </div>
       <div>
         <div className="flex flex-col md:flex-row">
-          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3 border-b-[1px] border-b-[#ccc] md:border-none">
+          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3 border-b border-b-gray-300 md:border-none">
             <p className="font-medium">Name</p>
-            <p className="text-[#6e6e6e]">
+            <p className="text-gray-500">
               {user.firstName} {user.lastName}
             </p>
           </div>
-          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3  border-b-[1px] border-b-[#ccc] md:border-none">
+          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3 border-b border-b-gray-300 md:border-none">
             <p className="font-medium">Gender</p>
-            <p className="text-[#6e6e6e]">{user.gender}</p>
+            <p className="text-gray-500">{user.gender}</p>
           </div>
         </div>
         <div className="flex flex-col md:flex-row">
-          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3 border-b-[1px] border-b-[#ccc] md:border-none">
+          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3 border-b border-b-gray-300 md:border-none">
             <p className="font-medium">Date Of Birth</p>
-            <p className="text-[#6e6e6e]">{user.dateOfBirth}</p>
+            <p className="text-gray-500">{user.dateOfBirth}</p>
           </div>
-          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3  border-b-[1px] border-b-[#ccc] md:border-none">
+          <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3 border-b border-b-gray-300 md:border-none">
             <p className="font-medium">Email Id</p>
-            <p className="text-[#6e6e6e]">{user.emailId}</p>
+            <p className="text-gray-500">{user.emailId}</p>
           </div>
         </div>
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-row md:flex-col justify-between w-full md:w-1/2 py-3">
             <p className="font-medium">Mobile</p>
-            <p className="text-[#6e6e6e]">{user.mobileNumber}</p>
+            <p className="text-gray-500">{user.mobileNumber}</p>
           </div>
         </div>
       </div>
