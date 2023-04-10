@@ -4,18 +4,21 @@ import { TiPen } from "react-icons/ti";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const UserAddress = ({ user }) => {
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [addressModalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
-  function closeModal() {
+  function handleClose() {
     setIsOpen(false);
   }
 
   return (
     <>
-      <AddressModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      <AddressModal
+        addressModalIsOpen={addressModalIsOpen}
+        handleClose={handleClose}
+      />
       <div>
         <h2 className="text-2xl pb-3 mt-8 text-[#5e0d8b] font-extrabold border-b-[1px] border-b-[#909090]">
           Saved Address

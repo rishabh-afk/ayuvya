@@ -10,7 +10,6 @@ const customStyles = {
     top: "50%",
     left: "50%",
     right: "auto",
-    height: "85%",
     bottom: "auto",
     borderRadius: "12px",
     marginRight: "-50%",
@@ -26,16 +25,12 @@ Modal.setAppElement("#root");
 const AddressModal = (props) => {
   // const navigate = useNavigate();
   const [address, setAddress] = useState({
-    firstName: "",
-    lastName: "",
-    company: "",
     addressLine1: "",
     addressLine2: "",
     city: "",
     country: "",
     area: "",
     zipcode: "",
-    mobileNumber: "",
     default: "",
   });
   const handleSubmit = async (e) => {
@@ -49,8 +44,8 @@ const AddressModal = (props) => {
   return (
     <div>
       <Modal
-        isOpen={props.modalIsOpen}
-        onRequestClose={props.closeModal}
+        isOpen={props.addressModalIsOpen}
+        onRequestClose={props.handleClose}
         style={customStyles}
         contentLabel="Example Modal"
       >
@@ -62,39 +57,6 @@ const AddressModal = (props) => {
             <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
               <input
                 type="text"
-                placeholder="First Name"
-                name="firstName"
-                id="firstName"
-                required
-                onChange={(e) =>
-                  setAddress({ ...address, firstName: e.target.value })
-                }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                name="lastName"
-                id="lastName"
-                onChange={(e) =>
-                  setAddress({ ...address, lastName: e.target.value })
-                }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
-              <input
-                type="text"
-                placeholder="Company"
-                name="company"
-                id="company"
-                onChange={(e) =>
-                  setAddress({ ...address, company: e.target.value })
-                }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
-              />
-              <input
-                type="text"
                 placeholder="Address Line 1"
                 name="addressLine1"
                 id="addressLine1"
@@ -104,8 +66,6 @@ const AddressModal = (props) => {
                 }
                 className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
-            </div>
-            <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
               <input
                 type="text"
                 placeholder="Address Line 2"
@@ -116,9 +76,22 @@ const AddressModal = (props) => {
                 }
                 className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
+            </div>
+            <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
+              <input
+                type="number"
+                placeholder="zipcode"
+                name="zipcode"
+                id="zipcode"
+                required
+                onChange={(e) =>
+                  setAddress({ ...address, zipcode: e.target.value })
+                }
+                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
+              />
               <input
                 type="text"
-                placeholder="India"
+                placeholder="country"
                 name="country"
                 id="country"
                 required
@@ -142,34 +115,11 @@ const AddressModal = (props) => {
               />
               <input
                 type="text"
-                placeholder="Dwarka"
+                placeholder="area"
                 name="area"
                 id="area"
                 onChange={(e) =>
                   setAddress({ ...address, area: e.target.value })
-                }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-[1px] md:gap-3">
-              <input
-                type="number"
-                placeholder="Postal/Zipcode"
-                name="zipcode"
-                id="zipcode"
-                required
-                onChange={(e) =>
-                  setAddress({ ...address, zipcode: e.target.value })
-                }
-                className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
-              />
-              <input
-                type="number"
-                placeholder="Mobile Number"
-                name="mobileNumber"
-                id="mobileNumber"
-                onChange={(e) =>
-                  setAddress({ ...address, mobileNumber: e.target.value })
                 }
                 className="border border-[#cbcbcb] rounded-sm p-2 w-80 mb-3 outline-none"
               />
@@ -190,15 +140,15 @@ const AddressModal = (props) => {
             <div className="flex gap-4 mt-5">
               <button
                 type="button"
-                onClick={props.closeModal}
-                className="flex gap-1 items-center bg-[#5e0d8b] text-white border-2 border-[#5e0d8b] px-3 py-[5px] rounded"
+                onClick={props.handleClose}
+                className="flex gap-1 items-center bg-[#5e0d8b] cursor-none lg:cursor-pointer text-white border-2 border-[#5e0d8b] px-3 py-[5px] rounded"
               >
                 <VscChromeClose size={20} />
                 <span className="font-semibold">Cancel</span>
               </button>
               <button
                 type="submit"
-                className="flex gap-1 items-center border border-[#e3abf9] px-3 py-[7px] rounded"
+                className="flex gap-1 items-center border cursor-none lg:cursor-pointer border-[#e3abf9] px-3 py-[7px] rounded"
               >
                 <GrFormAdd size={20} />
                 <span className="font-semibold">Add Address</span>

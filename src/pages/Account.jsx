@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useState } from "react";
 // import { Pagination } from "swiper";
 import Tabs from "../components/accounts/Tabs";
 import CardHoc from "../components/UI/CardHoc";
@@ -11,6 +12,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import UserDetail from "../components/accounts/UserDetail";
 import UserAddress from "../components/accounts/UserAddress";
 import { userData } from "../data/userDetails";
+import LogoutModal from "../components/modals/LogoutModal";
 
 const Account = () => {
   const PROFILE_TABS = [
@@ -34,13 +36,29 @@ const Account = () => {
     },
   ];
 
+  const [logoutModalIsOpen, setIsOpen] = useState(false);
+
+  function logoutModal() {
+    setIsOpen(true);
+  }
+  function handleClose() {
+    setIsOpen(false);
+  }
+
   return (
     <div className="max-w-6xl mx-auto">
+      <LogoutModal
+        logoutModalIsOpen={logoutModalIsOpen}
+        handleClose={handleClose}
+      />
       <div className="flex justify-between mx-4 items-center mt-8 md:mb-8">
         <h2 className="text-xl text-[#5e0d8b] font-bold">
           Hi, {userData.firstName} {userData.lastName}
         </h2>
-        <button className="px-6 py-[7px] text-lg bg-[#5e0d8b] rounded text-white">
+        <button
+          onClick={logoutModal}
+          className="px-6 py-[7px] text-lg bg-[#5e0d8b] rounded text-white"
+        >
           Log Out
         </button>
       </div>
