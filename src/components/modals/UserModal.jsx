@@ -115,9 +115,6 @@ const UserModal = (props) => {
                     }
                     className="rounded-sm p-2 w-80 mb-3 outline-none bg-white border border-gray-300"
                   >
-                    <option disabled selected>
-                      Select Option
-                    </option>
                     <option value="male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Others">Others</option>
