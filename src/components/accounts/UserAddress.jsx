@@ -34,10 +34,7 @@ const UserAddress = ({ user }) => {
               <TiPen size={20} />
               <span className="font-semibold">Edit</span>
             </Button>
-            <Button
-              handler={openModal}
-              className="bg-blue-900 border-blue-900 text-white border-2"
-            >
+            <Button className="bg-blue-900 border-blue-900 text-white border-2">
               <RiDeleteBin6Line size={20} />
               <span className="font-semibold">Remove</span>
             </Button>

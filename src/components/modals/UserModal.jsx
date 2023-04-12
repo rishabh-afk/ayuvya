@@ -36,10 +36,8 @@ const UserModal = (props) => {
     profilePic: "",
   });
   const onChange = (e) => {
-    console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   };
-  console.log(typeof file);
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const resp = await axios.post("http://localhost:5000/account", address);
