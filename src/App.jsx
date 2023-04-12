@@ -10,7 +10,7 @@ const App = () => {
         <RoutesWrapper />
       </Suspense>
     </Layouts>
-  )
+  );
 };
 
 export default App;

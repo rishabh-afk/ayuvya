@@ -103,6 +103,7 @@ const UserModal = (props) => {
                   placeholder="Name"
                   name="name"
                   id="name"
+                  className="rounded-sm"
                   value={user.name}
                   onChange={(e) => setUser({ ...user, name: e.target.value })}
                 />
