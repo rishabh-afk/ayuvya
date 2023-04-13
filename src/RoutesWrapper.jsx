@@ -29,9 +29,9 @@ const RoutesWrapper = () => {
       <Route path="/account" element={<Account />} />
       <Route path="/all" element={<AllProduct />} />
       <Route path="/skin-care" element={<SkinCare />} />
-      <Route path="/weight-issue" element={<WeightIssue />} />
-      <Route path="/intimate-care" element={<IntimateCare />} />
-      <Route path="/wellness" element={<Wellness />} />
+      <Route path="/weight-management" element={<WeightIssue />} />
+      <Route path="/wellness" element={<IntimateCare />} />
+      <Route path="/nutrition" element={<Wellness />} />
       <Route path="/hair-care" element={<HairCare />} />
       <Route path="/combos" element={<Combos />} />
       <Route path="/blogs" element={<Blogs />} />

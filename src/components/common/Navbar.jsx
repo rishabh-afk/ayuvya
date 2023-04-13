@@ -24,9 +24,9 @@ const Navbar = () => {
         <div className="hidden lg:flex gap-6 text-sm font-medium">
           <Link to={"all"}>ALL PRODUCTS</Link>
           <Link to={"skin-care"}>SKIN CARE</Link>
-          <Link to={"weight-issue"}>WEIGHT ISSUES</Link>
-          <Link to={"intimate-care"}>INTIMATE CARE</Link>
-          <Link to={"wellness"}>WELLNESS</Link>
+          <Link to={"weight-management"}>WEIGHT ISSUES</Link>
+          <Link to={"wellness"}>INTIMATE CARE</Link>
+          <Link to={"nutrition"}>WELLNESS</Link>
           <Link to={"hair-care"}>HAIR CARE</Link>
           <Link to={"combos"}>COMBOS</Link>
           <Link to={"blogs"}>BLOGS</Link>
