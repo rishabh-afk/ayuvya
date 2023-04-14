@@ -5,7 +5,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import placeholder from "../../assets/images/userPlaceholder.jpg";
 import Modal from "react-modal";
 import Button from "../common/Button";
-import FormInput from "../common/FormInput";
+import FormInput from "../common/forms/FormInput";
 // import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 

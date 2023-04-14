@@ -92,7 +92,8 @@ const Banner = () => {
           pagination={true}
           mousewheel={true}
           keyboard={true}
-          rewind={true}
+          loop={true}
+          autoplay={true}
           modules={[Navigation, Pagination, Mousewheel, Keyboard]}
         >
           {BANNERS.map((banner) => (
@@ -109,7 +110,8 @@ const Banner = () => {
           pagination={true}
           mousewheel={true}
           keyboard={true}
-          rewind={true}
+          loop={true}
+          autoplay={true}
           modules={[Navigation, Pagination, Mousewheel, Keyboard]}
         >
           {MOBILE_BANNERS.map((banner) => (

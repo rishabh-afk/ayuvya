@@ -1,7 +1,13 @@
-import React from "react";
+import SideBarLayout from "../components/UI/SideBarLayout";
+import ProductLayout from "../components/common/ProductLayout";
+import { product } from "../data/products";
 
 const SkinCare = () => {
-  return <div>SkinCare</div>;
+  return (
+    <SideBarLayout>
+      <ProductLayout pageTitle={"Skin Care"} products={product} />
+    </SideBarLayout>
+  );
 };
 
 export default SkinCare;

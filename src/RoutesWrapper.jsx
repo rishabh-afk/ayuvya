@@ -33,7 +33,7 @@ const RoutesWrapper = () => {
       <Route path="/wellness" element={<IntimateCare />} />
       <Route path="/nutrition" element={<Wellness />} />
       <Route path="/hair-care" element={<HairCare />} />
-      <Route path="/combos" element={<Combos />} />
+      <Route path="/ayuvya-combo-packs" element={<Combos />} />
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
       <Route path="/about-us" element={<AboutUs />} />

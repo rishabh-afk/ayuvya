@@ -10,8 +10,12 @@ import Testimonials from "../components/Home/Testimonials";
 import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 import { FaGooglePlay } from "react-icons/fa";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Banner />
@@ -67,23 +71,13 @@ const Home = () => {
               <Button className="bg-black text-white text-left rounded-md px-4">
                 <FaGooglePlay size={25} />
                 <div>
-                  <span className="text-xs block">GET IT ON</span>
-                  <span className="">Google Play</span>
+                  <span className="text-xs block">Get it on</span>
+                  <span className="text-base">Google Play</span>
                 </div>
               </Button>
             </Link>
           </figcaption>
         </div>
-      </div>
-      <div className="py-12">
-        <p className="text-sm text-center w-3/4 mx-auto leading-6 text-gray-400">
-          The information available on this website is not intended as a
-          substitute for advice from your doctor, health care professional,
-          physician, or any licensed herbalist. You should always consult with a
-          doctor, healthcare professional before taking any nutritional,
-          dietary, or herbal supplement. Products offered on this website are
-          not intended to diagnose, cure, treat, or prevent any disease.
-        </p>
       </div>
     </div>
   );

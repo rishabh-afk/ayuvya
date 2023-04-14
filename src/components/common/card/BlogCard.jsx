@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import CardHoc from "../UI/CardHoc";
-import Button from "./Button";
+import CardHoc from "../../UI/CardHoc";
+import Button from "../Button";
 
 const BlogCard = ({ blog }) => {
   return (

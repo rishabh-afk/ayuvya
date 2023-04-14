@@ -12,7 +12,7 @@ const ShopByConcern = () => {
     {
       id: 1,
       title: "Combos",
-      url: "combos",
+      url: "ayuvya-combo-packs",
       image: product1,
     },
     {

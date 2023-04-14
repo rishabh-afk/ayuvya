@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import HeadingText from "../common/HeadingText";
 import { blogs } from "../../data/blog";
-import BlogCard from "../common/BlogCard";
+import BlogCard from "../common/card/BlogCard";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -30,7 +30,7 @@ const Blogs = () => {
             pagination={true}
             spaceBetween={25}
             slidesPerGroup={2}
-            rewind={true}
+            autoplay={true}
             modules={[Navigation, Pagination]}
           >
             {blogs.map((blog) => (

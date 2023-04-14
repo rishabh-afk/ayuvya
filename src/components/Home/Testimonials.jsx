@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper";
-import TestimonialCard from "../common/TestimonialCard";
+import TestimonialCard from "../common/card/TestimonialCard";
 
 const Testimonials = () => {
   return (
@@ -31,7 +31,7 @@ const Testimonials = () => {
               pagination={true}
               spaceBetween={25}
               slidesPerGroup={2}
-              rewind={true}
+              autoplay={true}
               modules={[Navigation, Pagination]}
             >
               {testimonials.map((testimonial) => (

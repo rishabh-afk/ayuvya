@@ -51,7 +51,7 @@ export const product = [
     },
     review_count: 113,
     get_product_url: "/bbf-lp/",
-    rating: 4.5,
+    rating: 3.5,
     get_discount_percentage: 33,
   },
   {

@@ -1,7 +1,13 @@
-import React from "react";
+import SideBarLayout from "../components/UI/SideBarLayout";
+import ProductLayout from "../components/common/ProductLayout";
+import { product } from "../data/products";
 
 const IntimateCare = () => {
-  return <div>IntimateCare</div>;
+  return (
+    <SideBarLayout>
+      <ProductLayout pageTitle={"Intimate Care"} products={product} />
+    </SideBarLayout>
+  );
 };
 
 export default IntimateCare;

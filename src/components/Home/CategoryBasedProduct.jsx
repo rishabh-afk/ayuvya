@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import HeadingText from "../common/HeadingText";
-import ProductCard from "../common/ProductCard";
+import ProductCard from "../common/card/ProductCard";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -24,6 +24,7 @@ const CategoryBasedProduct = ({
             pagination={true}
             spaceBetween={25}
             slidesPerGroup={2}
+            autoplay={true}
             modules={[Navigation, Pagination]}
           >
             {product.map((product) => (

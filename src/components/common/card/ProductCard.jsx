@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import CardHoc from "../UI/CardHoc";
-import Button from "./Button";
+import CardHoc from "../../UI/CardHoc";
+import Button from "../Button";
 import { AiFillStar } from "react-icons/ai";
 
 const ProductCard = ({ product, headingSize }) => {
@@ -28,7 +28,7 @@ const ProductCard = ({ product, headingSize }) => {
             <span className="px-2 break-words">
               {Math.round(product.rating)}
             </span>
-            <span className=" break-words">
+            <span className="break-words">
               ({product.review_count}+ Reviews)
             </span>
           </div>

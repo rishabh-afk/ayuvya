@@ -2,7 +2,7 @@ import { useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
 import { GrFormAdd } from "react-icons/gr";
 import Modal from "react-modal";
-import FormInput from "../common/FormInput";
+import FormInput from "../common/forms/FormInput";
 import Button from "../common/Button";
 // import axios from "axios";
 // import { useNavigate } from "react-router-dom";
