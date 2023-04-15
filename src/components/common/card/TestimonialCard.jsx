@@ -4,7 +4,7 @@ import CardHoc from "../../UI/CardHoc";
 const TestimonialCard = ({ itemObj }) => {
   const items = new Array(Math.round(itemObj.rating)).fill(null);
   return (
-    <CardHoc className="bg-white p-8 my-10 cursor-none lg:cursor-pointer transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-y-105 duration-300">
+    <CardHoc className="bg-white p-8 my-10 cursor-none lg:cursor-pointer">
       <figure className="flex justify-center">
         <img className="rounded-full w-24" src={itemObj.imageUrl} alt="" />
       </figure>

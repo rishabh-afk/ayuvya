@@ -12,7 +12,7 @@ const ProductCard = ({ itemObj, headingSize }) => {
     <Link
       to={`/${itemObj.product_category.category_slug}${itemObj.get_product_url}`}
     >
-      <CardHoc className="bg-white cursor-none lg:cursor-pointer my-10 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-y-105 duration-300">
+      <CardHoc className="bg-white cursor-none lg:cursor-pointer my-10">
         <figure className="w-auto">
           <img
             className="h-56 object-cover rounded-t-lg"

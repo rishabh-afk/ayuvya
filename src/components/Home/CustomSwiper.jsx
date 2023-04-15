@@ -33,6 +33,7 @@ const CustomSwiper = ({
                   key={item.id}
                   itemObj={item}
                   headingSize={cardHeadingSize}
+                  isBlogPage={false}
                 />
               </SwiperSlide>
             ))}
