@@ -7,12 +7,20 @@ import { VscChromeClose } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import SocialMedia from "./SocialMedia";
+import CartModal from "../modals/CartModal";
+import { product } from "../../data/products";
 
 const Navbar = () => {
   const stickyHeader = useRef();
+  // const [cart, setCart] = useState([]);
+  const cart = [];
+  const [cartModal, showCartModal] = useState(false);
   const [sticky, setSticky] = useState("");
   const [sidebar, setSidebar] = useState(false);
   const [searchBar, openSearchBar] = useState(false);
+  function handleClose() {
+    showCartModal(false);
+  }
   useEffect(() => {
     window.addEventListener("scroll", isSticky);
     return () => {
@@ -28,6 +36,11 @@ const Navbar = () => {
   };
   return (
     <div className="shadow-md">
+      <CartModal
+        handleClose={handleClose}
+        cartModal={cartModal}
+        product={product[0]}
+      />
       <div className="flex justify-center items-center w-full h-9 bg-white text-black lg:bg-black lg:text-white">
         <p className="text-sm">Free Shipping | COD Available | 100% Herbal</p>
       </div>
@@ -57,10 +70,11 @@ const Navbar = () => {
             <input
               className="w-full outline-none py-1 pl-2"
               type="text"
+              autoFocus
               placeholder="Search Here"
             />
             <VscChromeClose
-              onClick={() => openSearchBar(!searchBar)}
+              onClick={() => openSearchBar(false)}
               size={20}
               className="font-bold"
             />
@@ -81,12 +95,17 @@ const Navbar = () => {
           <BiSearch
             className="cursor-none lg:cursor-pointer"
             onClick={() => {
-              openSearchBar(!searchBar);
+              openSearchBar(true);
             }}
             size={18}
           />
           <div className="flex">
-            <FaShoppingCart size={18} />
+            <FaShoppingCart
+              className="cursor-none lg:cursor-pointer"
+              title={cart.length === 0 ? "Your Cart is empty" : "Cart"}
+              onClick={() => showCartModal(true)}
+              size={18}
+            />
             <span className="text-xs relative bottom-2 left-1 bg-[#555] lg:text-white rounded-full px-[5px]">
               0
             </span>

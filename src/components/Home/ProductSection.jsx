@@ -1,12 +1,14 @@
-import CategoryBasedProduct from "./CategoryBasedProduct";
+import CustomSwiper from "./CustomSwiper";
+import ProductCard from "../common/card/ProductCard";
 
 const ProductSection = ({ product }) => {
   return (
     <>
-      <CategoryBasedProduct
-        product={product}
+      <CustomSwiper
+        data={product}
         category="New Launches"
         cardHeadingSize="text-2xl"
+        componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
             0: {
@@ -21,10 +23,11 @@ const ProductSection = ({ product }) => {
           },
         ]}
       />
-      <CategoryBasedProduct
-        product={product}
+      <CustomSwiper
+        data={product}
         category="Best Selling Products"
         cardHeadingSize="text-md"
+        componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
             0: {
@@ -42,10 +45,11 @@ const ProductSection = ({ product }) => {
           },
         ]}
       />
-      <CategoryBasedProduct
-        product={product}
+      <CustomSwiper
+        data={product}
         category="Best Selling Combos"
         cardHeadingSize="text-2xl"
+        componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
             0: {

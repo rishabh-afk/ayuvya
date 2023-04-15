@@ -18,7 +18,7 @@ const InstagramPosts = () => {
         <h2 className="text-xl font-bold text-[#777]">@AYUVYAYURVEDA</h2>
         <p className="text-3xl">see you at the 'gram</p>
       </Link>
-      <div className="flex flex-wrap py-8">
+      <div className="max-w-7xl flex flex-wrap py-8">
         <Link
           to={"https://www.instagram.com/p/Cqp78L3J9b3/"}
           target="blank"

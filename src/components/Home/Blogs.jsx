@@ -1,46 +1,29 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import HeadingText from "../common/HeadingText";
 import { blogs } from "../../data/blog";
 import BlogCard from "../common/card/BlogCard";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper";
+import CustomSwiper from "./CustomSwiper";
 
 const Blogs = () => {
   return (
     <div className="max-w-7xl m-auto mt-10">
-      <HeadingText heading="Blogs" />
-      <div className="mx-4 md:mx-20 my-10">
-        <div>
-          <Swiper
-            breakpoints={{
-              0: {
-                slidesPerView: 1,
-              },
-              576: {
-                slidesPerView: 2,
-              },
-              980: {
-                slidesPerView: 3,
-              },
-            }}
-            cssMode={true}
-            navigation={true}
-            pagination={true}
-            spaceBetween={25}
-            slidesPerGroup={2}
-            autoplay={true}
-            modules={[Navigation, Pagination]}
-          >
-            {blogs.map((blog) => (
-              <SwiperSlide key={blog.id}>
-                <BlogCard blog={blog} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </div>
+      <CustomSwiper
+        data={blogs}
+        category="Blogs"
+        cardHeadingSize="text-2xl"
+        componentToBeRender={BlogCard}
+        noOfSlidePerView={[
+          {
+            0: {
+              slidesPerView: 1,
+            },
+            576: {
+              slidesPerView: 2,
+            },
+            980: {
+              slidesPerView: 3,
+            },
+          },
+        ]}
+      />
     </div>
   );
 };

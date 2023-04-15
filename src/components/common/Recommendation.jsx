@@ -1,35 +1,34 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import HeadingText from "../common/HeadingText";
-import ProductCard from "../common/card/ProductCard";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper";
+import RecommendationCard from "./card/RecommendationCard";
 
-const CategoryBasedProduct = ({
-  category,
-  product,
+const Recommendation = ({
+  products,
+  headingText,
   noOfSlidePerView,
   cardHeadingSize,
 }) => {
   return (
-    <div className="max-w-7xl m-auto my-10">
-      <HeadingText heading={category} />
-      <div className="mx-4 md:mx-20 my-10">
+    <div className="max-w-7xl m-auto">
+      <h3 className="font-semibold text-lg pb-4">{headingText}</h3>
+      <div className="">
         <div>
           <Swiper
             breakpoints={noOfSlidePerView[0]}
             cssMode={true}
-            navigation={true}
-            pagination={true}
-            spaceBetween={25}
+            // navigation={true}
+            // pagination={true}
+            spaceBetween={15}
             slidesPerGroup={2}
             autoplay={true}
             modules={[Navigation, Pagination]}
           >
-            {product.map((product) => (
+            {products.map((product) => (
               <SwiperSlide key={product.id}>
-                <ProductCard
+                <RecommendationCard
                   key={product.id}
                   product={product}
                   headingSize={cardHeadingSize}
@@ -43,4 +42,4 @@ const CategoryBasedProduct = ({
   );
 };
 
-export default CategoryBasedProduct;
+export default Recommendation;
