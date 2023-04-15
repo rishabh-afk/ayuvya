@@ -20,7 +20,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // import required modules
-import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 
 const Banner = () => {
   const BANNERS = [
@@ -87,32 +87,40 @@ const Banner = () => {
     <>
       <div className="hidden md:block">
         <Swiper
-          cssMode={true}
           navigation={true}
-          pagination={true}
-          mousewheel={true}
-          keyboard={true}
           loop={true}
-          autoplay={true}
-          modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Navigation, Pagination, Autoplay]}
         >
           {BANNERS.map((banner) => (
             <SwiperSlide key={banner.id}>
-              <img className="w-full object-cover" src={banner.image} alt="" />
+              <img
+                className="w-full object-cover cursor-none lg:cursor-pointer"
+                src={banner.image}
+                alt=""
+              />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
       <div className="md:hidden">
         <Swiper
-          cssMode={true}
           navigation={true}
-          pagination={true}
-          mousewheel={true}
-          keyboard={true}
           loop={true}
-          autoplay={true}
-          modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Navigation, Pagination, Autoplay]}
         >
           {MOBILE_BANNERS.map((banner) => (
             <SwiperSlide key={banner.id}>

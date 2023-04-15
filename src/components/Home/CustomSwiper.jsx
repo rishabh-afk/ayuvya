@@ -3,7 +3,7 @@ import HeadingText from "../common/HeadingText";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 
 const CustomSwiper = ({
   category,
@@ -19,13 +19,18 @@ const CustomSwiper = ({
         <div>
           <Swiper
             breakpoints={noOfSlidePerView[0]}
-            cssMode={true}
             navigation={true}
-            pagination={true}
             spaceBetween={25}
+            loop={true}
             slidesPerGroup={2}
-            autoplay={true}
-            modules={[Navigation, Pagination]}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Autoplay, Navigation, Pagination]}
           >
             {data.map((item) => (
               <SwiperSlide key={item.id}>

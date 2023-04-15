@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import CardHoc from "../../UI/CardHoc";
 import Button from "../Button";
 import { AiFillStar } from "react-icons/ai";
+import { useState } from "react";
 
 const ProductCard = ({ itemObj, headingSize }) => {
   const items = new Array(Math.round(itemObj.rating)).fill(null);
+  const [showButton, setShowButton] = useState(false);
   const buyNow = async (product) => {
     console.log("clicked");
   };
@@ -13,12 +15,28 @@ const ProductCard = ({ itemObj, headingSize }) => {
       to={`/${itemObj.product_category.category_slug}${itemObj.get_product_url}`}
     >
       <CardHoc className="bg-white cursor-none lg:cursor-pointer my-10">
-        <figure className="w-auto">
+        <figure
+          onMouseEnter={() => setShowButton(true)}
+          onMouseLeave={() => setShowButton(false)}
+          className="w-auto relative"
+        >
           <img
-            className="h-56 object-cover rounded-t-lg"
+            className="hover:opacity-50 h-56 object-cover rounded-t-lg"
             src={itemObj.primary_image}
             alt=""
           />
+          {showButton && (
+            <div className="opacity-70">
+              <div className="absolute top-[40%] left-1/4">
+                <Button className="bg-black text-white px-6 rounded-none hover:bg-gray-500 z-50">
+                  <span>Buy Now</span>
+                </Button>
+              </div>
+              <div className="bg-black w-full absolute bottom-0 text-center text-white">
+                Quick View
+              </div>
+            </div>
+          )}
         </figure>
         <figcaption className="flex flex-col items-center text-center p-4 gap-2 h-56">
           <h1 className={`font-semibold ${headingSize}`}>

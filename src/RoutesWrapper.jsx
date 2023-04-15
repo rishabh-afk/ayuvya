@@ -1,6 +1,7 @@
 // library imports
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
+import ProductDetail from "./components/common/productDetails/ProductDetail";
 
 // custom pages/components imports
 
@@ -29,11 +30,17 @@ const RoutesWrapper = () => {
       <Route path="/account" element={<Account />} />
       <Route path="/all" element={<AllProduct />} />
       <Route path="/skin-care" element={<SkinCare />} />
+      <Route path="/skin-care/:slug" element={<ProductDetail />} />
       <Route path="/weight-management" element={<WeightIssue />} />
+      <Route path="/weight-management/:slug" element={<ProductDetail />} />
       <Route path="/wellness" element={<IntimateCare />} />
+      <Route path="/wellness/:slug" element={<ProductDetail />} />
       <Route path="/nutrition" element={<Wellness />} />
+      <Route path="/nutrition/:slug" element={<ProductDetail />} />
       <Route path="/hair-care" element={<HairCare />} />
+      <Route path="/hair-care/:slug" element={<ProductDetail />} />
       <Route path="/ayuvya-combo-packs" element={<Combos />} />
+      <Route path="/ayuvya-combo-packs/:slug" element={<ProductDetail />} />
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
       <Route path="/about-us" element={<AboutUs />} />
