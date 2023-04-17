@@ -64,21 +64,25 @@ export const product = {
   },
   reviews: [
     {
+      id: 1,
       review_owner: "Manish Jindal",
       review_description:
-        "This is my 3rd bottle. This product is very effective. After using it for three months I can feel the difference. I gained weight and I eat a lot these days. I used to miss my breakfast but now I don╬ô├ç├ût. It increases your hunger level so that you will eat a lot. I recommend this product if you are looking to gain weight.",
+        "This is my 3rd bottle. This product is very effective. After using it for three months I can feel the difference. I gained weight and I eat a lot these days. It increases your hunger level so that you will eat a lot.",
     },
     {
+      id: 2,
       review_owner: "Ajay Nagar",
       review_description:
         "This product is just WOW╬ô├ç┬¬ Specially for them who are too skinny & wants to gain weight╬ô├ç┬¬. I gained almost 6 kgs in a month╬ô├ç┬¬ No side effects till now╬ô├ç┬¬Worth Buying.",
     },
     {
+      id: 3,
       review_owner: "Ayush Jain",
       review_description:
         "I have gained 5 kg wieght after taking these pills my wt was changed from 46kg to 51.7kg in a month only. # Highly_recommended.",
     },
     {
+      id: 4,
       review_owner: "Shalini Sharma",
       review_description:
         "The king of all weight gainers. You guys don╬ô├ç├ût believe i got the best results from this product gained 3kgs only took the minimum of 75grams. Finally! Got best product .",
@@ -118,6 +122,7 @@ export const product = {
   related_products: [
     {
       id: 48,
+      rating: 4,
       primary_image:
         "https://storage.googleapis.com/ayuvya_images/product_image/i-Gain_and_24_Superfoods.jpeg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642339&Signature=mFjhZXA20%2Bxt%2BbShIpOX9R1HoVGaYeZ3QzFSlLO2EG0ye0fShggJJ9FUxVkFq8lV%2BsmgfSCNg8%2BPqxu%2Bp3oP2AALGiIse2mzFgIQGAn2v%2Fqegjov7lwQCvPgvUT%2BfzS4XmqCrjgUh3WxZUU0wu6V2cdN8BxjPeg2O7aNGxxr0zIo9NWWPXufrdo8q2rktSnYL9NHcjiDc8LDU9SB21qYv5sQ1uTuWAYBmCivNGZM3SmdZRoBfkOE3QZAFGATxV09C9Yekz4qBNGhcdCO3Xd8tCB0AcIc17vU%2BWupdHDvRW1goSKY2PVXHdL0uiOzgYGND4nF1RRA1WaiQ4COYwr2LA%3D%3D",
       product_name: "Ayuvya i-Gain and 24 Superfoods Combo Pack",
@@ -129,6 +134,7 @@ export const product = {
     },
     {
       id: 31,
+      rating: 4,
       primary_image:
         "https://storage.googleapis.com/ayuvya_images/product_image/24-superfood-carousel-0.webp?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642339&Signature=lIohqFEYff17E0TiLN3NhEu%2BTjWSE3pIo38WbteBa2u5W7m7jESp8IOhjAe%2FglUckaSVIBcQWzw0Zz%2FGgEMai4D9s3c7LoQ7f1uJPlQOzhZ0pyFbExFZYIglxRDr0hvh8c8O6AFPdkAh%2F5zy4ywcrSi93cyj3rc9FPoZEH7RpglSxKsMhpsiaesJ5KvQpp0uKb348bw84jDmRbr5rPytv4Kep%2FojPgC8VkkmG1XTx2nYK8vsJ7maBTlsGfdw8KJrwwdKs%2FNb0XyhrARPBB5u7ftXI%2BFJ8hz7sXWEjr1JudraC8JfuTc3flOrSepzZRFqyL9IZ1uwFwecZ0%2BtKHtRAg%3D%3D",
       product_name: "24 Superfoods ( Pack of 2 For 30 Days)",
@@ -139,6 +145,7 @@ export const product = {
     },
     {
       id: 12,
+      rating: 4,
       primary_image:
         "https://storage.googleapis.com/ayuvya_images/product_image/i-Gain.jpeg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642340&Signature=OftOMDimXUL0wvxc4iYwk%2BTmkLDxyVEKSTXd8sxiKt8O2yDl%2B%2BF1fCieDZygWnHlUFgJPgdTbOGG0yJ4PU3vRINeoDlZ%2BsziHYzBld9w2htNKLqcG4T06t23lxToGA7x8LeVnXf2WVWmQqaTj3UiJTPS1hf3txSBapJ1JjKRzmupOvH2HrxSA3pQ1aRuVi1lLRyGoeNDlfW8yw94M2mavQptoAkXL7C72utGFNuWOro3c3JdnOncKGFdNFBPA3mkK70rSwNjvscUaobB4%2BuMsVpgJO%2FAqRg6l2ovTDV0LiIhcjaPjXjuJXU4SUTYvoG%2FL0OsthQxk5lpQglp784%2FAg%3D%3D",
       product_name: "i-Gain Ayurveda's Best Kept Secret for Weight Gain",

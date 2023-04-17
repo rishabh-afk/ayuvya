@@ -3,8 +3,8 @@ import HeadingDescription from "../components/common/HeadingDescription";
 
 const ShippingPolicy = () => {
   return (
-    <div className="max-w-7xl mx-auto px-28 py-8">
-      <div className="w-3/4">
+    <div className="max-w-7xl mx-auto p-6 lg:px-28 lg:py-8">
+      <div className="w-full lg:w-3/4">
         <div className="py-2">
           <h1 className="text-3xl pb-8">Shipping and Returns</h1>
           <p className="text-[17px]">
@@ -35,7 +35,7 @@ const ShippingPolicy = () => {
         />
         <div className="py-2">
           <h2 className="text-xl font-semibold">Order Cancellation</h2>
-          <ul className="list-decimal ml-4 text-[17px]">
+          <ul className="list-decimal ml-6 lg:ml-4 text-[17px]">
             <li>
               In case you need to cancel your order before it has been
               dispatched. You can cancel an order within 1 Day of placing the

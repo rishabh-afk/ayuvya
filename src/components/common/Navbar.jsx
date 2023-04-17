@@ -122,20 +122,53 @@ const Navbar = () => {
               />
             </div>
             <div className="flex flex-col gap-3 text-2xl font-bold pb-6">
-              <Link to={"/all"}>All Products</Link>
-              <Link to={"/skin-care"}>Skin Care</Link>
-              <Link to={"/weight-management"}>Weight Issues</Link>
-              <Link to={"/wellness"}>Intimate Care</Link>
-              <Link to={"/nutrition"}>Wellness</Link>
-              <Link to={"/hair-care"}>Hair Care</Link>
-              <Link to={"/ayuvya-combo-packs"}>Combos</Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/all"}>
+                All Products
+              </Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/skin-care"}>
+                Skin Care
+              </Link>
+              <Link
+                onClick={() => setSidebar(!sidebar)}
+                to={"/weight-management"}
+              >
+                Weight Issues
+              </Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/wellness"}>
+                Intimate Care
+              </Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/nutrition"}>
+                Wellness
+              </Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/hair-care"}>
+                Hair Care
+              </Link>
+              <Link
+                onClick={() => setSidebar(!sidebar)}
+                to={"/ayuvya-combo-packs"}
+              >
+                Combos
+              </Link>
             </div>
             <div className="flex flex-col gap-3 text-sm pb-6">
-              <Link to={"/about-us"}>About Us</Link>
-              <Link to={"/blogs"}>Blogs</Link>
-              <Link to={"/contact-us"}>Contact Us</Link>
-              <Link to={"/terms-and-condition"}>Terms And Condition</Link>
-              <Link to={"/privacy-policy"}>Privacy Policy</Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/about-us"}>
+                About Us
+              </Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/blogs"}>
+                Blogs
+              </Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/contact-us"}>
+                Contact Us
+              </Link>
+              <Link
+                onClick={() => setSidebar(!sidebar)}
+                to={"/terms-and-condition"}
+              >
+                Terms And Condition
+              </Link>
+              <Link onClick={() => setSidebar(!sidebar)} to={"/privacy-policy"}>
+                Privacy Policy
+              </Link>
               <SocialMedia />
             </div>
           </div>

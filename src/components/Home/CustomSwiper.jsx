@@ -13,9 +13,9 @@ const CustomSwiper = ({
   componentToBeRender: Component,
 }) => {
   return (
-    <div className="max-w-7xl m-auto my-10">
+    <div className="max-w-7xl m-auto mb-10">
       <HeadingText heading={category} />
-      <div className="mx-4 md:mx-20 my-10">
+      <div className="mx-4 md:mx-20 mb-10">
         <div>
           <Swiper
             breakpoints={noOfSlidePerView[0]}

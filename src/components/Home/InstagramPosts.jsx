@@ -9,7 +9,7 @@ const InstagramPosts = () => {
   //   setHover(!hover);
   // };
   return (
-    <div className="flex bg-[#f8f9fa] flex-col justify-center items-center px-2 py-10 lg:p-10 pb-0">
+    <div className="flex bg-[#f8f9fa] flex-col justify-center items-center px-2 py-10 lg:pt-10 pb-0">
       <Link
         to={"https://www.instagram.com/ayuvyayurveda/"}
         target="blank"

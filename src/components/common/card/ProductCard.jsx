@@ -4,7 +4,8 @@ import Button from "../Button";
 import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
 
-const ProductCard = ({ itemObj, headingSize }) => {
+const ProductCard = ({ itemObj, headingSize, width }) => {
+  console.log(itemObj);
   const items = new Array(Math.round(itemObj.rating)).fill(null);
   const [showButton, setShowButton] = useState(false);
   const buyNow = async (product) => {
@@ -12,9 +13,13 @@ const ProductCard = ({ itemObj, headingSize }) => {
   };
   return (
     <Link
-      to={`/${itemObj.product_category.category_slug}${itemObj.get_product_url}`}
+      to={`/${itemObj?.product_category?.category_slug}${itemObj.get_product_url}`}
     >
-      <CardHoc className="bg-white cursor-none lg:cursor-pointer my-10">
+      <CardHoc
+        className={`bg-white cursor-none lg:cursor-pointer my-10 ${
+          width && width
+        }`}
+      >
         <figure
           onMouseEnter={() => setShowButton(true)}
           onMouseLeave={() => setShowButton(false)}
@@ -38,7 +43,7 @@ const ProductCard = ({ itemObj, headingSize }) => {
             </div>
           )}
         </figure>
-        <figcaption className="flex flex-col items-center text-center p-4 gap-2 h-56">
+        <figcaption className="flex flex-col items-center text-center p-4 gap-2 h-64 md:h-56">
           <h1 className={`font-semibold ${headingSize}`}>
             {itemObj.product_name.slice(0, 40)}{" "}
             {itemObj.product_name.length > 40 && <span>...</span>}
