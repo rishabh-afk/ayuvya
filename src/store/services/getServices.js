@@ -8,8 +8,15 @@ const getAllProducts = async () => {
   return resp.data;
 };
 
+const BLOGS_URL = "api/blogs/test/";
+const getAllBlogs = async () => {
+  const resp = await axios.get(`${BASE_URL}${BLOGS_URL}`);
+  return resp.data;
+};
+
 const services = {
   getAllProducts,
+  getAllBlogs,
 };
 
 export default services;

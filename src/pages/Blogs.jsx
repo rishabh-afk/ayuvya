@@ -1,8 +1,10 @@
 import blogBanner from "../assets/images/BLOG-BANNER.-1.webp";
-import { blogs } from "../data/blog";
+// import { blogs } from "../data/blog";
 import BlogCard from "../components/common/card/BlogCard";
+import { useSelector } from "react-redux";
 
 const Blogs = () => {
+  const blogs = useSelector((state) => state.blog.blogs);
   return (
     <div>
       <img className="w-full" src={blogBanner} alt="Banner" />
