@@ -5,11 +5,11 @@ import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
 
 const ProductCard = ({ itemObj, headingSize, width }) => {
-  console.log(itemObj);
+  // console.log(itemObj);
   const items = new Array(Math.round(itemObj.rating)).fill(null);
   const [showButton, setShowButton] = useState(false);
   const buyNow = async (product) => {
-    console.log("clicked");
+    // console.log("clicked");
   };
   return (
     <Link
@@ -26,7 +26,7 @@ const ProductCard = ({ itemObj, headingSize, width }) => {
           className="w-auto relative"
         >
           <img
-            className="hover:opacity-50 h-56 object-cover rounded-t-lg"
+            className="hover:opacity-50 object-cover rounded-t-lg"
             src={itemObj.primary_image}
             alt=""
           />
@@ -63,7 +63,10 @@ const ProductCard = ({ itemObj, headingSize, width }) => {
             <span className="line-through">₹ {itemObj.cut_price}</span>
             <span className="">₹ {itemObj.price}</span>
           </div>
-          <Button handler={buyNow} className="bg-black text-white rounded-lg">
+          <Button
+            handler={buyNow}
+            className="bg-black text-xl text-white rounded-lg px-4"
+          >
             Buy Now
           </Button>
         </figcaption>

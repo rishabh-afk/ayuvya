@@ -81,7 +81,7 @@ const ProductDetail = () => {
         {product.related_products.map((item) => {
           return (
             <ProductCard
-              width={"w-64"}
+              width={"w-48 lg:w-64"}
               key={item.id}
               itemObj={item}
               headingSize="text-xl"

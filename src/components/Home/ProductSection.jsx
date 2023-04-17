@@ -1,11 +1,16 @@
 import CustomSwiper from "./CustomSwiper";
 import ProductCard from "../common/card/ProductCard";
+import { useSelector } from "react-redux";
 
-const ProductSection = ({ product }) => {
+const ProductSection = () => {
+  const products = useSelector((state) => state.product.products);
+  const newLaunches = products.filter((item) => item.new_launched === true);
+  const bestSelling = products.filter((item) => item.best_selling === true);
+  const combos = products.filter((item) => item.is_combo === true);
   return (
     <>
       <CustomSwiper
-        data={product}
+        data={newLaunches}
         category="New Launches"
         cardHeadingSize="text-2xl"
         componentToBeRender={ProductCard}
@@ -24,7 +29,7 @@ const ProductSection = ({ product }) => {
         ]}
       />
       <CustomSwiper
-        data={product}
+        data={bestSelling}
         category="Best Selling Products"
         cardHeadingSize="text-md"
         componentToBeRender={ProductCard}
@@ -46,7 +51,7 @@ const ProductSection = ({ product }) => {
         ]}
       />
       <CustomSwiper
-        data={product}
+        data={combos}
         category="Best Selling Combos"
         cardHeadingSize="text-2xl"
         componentToBeRender={ProductCard}

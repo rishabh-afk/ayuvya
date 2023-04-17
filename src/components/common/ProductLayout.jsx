@@ -12,20 +12,6 @@ const ProductLayout = ({ pageTitle, products }) => {
             </div>
           );
         })}
-        {products.map((product) => {
-          return (
-            <div key={product.id} className="w-1/2 md:w-1/3 lg:w-1/4 px-2">
-              <ProductCard key={product.id} itemObj={product} />
-            </div>
-          );
-        })}
-        {products.map((product) => {
-          return (
-            <div key={product.id} className="w-1/2 md:w-1/3 lg:w-1/4 px-2">
-              <ProductCard key={product.id} itemObj={product} />
-            </div>
-          );
-        })}
       </div>
     </section>
   );

@@ -44,7 +44,7 @@ const UserModal = (props) => {
     // if (resp.data.message === "success") {
     //   navigate("/account");
     // }
-    console.log(user);
+    // console.log(user);
   };
   return (
     <div>

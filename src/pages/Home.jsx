@@ -2,7 +2,7 @@ import Banner from "../components/Home/Banner";
 import whyAyuvyaImage from "../assets/images/why_ayuvya.webp";
 import mobileApp from "../assets/images/mobile.png";
 import ShopByConcern from "../components/Home/ShopByConcern";
-import { product } from "../data/products";
+// import { product } from "../data/products";
 import ProductSection from "../components/Home/ProductSection";
 import InstagramPosts from "../components/Home/InstagramPosts";
 import Blogs from "../components/Home/Blogs";
@@ -38,7 +38,7 @@ const Home = () => {
         </div>
       </div>
       <ShopByConcern />
-      <ProductSection product={product} />
+      <ProductSection />
       <InstagramPosts />
       <Testimonials />
       <Blogs />

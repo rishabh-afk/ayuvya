@@ -2,7 +2,6 @@ import IngredientCard from "../card/IngredientCard";
 import imgData from "../../../assets/images/userPlaceholder.jpg";
 
 const Ingredients = ({ ingredients }) => {
-  console.log(ingredients);
   return (
     <div className="text-center mt-10">
       <h2 className="flex flex-col text-5xl font-bold">

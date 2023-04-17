@@ -1,7 +1,6 @@
 import CardHoc from "../../UI/CardHoc";
 
 const IngredientCard = ({ imageUrl, description, title }) => {
-  console.log(imageUrl, description, title);
   return (
     <CardHoc className="w-1/3">
       <div className="">
