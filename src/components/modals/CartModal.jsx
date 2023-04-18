@@ -1,6 +1,7 @@
 import { VscChromeClose } from "react-icons/vsc";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Button from "../common/Button";
+import { Link } from "react-router-dom";
 import { product } from "../../data/products";
 import Recommendation from "../common/Recommendation";
 
@@ -139,7 +140,9 @@ const CartModal = (props) => {
                 Shipping and taxes calculated at checkout
               </p>
               <Button className="bg-black text-white w-full flex justify-center mt-2 rounded-none">
-                <span className="text-xl font-bold">CHECKOUT</span>
+                <Link to={"/checkout"}>
+                  <span className="text-xl font-bold">CHECKOUT</span>
+                </Link>
               </Button>
             </div>
           </div>

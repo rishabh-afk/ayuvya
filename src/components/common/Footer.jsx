@@ -39,10 +39,10 @@ const Footer = () => {
                   </h4>
                   <ul className="flex flex-col gap-3 py-6 lg:py-10">
                     <li>
-                      <Link to={"shipping-policy"}>Shipping And Returns</Link>
+                      <Link to={"/shipping-policy"}>Shipping And Returns</Link>
                     </li>
                     <li>
-                      <Link to={"faqs"}>FAQs</Link>
+                      <Link to={"/faqs"}>FAQs</Link>
                     </li>
                   </ul>
                 </div>
@@ -52,7 +52,7 @@ const Footer = () => {
                   </h4>
                   <ul className="flex flex-col gap-3 py-6 lg:py-10">
                     <li>
-                      <Link to={"about-us"}>About Us</Link>
+                      <Link to={"/about-us"}>About Us</Link>
                     </li>
                   </ul>
                 </div>
@@ -62,7 +62,7 @@ const Footer = () => {
                   </h4>
                   <ul className="flex flex-col gap-3 py-6 lg:py-10">
                     <li>
-                      <Link to={"contact-us"}>Contact Us</Link>
+                      <Link to={"/contact-us"}>Contact Us</Link>
                     </li>
                   </ul>
                 </div>
@@ -79,10 +79,10 @@ const Footer = () => {
                 </p>
                 <ul className="flex gap-5 text-lg">
                   <li className="underline underline-offset-4">
-                    <Link to={"privacy-policy"}>Privacy Policy</Link>
+                    <Link to={"/privacy-policy"}>Privacy Policy</Link>
                   </li>
                   <li className="underline underline-offset-4">
-                    <Link to={"terms-and-condition"}>Terms And Condition</Link>
+                    <Link to={"/terms-and-condition"}>Terms And Condition</Link>
                   </li>
                 </ul>
               </div>

@@ -1,4 +1,4 @@
-import Sidebar from "../common/Sidebar";
+import Sidebar from "../product/Sidebar";
 
 const SideBarLayout = (props) => {
   return (

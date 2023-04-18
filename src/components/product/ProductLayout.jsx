@@ -1,9 +1,9 @@
-import ProductCard from "./card/ProductCard";
+import ProductCard from "../common/card/ProductCard";
 
 const ProductLayout = ({ pageTitle, products }) => {
   return (
     <section>
-      <p className="text-4xl font-semibold">{pageTitle}</p>
+      <p className="text-4xl mx-4 font-semibold">{pageTitle}</p>
       <div className="flex flex-wrap">
         {products.map((product) => {
           return (

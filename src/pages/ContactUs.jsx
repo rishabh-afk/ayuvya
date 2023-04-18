@@ -1,7 +1,7 @@
-import React from "react";
+import Layouts from "../components/UI/Layouts";
 
 const ContactUs = () => {
-  return <div>ContactUs</div>;
+  return <Layouts></Layouts>;
 };
 
 export default ContactUs;

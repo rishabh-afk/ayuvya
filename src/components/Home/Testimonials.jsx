@@ -1,6 +1,6 @@
 import { testimonials } from "../../data/testimonial";
 import TestimonialCard from "../common/card/TestimonialCard";
-import CustomSwiper from "./CustomSwiper";
+import CustomSwiper from "../common/custom/CustomSwiper";
 
 const Testimonials = () => {
   return (
@@ -10,6 +10,7 @@ const Testimonials = () => {
           data={testimonials}
           category="WHAT OUR CUSTOMERS SAY"
           cardHeadingSize="text-2xl"
+          marginHorizontal={"md:mx-20"}
           componentToBeRender={TestimonialCard}
           noOfSlidePerView={[
             {
@@ -18,9 +19,11 @@ const Testimonials = () => {
               },
               576: {
                 slidesPerView: 2,
+                spaceBetween: 25,
               },
               980: {
                 slidesPerView: 3,
+                spaceBetween: 25,
               },
             },
           ]}

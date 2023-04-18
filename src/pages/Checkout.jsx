@@ -1,7 +1,7 @@
 import Layouts from "../components/UI/Layouts";
 
-const AboutUs = () => {
+const Checkout = () => {
   return <Layouts></Layouts>;
 };
 
-export default AboutUs;
+export default Checkout;

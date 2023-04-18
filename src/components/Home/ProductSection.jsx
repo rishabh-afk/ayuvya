@@ -1,4 +1,4 @@
-import CustomSwiper from "./CustomSwiper";
+import CustomSwiper from "../common/custom/CustomSwiper";
 import ProductCard from "../common/card/ProductCard";
 import { useSelector } from "react-redux";
 
@@ -13,6 +13,7 @@ const ProductSection = () => {
         data={newLaunches}
         category="New Launches"
         cardHeadingSize="text-2xl"
+        marginHorizontal={"md:mx-20"}
         componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
@@ -21,9 +22,11 @@ const ProductSection = () => {
             },
             576: {
               slidesPerView: 2,
+              spaceBetween: 25,
             },
             980: {
               slidesPerView: 3,
+              spaceBetween: 25,
             },
           },
         ]}
@@ -32,6 +35,7 @@ const ProductSection = () => {
         data={bestSelling}
         category="Best Selling Products"
         cardHeadingSize="text-md"
+        marginHorizontal={"md:mx-20"}
         componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
@@ -40,12 +44,15 @@ const ProductSection = () => {
             },
             400: {
               slidesPerView: 2,
+              spaceBetween: 25,
             },
             768: {
               slidesPerView: 3,
+              spaceBetween: 25,
             },
             1024: {
               slidesPerView: 4,
+              spaceBetween: 20,
             },
           },
         ]}
@@ -54,6 +61,7 @@ const ProductSection = () => {
         data={combos}
         category="Best Selling Combos"
         cardHeadingSize="text-2xl"
+        marginHorizontal={"md:mx-20"}
         componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
@@ -62,9 +70,11 @@ const ProductSection = () => {
             },
             576: {
               slidesPerView: 2,
+              spaceBetween: 25,
             },
             980: {
               slidesPerView: 3,
+              spaceBetween: 25,
             },
           },
         ]}

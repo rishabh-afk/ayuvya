@@ -1,7 +1,9 @@
 const Loader = () => {
   return (
-    <div>Loading...</div>
-  )
-}
+    <div className="text-7xl text-amber-600 font-semibold h-screen items-center flex justify-center">
+      Loading...
+    </div>
+  );
+};
 
-export default Loader
+export default Loader;

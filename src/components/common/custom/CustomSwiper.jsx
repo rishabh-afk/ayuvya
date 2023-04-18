@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import HeadingText from "../common/HeadingText";
+import HeadingText from "../../product/HeadingText";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -10,17 +10,17 @@ const CustomSwiper = ({
   data,
   noOfSlidePerView,
   cardHeadingSize,
+  marginHorizontal,
   componentToBeRender: Component,
 }) => {
   return (
     <div className="max-w-7xl m-auto mb-10">
       <HeadingText heading={category} />
-      <div className="mx-4 md:mx-20 mb-10">
+      <div className={`mx-4 mb-10 ${marginHorizontal}`}>
         <div>
           <Swiper
             breakpoints={noOfSlidePerView[0]}
             navigation={true}
-            spaceBetween={25}
             loop={true}
             slidesPerGroup={2}
             autoplay={{

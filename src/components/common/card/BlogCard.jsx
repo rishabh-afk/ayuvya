@@ -6,7 +6,7 @@ const BlogCard = ({ itemObj, isBlogPage }) => {
   return (
     <CardHoc
       className="
-      bg-white cursor-none lg:cursor-pointer mb-10"
+      bg-white cursor-none lg:cursor-pointer my-10"
     >
       {isBlogPage && (
         <span className="absolute bg-black text-white opacity-50 px-4 rounded-tl-md rounded-br-md">

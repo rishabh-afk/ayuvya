@@ -2,7 +2,6 @@
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import CategoryBasedProduct from "./pages/CategoryBasedProduct";
 
 // custom pages/components imports
 const Home = lazy(() => import("./pages/Home"));
@@ -18,7 +17,9 @@ const TermsAndCondition = lazy(() => import("./pages/TermsAndCondition"));
 const ProductDetail = lazy(() =>
   import("./components/common/productDetails/ProductDetail")
 );
-const Error = lazy(() => import("./pages/Error"));
+const CategoryBasedProduct = lazy(() => import("./pages/CategoryBasedProduct"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+// const Error = lazy(() => import("./pages/Error"));
 
 const RoutesWrapper = () => {
   const categories = useSelector((state) => state.common.categories);
@@ -50,7 +51,8 @@ const RoutesWrapper = () => {
       <Route path="/faqs" element={<Faqs />} />
       <Route path="/terms-and-condition" element={<TermsAndCondition />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="*" element={<Error />} />
+      <Route path="/checkout" element={<Checkout />} />
+      {/* <Route path="*" element={<Error />} /> */}
     </Routes>
   );
 };

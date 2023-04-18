@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import ShopByConcern from "../Home/ShopByConcern";
+import CustomSwiper from "../common/custom/CustomSwiper";
+import ConcernCard from "../common/card/ConcernCard";
 import { useSelector } from "react-redux";
 
 const Sidebar = () => {
@@ -27,7 +28,27 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="lg:hidden">
-        <ShopByConcern />
+        <CustomSwiper
+          data={categories.slice(0, 6)}
+          componentToBeRender={ConcernCard}
+          marginHorizontal="mx-4"
+          noOfSlidePerView={[
+            {
+              0: {
+                slidesPerView: 3,
+                spaceBetween: 5,
+              },
+              576: {
+                slidesPerView: 5,
+                spaceBetween: 10,
+              },
+              980: {
+                slidesPerView: 6,
+                spaceBetween: 10,
+              },
+            },
+          ]}
+        />
       </div>
     </>
   );

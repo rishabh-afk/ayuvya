@@ -1,5 +1,5 @@
 import React from "react";
-import CustomSwiper from "../../Home/CustomSwiper";
+import CustomSwiper from "../custom/CustomSwiper";
 import Reviewcard from "../card/Reviewcard";
 
 const Reviews = ({ reviews }) => {

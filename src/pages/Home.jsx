@@ -11,13 +11,14 @@ import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 import { FaGooglePlay } from "react-icons/fa";
 import { useEffect } from "react";
+import Layouts from "../components/UI/Layouts";
 
 const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div>
+    <Layouts>
       <Banner />
       <div className="max-w-7xl m-auto">
         <div className="p-6 lg:px-24">
@@ -79,7 +80,7 @@ const Home = () => {
           </figcaption>
         </div>
       </div>
-    </div>
+    </Layouts>
   );
 };
 

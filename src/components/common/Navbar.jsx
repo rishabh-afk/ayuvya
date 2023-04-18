@@ -32,9 +32,7 @@ const Navbar = () => {
   }, []);
   const isSticky = () => {
     const scroll = window.scrollY;
-    let scrollTop = stickyHeader.current.offsetTop;
-    const stickyClass =
-      scroll > scrollTop ? "fixed top-0 w-full shadow-md z-50" : "";
+    const stickyClass = scroll > 32 ? "fixed top-0 w-full shadow-md z-50" : "";
     setSticky(stickyClass);
   };
   return (
