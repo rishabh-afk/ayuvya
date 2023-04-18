@@ -9,8 +9,16 @@ import { useState, useEffect, useRef } from "react";
 import SocialMedia from "./SocialMedia";
 import CartModal from "../modals/CartModal";
 import { product } from "../../data/products";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategories } from "../../store/slices/commonSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
+  const categories = useSelector((state) => state.common.categories);
+  console.log(categories);
   const stickyHeader = useRef();
   // const [cart, setCart] = useState([]);
   const cart = [];
@@ -18,6 +26,7 @@ const Navbar = () => {
   const [sticky, setSticky] = useState("");
   const [sidebar, setSidebar] = useState(false);
   const [searchBar, openSearchBar] = useState(false);
+  const [search, setSearch] = useState("");
   function handleClose() {
     showCartModal(false);
   }
@@ -48,50 +57,87 @@ const Navbar = () => {
         ref={stickyHeader}
         className={`flex justify-between items-center py-2 px-5 lg:px-16 bg-black text-white lg:bg-white lg:text-black ${sticky}`}
       >
-        <div className="lg:hidden">
-          <AiOutlineMenu
-            className="cursor-none lg:cursor-pointer"
-            onClick={() => setSidebar(!sidebar)}
-            size={20}
-          />
-        </div>
+        {searchBar ? (
+          <></>
+        ) : (
+          <div className="lg:hidden">
+            <AiOutlineMenu
+              className="cursor-none lg:cursor-pointer"
+              onClick={() => setSidebar(!sidebar)}
+              size={20}
+            />
+          </div>
+        )}
         <div className="w-28 hidden lg:block">
           <Link to={"/"}>
             <img src={AyuvyaBlackLogo} alt="Ayuvya Logo" />
           </Link>
         </div>
-        <div className="w-24 lg:hidden">
-          <Link to={"/"}>
-            <img src={AyuvyaWhiteLogo} alt="Ayuvya Logo" />
-          </Link>
-        </div>
         {searchBar ? (
-          <div className="flex justify-between pr-2 items-center w-3/4 border-2 rounded-md cursor-none lg:cursor-pointer">
-            <input
-              className="w-full outline-none py-1 pl-2"
-              type="text"
-              autoFocus
-              placeholder="Search Here"
-            />
-            <VscChromeClose
-              onClick={() => openSearchBar(false)}
-              size={20}
-              className="font-bold"
-            />
-          </div>
+          <></>
         ) : (
-          <div className="hidden lg:flex gap-6 text-sm">
-            <Link to={"/all"}>ALL PRODUCTS</Link>
-            <Link to={"/skin-care"}>SKIN CARE</Link>
-            <Link to={"/weight-management"}>WEIGHT ISSUES</Link>
-            <Link to={"/wellness"}>INTIMATE CARE</Link>
-            <Link to={"/nutrition"}>WELLNESS</Link>
-            <Link to={"/hair-care"}>HAIR CARE</Link>
-            <Link to={"/ayuvya-combo-packs"}>COMBOS</Link>
-            <Link to={"/blogs"}>BLOGS</Link>
+          <div className="w-24 lg:hidden">
+            <Link to={"/"}>
+              <img src={AyuvyaWhiteLogo} alt="Ayuvya Logo" />
+            </Link>
           </div>
         )}
-        <div className="flex gap-2">
+        {searchBar ? (
+          <div className="flex justify-between pr-2 items-center z-[5000] w-full lg:w-3/4 border-2 rounded-md cursor-none lg:cursor-pointer">
+            <input
+              type="text"
+              name="search"
+              id="search"
+              value={search}
+              placeholder="Search Here"
+              autoFocus
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              className="w-full text-black outline-none py-[2px] lg:py-1 pl-2"
+            />
+            <VscChromeClose onClick={() => openSearchBar(false)} size={20} />
+          </div>
+        ) : (
+          <>
+            <div className="hidden lg:flex gap-6 text-sm">
+              <Link to={"/all"}>ALL PRODUCTS</Link>
+              {categories.map((category) => {
+                return (
+                  <Link to={`/${category.category_slug}`}>
+                    {category.category_name.toUpperCase()}
+                  </Link>
+                );
+              })}
+              <Link to={"/blogs"}>BLOGS</Link>
+            </div>
+          </>
+        )}
+        {searchBar ? (
+          <></>
+        ) : (
+          <div className="flex gap-2 lg:hidden">
+            <BiSearch
+              className="cursor-none lg:cursor-pointer"
+              onClick={() => {
+                openSearchBar(true);
+              }}
+              size={18}
+            />
+            <div className="flex">
+              <FaShoppingCart
+                className="cursor-none lg:cursor-pointer"
+                title={cart.length === 0 ? "Your Cart is empty" : "Cart"}
+                onClick={() => showCartModal(true)}
+                size={18}
+              />
+              <span className="text-xs relative bottom-2 left-1 bg-[#555] lg:text-white rounded-full px-[5px]">
+                0
+              </span>
+            </div>
+          </div>
+        )}
+        <div className="gap-2 hidden lg:flex">
           <BiSearch
             className="cursor-none lg:cursor-pointer"
             onClick={() => {
@@ -125,29 +171,18 @@ const Navbar = () => {
               <Link onClick={() => setSidebar(!sidebar)} to={"/all"}>
                 All Products
               </Link>
-              <Link onClick={() => setSidebar(!sidebar)} to={"/skin-care"}>
-                Skin Care
-              </Link>
-              <Link
-                onClick={() => setSidebar(!sidebar)}
-                to={"/weight-management"}
-              >
-                Weight Issues
-              </Link>
-              <Link onClick={() => setSidebar(!sidebar)} to={"/wellness"}>
-                Intimate Care
-              </Link>
-              <Link onClick={() => setSidebar(!sidebar)} to={"/nutrition"}>
-                Wellness
-              </Link>
-              <Link onClick={() => setSidebar(!sidebar)} to={"/hair-care"}>
-                Hair Care
-              </Link>
-              <Link
-                onClick={() => setSidebar(!sidebar)}
-                to={"/ayuvya-combo-packs"}
-              >
-                Combos
+              {categories.map((category) => {
+                return (
+                  <Link
+                    onClick={() => setSidebar(!sidebar)}
+                    to={`/${category.category_slug}`}
+                  >
+                    {category.category_name}
+                  </Link>
+                );
+              })}
+              <Link to={"/blogs"} onClick={() => setSidebar(!sidebar)}>
+                blogs
               </Link>
             </div>
             <div className="flex flex-col gap-3 text-sm pb-6">

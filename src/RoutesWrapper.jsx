@@ -1,46 +1,48 @@
 // library imports
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import ProductDetail from "./components/common/productDetails/ProductDetail";
+import { useSelector } from "react-redux";
+import CategoryBasedProduct from "./pages/CategoryBasedProduct";
 
 // custom pages/components imports
-
 const Home = lazy(() => import("./pages/Home"));
 const Account = lazy(() => import("./pages/Account"));
 const AllProduct = lazy(() => import("./pages/AllProduct"));
-const SkinCare = lazy(() => import("./pages/SkinCare"));
-const WeightIssue = lazy(() => import("./pages/WeightIssue"));
-const IntimateCare = lazy(() => import("./pages/IntimateCare"));
-const Wellness = lazy(() => import("./pages/Wellness"));
-const HairCare = lazy(() => import("./pages/HairCare"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ShippingPolicy = lazy(() => import("./pages/ShippingPolicy"));
-const Combos = lazy(() => import("./pages/Combos"));
 const Blogs = lazy(() => import("./pages/Blogs"));
 const Faqs = lazy(() => import("./pages/Faqs"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsAndCondition = lazy(() => import("./pages/TermsAndCondition"));
+const ProductDetail = lazy(() =>
+  import("./components/common/productDetails/ProductDetail")
+);
 const Error = lazy(() => import("./pages/Error"));
 
 const RoutesWrapper = () => {
+  const categories = useSelector((state) => state.common.categories);
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/account" element={<Account />} />
       <Route path="/all" element={<AllProduct />} />
-      <Route path="/skin-care" element={<SkinCare />} />
-      <Route path="/skin-care/:slug" element={<ProductDetail />} />
-      <Route path="/weight-management" element={<WeightIssue />} />
-      <Route path="/weight-management/:slug" element={<ProductDetail />} />
-      <Route path="/wellness" element={<IntimateCare />} />
-      <Route path="/wellness/:slug" element={<ProductDetail />} />
-      <Route path="/nutrition" element={<Wellness />} />
-      <Route path="/nutrition/:slug" element={<ProductDetail />} />
-      <Route path="/hair-care" element={<HairCare />} />
-      <Route path="/hair-care/:slug" element={<ProductDetail />} />
-      <Route path="/ayuvya-combo-packs" element={<Combos />} />
-      <Route path="/ayuvya-combo-packs/:slug" element={<ProductDetail />} />
+      {categories.map((category) => {
+        return (
+          <Route key={category.id} path={`/${category.category_slug}`}>
+            <Route
+              index
+              element={
+                <CategoryBasedProduct
+                  category_slug={category.category_slug}
+                  category_name={category.category_name}
+                />
+              }
+            />
+            <Route path=":slug" element={<ProductDetail />} />
+          </Route>
+        );
+      })}
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
       <Route path="/about-us" element={<AboutUs />} />

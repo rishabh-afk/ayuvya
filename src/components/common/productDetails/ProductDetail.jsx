@@ -80,12 +80,9 @@ const ProductDetail = () => {
       <div className="flex gap-5 flex-wrap mx-4 lg:mx-20">
         {product.related_products.map((item) => {
           return (
-            <ProductCard
-              width={"w-48 lg:w-64"}
-              key={item.id}
-              itemObj={item}
-              headingSize="text-xl"
-            />
+            <div key={item.id} className="w-1/2 md:w-1/3 lg:w-1/4 px-2">
+              <ProductCard key={item.id} itemObj={item} headingSize="text-xl" />
+            </div>
           );
         })}
       </div>
