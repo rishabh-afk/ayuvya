@@ -4,11 +4,15 @@ import Layouts from "./components/UI/Layouts";
 import Loader from "./components/common/Loader";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "./store/slices/productSlice";
+import { getAllBlogs } from "./store/slices/blogSlice";
+import { getAllCategories } from "./store/slices/commonSlice";
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
+    dispatch(getAllBlogs());
+    dispatch(getAllCategories());
   }, [dispatch]);
   return (
     <Layouts>

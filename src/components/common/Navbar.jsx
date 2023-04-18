@@ -9,16 +9,10 @@ import { useState, useEffect, useRef } from "react";
 import SocialMedia from "./SocialMedia";
 import CartModal from "../modals/CartModal";
 import { product } from "../../data/products";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories } from "../../store/slices/commonSlice";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllCategories());
-  }, [dispatch]);
   const categories = useSelector((state) => state.common.categories);
-  console.log(categories);
   const stickyHeader = useRef();
   // const [cart, setCart] = useState([]);
   const cart = [];
@@ -104,7 +98,7 @@ const Navbar = () => {
               <Link to={"/all"}>ALL PRODUCTS</Link>
               {categories.map((category) => {
                 return (
-                  <Link to={`/${category.category_slug}`}>
+                  <Link key={category.id} to={`/${category.category_slug}`}>
                     {category.category_name.toUpperCase()}
                   </Link>
                 );
@@ -174,6 +168,7 @@ const Navbar = () => {
               {categories.map((category) => {
                 return (
                   <Link
+                    key={category.id}
                     onClick={() => setSidebar(!sidebar)}
                     to={`/${category.category_slug}`}
                   >

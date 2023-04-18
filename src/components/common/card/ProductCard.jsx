@@ -5,15 +5,15 @@ import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
 
 const ProductCard = ({ itemObj, headingSize, width }) => {
-  // console.log(itemObj);
   const items = new Array(Math.round(itemObj.rating)).fill(null);
   const [showButton, setShowButton] = useState(false);
   const buyNow = async (product) => {
     // console.log("clicked");
   };
+
   return (
     <Link
-      to={`/${itemObj?.product_category?.category_slug}${itemObj.get_product_url}`}
+      to={`/${itemObj?.product_category?.category_slug}/${itemObj.product_slug}`}
     >
       <CardHoc
         className={`bg-white cursor-none lg:cursor-pointer my-10 ${

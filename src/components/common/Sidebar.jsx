@@ -13,7 +13,7 @@ const Sidebar = () => {
         <ul className="flex flex-col gap-5">
           {categories.map((category) => {
             return (
-              <li className="">
+              <li key={category.id}>
                 <Link to={`/${category.category_slug}`} className="text-md">
                   {location.pathname === `/${category.category_slug}` ? (
                     <span className="font-bold">{category.category_name}</span>
