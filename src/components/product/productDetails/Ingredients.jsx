@@ -1,4 +1,4 @@
-import IngredientCard from "../card/IngredientCard";
+import IngredientCard from "../../common/card/IngredientCard";
 import imgData from "../../../assets/images/userPlaceholder.jpg";
 
 const Ingredients = ({ ingredients }) => {

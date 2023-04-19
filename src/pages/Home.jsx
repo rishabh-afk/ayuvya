@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { FaGooglePlay } from "react-icons/fa";
 import { useEffect } from "react";
 import Layouts from "../components/UI/Layouts";
+import MetaTags from "../components/meta/MetaTags";
 
 const Home = () => {
   useEffect(() => {
@@ -19,6 +20,11 @@ const Home = () => {
   }, []);
   return (
     <Layouts>
+      <MetaTags
+        metaTitle="Ayuvya Ayurveda - Ayurvedic Products | Ayurvedic Healthcare App"
+        metaDesc="Experience the best of Ayurveda at Ayuvya where we specialize in authentic Ayurvedic formulations and traditional rituals adapted to modern health & wellness care."
+        metaKey="Ayurvedic Products, Skin Care"
+      />
       <Banner />
       <div className="max-w-7xl m-auto">
         <div className="p-6 lg:px-24">

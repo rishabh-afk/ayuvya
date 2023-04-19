@@ -1,6 +1,5 @@
-import React from "react";
-import CustomSwiper from "../custom/CustomSwiper";
-import Reviewcard from "../card/Reviewcard";
+import CustomSwiper from "../../common/custom/CustomSwiper";
+import Reviewcard from "../../common/card/Reviewcard";
 
 const Reviews = ({ reviews }) => {
   return (

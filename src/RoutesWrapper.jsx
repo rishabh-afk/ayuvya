@@ -15,7 +15,7 @@ const Faqs = lazy(() => import("./pages/Faqs"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsAndCondition = lazy(() => import("./pages/TermsAndCondition"));
 const ProductDetail = lazy(() =>
-  import("./components/common/productDetails/ProductDetail")
+  import("./components/product/productDetails/ProductDetail")
 );
 const CategoryBasedProduct = lazy(() => import("./pages/CategoryBasedProduct"));
 const Checkout = lazy(() => import("./pages/Checkout"));

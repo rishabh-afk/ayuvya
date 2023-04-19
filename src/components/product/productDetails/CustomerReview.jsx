@@ -1,4 +1,4 @@
-import ProgressBarWithStars from "../custom/ProgressBarWithStars";
+import ProgressBarWithStars from "../../common/custom/ProgressBarWithStars";
 
 const CustomerReview = () => {
   return (
