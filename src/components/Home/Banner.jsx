@@ -90,7 +90,7 @@ const Banner = () => {
           navigation={true}
           loop={true}
           autoplay={{
-            delay: 2500,
+            delay: 5000,
             disableOnInteraction: false,
           }}
           pagination={{
@@ -101,7 +101,7 @@ const Banner = () => {
           {BANNERS.map((banner) => (
             <SwiperSlide key={banner.id}>
               <img
-                className="w-full object-cover cursor-none lg:cursor-pointer"
+                className="w-full object-contain cursor-none lg:cursor-pointer"
                 src={banner.image}
                 alt=""
               />
@@ -124,7 +124,11 @@ const Banner = () => {
         >
           {MOBILE_BANNERS.map((banner) => (
             <SwiperSlide key={banner.id}>
-              <img className="w-full object-cover" src={banner.image} alt="" />
+              <img
+                className="w-full object-contain"
+                src={banner.image}
+                alt=""
+              />
             </SwiperSlide>
           ))}
         </Swiper>

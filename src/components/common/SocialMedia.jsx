@@ -7,12 +7,12 @@ const SocialMedia = () => {
       <ul className="flex gap-6 lg:gap-5 py-6">
         <li>
           <Link to={"https://www.facebook.com/ayuvyayurveda"} target="blank">
-            <BsFacebook size={18} />
+            <BsFacebook size={22} />
           </Link>
         </li>
         <li>
           <Link to={"https://www.instagram.com/ayuvyayurveda/"} target="blank">
-            <BsInstagram size={18} />
+            <BsInstagram size={22} />
           </Link>
         </li>
         <li>
@@ -20,7 +20,7 @@ const SocialMedia = () => {
             to={"https://www.youtube.com/channel/UCwcwGuLFlQYTQOxl9qantIg"}
             target="blank"
           >
-            <BsYoutube size={22} />
+            <BsYoutube size={26} />
           </Link>
         </li>
       </ul>

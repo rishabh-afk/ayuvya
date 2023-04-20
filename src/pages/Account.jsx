@@ -3,6 +3,7 @@ import { useState } from "react";
 // import { Pagination } from "swiper";
 import Tabs from "../components/accounts/Tabs";
 import CardHoc from "../components/UI/CardHoc";
+import Layouts from "../components/UI/Layouts";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -46,52 +47,54 @@ const Account = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <LogoutModal
-        logoutModalIsOpen={logoutModalIsOpen}
-        handleClose={handleClose}
-      />
-      <div className="flex justify-between mx-4 items-center mt-8 md:mb-8">
-        <h2 className="text-xl text-[#5e0d8b] font-bold">
-          Hi, {userData.firstName} {userData.lastName}
-        </h2>
-        <button
-          onClick={logoutModal}
-          className="px-6 py-[7px] text-lg bg-[#5e0d8b] rounded text-white"
-        >
-          Log Out
-        </button>
-      </div>
-      <div className="h-48 mt-8 mx-4 block md:hidden relative z-0">
-        <Swiper
-          slidesPerView={2}
-          spaceBetween={20}
-          slidesPerGroup={2}
-          // pagination={{
-          //   clickable: true,
-          // }}
-          // modules={[Pagination]}
-          // className="mySwiper"
-        >
-          {PROFILE_TABS.map((tab) => (
-            <SwiperSlide key={tab.id}>
-              <Tabs tab={tab} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className="flex gap-6">
-        <div className="w-1/4 hidden md:block">
-          {PROFILE_TABS.map((tab) => (
-            <Tabs key={tab.id} tab={tab} />
-          ))}
+    <Layouts>
+      <div className="max-w-6xl mx-auto">
+        <LogoutModal
+          logoutModalIsOpen={logoutModalIsOpen}
+          handleClose={handleClose}
+        />
+        <div className="flex justify-between mx-4 items-center mt-8 md:mb-8">
+          <h2 className="text-xl text-[#5e0d8b] font-bold">
+            Hi, {userData.firstName} {userData.lastName}
+          </h2>
+          <button
+            onClick={logoutModal}
+            className="px-6 py-[7px] text-lg bg-[#5e0d8b] rounded text-white"
+          >
+            Log Out
+          </button>
         </div>
-        <CardHoc className="mx-4 p-3 md:px-10 w-full md:w-3/4 bg-[#f5f0f7] border-[#f5f0f7] shadow-xl">
-          <UserDetail user={userData} />
-          <UserAddress user={userData} />
-        </CardHoc>
+        <div className="h-48 mt-8 mx-4 block md:hidden relative z-0">
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={20}
+            slidesPerGroup={2}
+            // pagination={{
+            //   clickable: true,
+            // }}
+            // modules={[Pagination]}
+            // className="mySwiper"
+          >
+            {PROFILE_TABS.map((tab) => (
+              <SwiperSlide key={tab.id}>
+                <Tabs tab={tab} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className="flex gap-6">
+          <div className="w-1/4 hidden md:block">
+            {PROFILE_TABS.map((tab) => (
+              <Tabs key={tab.id} tab={tab} />
+            ))}
+          </div>
+          <CardHoc className="mx-4 p-3 md:px-10 w-full md:w-3/4 bg-[#f5f0f7] border-[#f5f0f7] shadow-xl">
+            <UserDetail user={userData} />
+            <UserAddress user={userData} />
+          </CardHoc>
+        </div>
       </div>
-    </div>
+    </Layouts>
   );
 };
 

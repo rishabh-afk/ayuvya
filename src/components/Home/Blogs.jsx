@@ -11,12 +11,13 @@ const Blogs = () => {
   }, [dispatch]);
   const blogs = useSelector((state) => state.blog.blogs);
   return (
-    <div className="max-w-7xl m-auto mt-10">
+    <div className="max-w-7xl m-auto">
       <CustomSwiper
         data={blogs}
         category="Blogs"
         cardHeadingSize="text-2xl"
         marginHorizontal={"md:mx-20"}
+        marginTop={"mt-10"}
         componentToBeRender={BlogCard}
         noOfSlidePerView={[
           {

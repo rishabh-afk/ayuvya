@@ -4,7 +4,13 @@ import Button from "../Button";
 import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
 
-const ProductCard = ({ itemObj, headingSize, width }) => {
+const ProductCard = ({
+  itemObj,
+  headingSize,
+  width,
+  marginVertical,
+  isProductPage,
+}) => {
   const items = new Array(Math.round(itemObj.rating)).fill(null);
   const [showButton, setShowButton] = useState(false);
   const buyNow = async (product) => {
@@ -16,7 +22,7 @@ const ProductCard = ({ itemObj, headingSize, width }) => {
       to={`/${itemObj?.product_category?.category_slug}/${itemObj.product_slug}`}
     >
       <CardHoc
-        className={`bg-white cursor-none lg:cursor-pointer my-10 ${
+        className={`bg-white cursor-none lg:cursor-pointer ${marginVertical} ${
           width && width
         }`}
       >
@@ -26,18 +32,20 @@ const ProductCard = ({ itemObj, headingSize, width }) => {
           className="w-auto relative"
         >
           <img
-            className="hover:opacity-50 object-cover rounded-t-lg"
+            className={`object-cover rounded-t-lg ${
+              isProductPage ? "hover:opacity-30 transition delay-100" : ""
+            }`}
             src={itemObj.primary_image}
             alt=""
           />
-          {showButton && (
-            <div className="opacity-70">
-              <div className="absolute top-[40%] left-1/4">
-                <Button className="bg-black text-white px-6 rounded-none hover:bg-gray-500 z-50">
+          {showButton && isProductPage && (
+            <div className="transition delay-700">
+              <div className="absolute opacity-90 top-0">
+                <Button className="bg-black relative top-24 bottom-24 left-16 right-16 text-white px-6 rounded-none hover:bg-black z-50">
                   <span>Buy Now</span>
                 </Button>
               </div>
-              <div className="bg-black w-full absolute bottom-0 text-center text-white">
+              <div className="bg-black absolute bottom-0 w-full text-center text-white">
                 Quick View
               </div>
             </div>
