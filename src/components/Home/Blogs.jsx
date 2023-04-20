@@ -15,6 +15,7 @@ const Blogs = () => {
       <CustomSwiper
         data={blogs}
         category="Blogs"
+        navigation={false}
         cardHeadingSize="text-2xl"
         marginHorizontal={"md:mx-20"}
         marginTop={"mt-10"}

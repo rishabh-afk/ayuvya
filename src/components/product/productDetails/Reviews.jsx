@@ -10,6 +10,7 @@ const Reviews = ({ reviews }) => {
       <CustomSwiper
         data={reviews}
         componentToBeRender={Reviewcard}
+        navigation={false}
         noOfSlidePerView={[
           {
             0: {

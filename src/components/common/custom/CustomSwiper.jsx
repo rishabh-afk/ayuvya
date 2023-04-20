@@ -12,6 +12,8 @@ const CustomSwiper = ({
   cardHeadingSize,
   marginHorizontal,
   marginTop,
+  headingText,
+  navigation,
   componentToBeRender: Component,
 }) => {
   return (
@@ -21,11 +23,14 @@ const CustomSwiper = ({
           <div className={`${marginTop && marginTop}`}>
             <HeadingText heading={category} />
           </div>
+          {headingText && (
+            <h3 className="font-semibold text-lg pb-4">{headingText}</h3>
+          )}
           <div className={`mx-4 mb-10 ${marginHorizontal}`}>
             <div>
               <Swiper
                 breakpoints={noOfSlidePerView[0]}
-                navigation={true}
+                navigation={navigation}
                 loop={true}
                 slidesPerGroup={2}
                 autoplay={{

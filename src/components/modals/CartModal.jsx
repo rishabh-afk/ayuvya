@@ -1,11 +1,13 @@
 import { VscChromeClose } from "react-icons/vsc";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import Button from "../common/Button";
 import { Link } from "react-router-dom";
-import { product } from "../../data/products";
-import Recommendation from "../common/Recommendation";
+import CustomSwiper from "../common/custom/CustomSwiper";
+import CartItem from "../cart/CartItem";
+import { useSelector } from "react-redux";
+import RecommendationCard from "../common/card/RecommendationCard";
 
 const CartModal = (props) => {
+  const products = useSelector((state) => state.product.products);
   return (
     <>
       {props.cartModal && (
@@ -24,107 +26,27 @@ const CartModal = (props) => {
                 <p className="text-sm">Free shipping on all orders!</p>
               </div>
             </div>
-            <div className="p-4 relative h-96 overflow-auto mt-24">
+            <div className="p-4 relative h-[100%] overflow-auto mt-24 pb-48">
               <div className="flex flex-col gap-2">
-                <div className="flex gap-1 border-b">
-                  <figure className="w-1/3">
-                    <img
-                      className="w-28 p-2 aspect-square"
-                      src={props.product.primary_image}
-                      alt=""
-                    />
-                  </figure>
-                  <figcaption className="w-2/3 pb-4">
-                    <h2 className="text-base font-medium">
-                      {props.product.product_name}
-                    </h2>
-                    <div className="flex justify-between items-center pt-4">
-                      <div className="border flex items-center gap-3 w-fit px-3">
-                        <span className="text-xl font-medium">-</span>
-                        <span className="text-base font-medium">1</span>
-                        <span className="text-xl font-medium">+</span>
-                      </div>
-                      <div>
-                        <p className="">₹ {props.product.price}</p>
-                      </div>
-                      <RiDeleteBin6Line
-                        onClick={""}
-                        className="cursor-none lg:cursor-pointer"
-                        size={20}
-                      />
-                    </div>
-                  </figcaption>
-                </div>
-                <div className="flex gap-1 border-b">
-                  <figure className="w-1/3">
-                    <img
-                      className="w-28 p-2 aspect-square"
-                      src={props.product.primary_image}
-                      alt=""
-                    />
-                  </figure>
-                  <figcaption className="w-2/3 pb-4">
-                    <h2 className="text-base font-medium">
-                      {props.product.product_name}
-                    </h2>
-                    <div className="flex justify-between items-center pt-4">
-                      <div className="border flex items-center gap-3 w-fit px-3">
-                        <span className="text-xl font-medium">-</span>
-                        <span className="text-base font-medium">1</span>
-                        <span className="text-xl font-medium">+</span>
-                      </div>
-                      <div>
-                        <p className="">₹ {props.product.price}</p>
-                      </div>
-                      <RiDeleteBin6Line
-                        onClick={""}
-                        className="cursor-none lg:cursor-pointer"
-                        size={20}
-                      />
-                    </div>
-                  </figcaption>
-                </div>
-                <div className="flex gap-1 border-b">
-                  <figure className="w-1/3">
-                    <img
-                      className="w-28 p-2 aspect-square"
-                      src={props.product.primary_image}
-                      alt=""
-                    />
-                  </figure>
-                  <figcaption className="w-2/3 pb-4">
-                    <h2 className="text-base font-medium">
-                      {props.product.product_name}
-                    </h2>
-                    <div className="flex justify-between items-center pt-4">
-                      <div className="border flex items-center gap-3 w-fit px-3">
-                        <span className="text-xl font-medium">-</span>
-                        <span className="text-base font-medium">1</span>
-                        <span className="text-xl font-medium">+</span>
-                      </div>
-                      <div>
-                        <p className="">₹ {props.product.price}</p>
-                      </div>
-                      <RiDeleteBin6Line
-                        onClick={""}
-                        className="cursor-none lg:cursor-pointer"
-                        size={20}
-                      />
-                    </div>
-                  </figcaption>
-                </div>
+                {products.slice(10, 15).map((product) => {
+                  return <CartItem product={product} />;
+                })}
               </div>
               <div className="py-4">
-                <Recommendation
+                <CustomSwiper
+                  data={products.slice(20, 24)}
                   headingText="You may also like"
-                  products={product}
+                  componentToBeRender={RecommendationCard}
+                  navigation={false}
                   noOfSlidePerView={[
                     {
                       0: {
-                        slidesPerView: 1,
+                        slidesPerView: 1.5,
+                        spaceBetween: 20,
                       },
                       400: {
                         slidesPerView: 2,
+                        spaceBetween: 10,
                       },
                     },
                   ]}

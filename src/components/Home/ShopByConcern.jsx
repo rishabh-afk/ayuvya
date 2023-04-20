@@ -16,6 +16,7 @@ const ShopByConcern = () => {
             <CustomSwiper
               data={categories.slice(0, 6)}
               componentToBeRender={ConcernCard}
+              navigation={false}
               marginHorizontal="mx-0"
               noOfSlidePerView={[
                 {

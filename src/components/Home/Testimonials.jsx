@@ -11,6 +11,7 @@ const Testimonials = () => {
           category="WHAT OUR CUSTOMERS SAY"
           cardHeadingSize="text-2xl"
           marginHorizontal={"md:mx-20"}
+          navigation={false}
           componentToBeRender={TestimonialCard}
           noOfSlidePerView={[
             {

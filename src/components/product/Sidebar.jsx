@@ -32,6 +32,7 @@ const Sidebar = () => {
           data={categories.slice(0, 6)}
           componentToBeRender={ConcernCard}
           marginHorizontal="mx-4"
+          navigation={false}
           noOfSlidePerView={[
             {
               0: {
