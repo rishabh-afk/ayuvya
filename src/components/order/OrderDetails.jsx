@@ -5,7 +5,7 @@ import CartItem from "../cart/CartItem";
 import { useSelector } from "react-redux";
 import Subtotal from "../cart/Subtotal";
 
-const OrderDetails = ({ handlePaymentType }) => {
+const OrderDetails = ({ paymentMode }) => {
   const [toggle, setToggle] = useState(false);
   const products = useSelector((state) => state.product.products);
   return (
@@ -32,7 +32,7 @@ const OrderDetails = ({ handlePaymentType }) => {
               );
             })}
           </div>
-          <Subtotal handlePaymentType={handlePaymentType} price={1349.2} />
+          <Subtotal paymentMode={paymentMode} price={1349.2} />
         </>
       )}
       <div className="hidden lg:block">
@@ -47,7 +47,7 @@ const OrderDetails = ({ handlePaymentType }) => {
             );
           })}
         </div>
-        <Subtotal handlePaymentType={handlePaymentType} price={1349.2} />
+        <Subtotal paymentMode={paymentMode} price={1349.2} />
       </div>
     </div>
   );

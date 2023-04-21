@@ -4,7 +4,7 @@ import Button from "../Button";
 import FormInput from "../forms/FormInput";
 import VerifyOtp from "../../modals/VerifyOtp";
 
-const CheckoutForm = ({ handlePaymentType }) => {
+const CheckoutForm = ({ handlePaymentType, paymentMode }) => {
   // const [customerDetail, setCustomerDetail] = useState({
   //   phoneNumber: "",
   //   email: "",
@@ -172,6 +172,8 @@ const CheckoutForm = ({ handlePaymentType }) => {
               id="cashOnDelivery"
               name="payment"
               value="cashOnDelivery"
+              checked={paymentMode === "offline"}
+              onChange={(e) => handlePaymentType(e.target.value)}
               className="h-7 w-7 rounded-md"
             />
             <label htmlFor="cashOnDelivery" className="text-lg">
@@ -184,6 +186,8 @@ const CheckoutForm = ({ handlePaymentType }) => {
               id="payOnline"
               name="payment"
               value="payOnline"
+              checked={paymentMode === "online"}
+              onChange={(e) => handlePaymentType(e.target.value)}
               className="h-7 w-7 rounded-md"
             />
             <label htmlFor="payOnline" className="text-lg">
@@ -207,7 +211,7 @@ const CheckoutForm = ({ handlePaymentType }) => {
         </p>
         <Button
           type="submit"
-          className="bg-gray-400 rounded-lg flex justify-center w-full md:w-fit hover:bg-white hover:border hover:border-gray-400"
+          className="bg-gray-400 rounded-lg flex justify-center w-full lg:w-fit hover:bg-white hover:border hover:border-gray-400"
         >
           <span className="text-xl py-2 lg:py-1 lg:px-8 text-white hover:text-gray-400">
             Continue
