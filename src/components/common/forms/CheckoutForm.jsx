@@ -1,11 +1,44 @@
+// import { useState } from "react";
+import { useState } from "react";
+import Button from "../Button";
 import FormInput from "../forms/FormInput";
+import VerifyOtp from "../../modals/VerifyOtp";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ handlePaymentType }) => {
+  // const [customerDetail, setCustomerDetail] = useState({
+  //   phoneNumber: "",
+  //   email: "",
+  //   firstName: "",
+  //   notification: "",
+  //   lastName: "",
+  //   pincode: "",
+  //   city_District: "",
+  //   state: "",
+  //   addressLine1: "",
+  //   addressLine2: "",
+  //   country: "",
+  //   gender: "",
+  //   promoCode: "",
+  //   payment: "",
+  //   saveInformation: "",
+  // });
+  const [otpModal, showOtpModal] = useState(false);
   const handleSubmit = async (e) => {
+    e.preventDefault();
+    showOtpModal(true);
+  };
+  const handleClose = () => {
+    showOtpModal(false);
+  };
+  const ApplyPromoCode = (e) => {
     e.preventDefault();
   };
   return (
     <div className="text-gray-700">
+      <VerifyOtp otpModal={otpModal} handleClose={handleClose} />
+      <h2 className="text-3xl text-black mb-4 hidden lg:block">
+        Ayuvya Ayurveda
+      </h2>
       <h2 className="text-xl">Contact Information</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 my-4">
         <FormInput
@@ -23,6 +56,17 @@ const CheckoutForm = () => {
           type="email"
           className="py-3 w-full rounded-md"
         />
+        <div className="flex gap-3 items-center">
+          <FormInput
+            type="checkbox"
+            name="notification"
+            id="notification"
+            className="h-5 w-5 mt-2 rounded-md"
+          />
+          <label htmlFor="notification" className="text-sm">
+            Keep me up to date on news and exclusive offers
+          </label>
+        </div>
         <h2 className="text-xl pb-2">Shipping Address</h2>
         <FormInput
           placeholder="First Name*"
@@ -48,31 +92,24 @@ const CheckoutForm = () => {
           className="py-3 w-full rounded-md"
         />
         <FormInput
-          placeholder="City/district"
+          placeholder="City/district*"
           name="city_District"
           id="city_District"
           type="text"
           className="py-3 w-full rounded-md"
         />
-        <select className="border w-full py-3 px-1 rounded-md mb-2">
-          <option disabled value={"State"}>
-            State
+        <select
+          id="state"
+          className="border w-full py-3 px-1 rounded-md mb-2 outline-none bg-white border-gray-300 text-gray-400"
+        >
+          <option disabled defaultValue>
+            Select State
           </option>
-          <option value="Delhi" className="">
-            Delhi
-          </option>
-          <option value="Goa" className="">
-            Goa
-          </option>
-          <option value="Mumbai" className="">
-            Mumbai
-          </option>
-          <option value="Bangalore" className="">
-            Bangalore
-          </option>
-          <option value="Chennai" className="">
-            Chennai
-          </option>
+          <option value="Delhi">Delhi</option>
+          <option value="Goa">Goa</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Bangalore">Bangalore</option>
+          <option value="Chennai">Chennai</option>
         </select>
         <FormInput
           placeholder="House number and area name*"
@@ -89,41 +126,21 @@ const CheckoutForm = () => {
           type="text"
           className="py-3 w-full rounded-md"
         />
-        <select className="border w-full py-3 px-1 rounded-md mb-2">
-          <option disabled value={"Country"}>
-            Country
+        <select className="border w-full py-3 px-1 rounded-md mb-2 outline-none bg-white border-gray-300 text-gray-400">
+          <option disabled defaultValue>
+            Select Country
           </option>
-          <option value="Delhi" className="">
-            Delhi
-          </option>
-          <option value="Goa" className="">
-            Goa
-          </option>
-          <option value="Mumbai" className="">
-            Mumbai
-          </option>
-          <option value="Bangalore" className="">
-            Bangalore
-          </option>
-          <option value="Chennai" className="">
-            Chennai
-          </option>
+          <option value="India">India</option>
         </select>
-        <select className="border w-full py-3 px-1 rounded-md mb-2">
-          <option disabled value={"State"}>
-            Gender
+        <select className="border w-full py-3 px-1 rounded-md mb-2 outline-none bg-white border-gray-300 text-gray-400">
+          <option disabled defaultValue>
+            Select Gender
           </option>
-          <option value="Delhi" className="">
-            Male
-          </option>
-          <option value="Goa" className="">
-            Female
-          </option>
-          <option value="Mumbai" className="">
-            Others
-          </option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Others">Others</option>
         </select>
-        <div className="border-2 border-gray-300 rounded-full pl-4 pr-1 flex justify-between items-center">
+        <div className="border border-gray-300 rounded-full pl-4 pr-1 flex justify-between items-center">
           <input
             placeholder="Promo Code"
             name="promocode"
@@ -131,33 +148,61 @@ const CheckoutForm = () => {
             type="text"
             className="py-3 w-full rounded-md outline-none"
           />
-          <span className="bg-gray-500 px-6 rounded-full text-white py-2 ">
+          <span
+            onClick={ApplyPromoCode}
+            className="bg-gray-500 px-8 rounded-full text-white py-2 cursor-none lg:cursor-pointer"
+          >
             Apply
           </span>
         </div>
-        <div className="flex gap-5 items-center">
+        <fieldset className="flex flex-col gap-3 lg:flex-row lg:gap-10 py-4">
+          <div className="flex gap-3 items-center">
+            <input
+              type="radio"
+              id="cashOnDelivery"
+              name="payment"
+              value="cashOnDelivery"
+              className="h-7 w-7 rounded-md"
+            />
+            <label htmlFor="cashOnDelivery" className="text-lg">
+              Cash On Delivery (COD)
+            </label>
+          </div>
+          <div className="flex gap-3 items-center">
+            <input
+              type="radio"
+              id="payOnline"
+              name="payment"
+              value="payOnline"
+              className="h-7 w-7 rounded-md"
+            />
+            <label htmlFor="payOnline" className="text-lg">
+              Pay Online
+            </label>
+          </div>
+        </fieldset>
+        <div className="flex gap-3 items-center px-1">
           <FormInput
-            placeholder="Apartment, suite, etc. (optional)"
-            name="addressLine2"
-            id="addressLine2"
-            type="radio"
-            className="h-4 w-4 mt-3 rounded-md"
+            type="checkbox"
+            name="saveInformation"
+            id="saveInformation"
+            className="h-5 w-5 mt-2 rounded-md"
           />
-          <p className="">cash On Delivery (COD)</p>
+          <label htmlFor="saveInformation" className="text-sm">
+            Save this information for next time
+          </label>
         </div>
-        <div className="flex gap-5 items-center">
-          <FormInput
-            placeholder="Apartment, suite, etc. (optional)"
-            name="addressLine2"
-            id="addressLine2"
-            type="radio"
-            className="h-4 w-4 mt-3 rounded-md"
-          />
-          <p className="">Pay Online</p>
-        </div>
-        {/* <div className="w-5 h-5 border-1 border-blue-800 rounded-full m-1">
-          <div className="w-3 h-3 bg-blue-700 rounded-full"></div>
-        </div> */}
+        <p className="pb-3">
+          Note: Get <strong>10% discount</strong> on online payment.
+        </p>
+        <Button
+          type="submit"
+          className="bg-gray-400 rounded-lg flex justify-center w-full md:w-fit hover:bg-white hover:border hover:border-gray-400"
+        >
+          <span className="text-xl py-2 lg:py-1 lg:px-8 text-white hover:text-gray-400">
+            Continue
+          </span>
+        </Button>
       </form>
     </div>
   );

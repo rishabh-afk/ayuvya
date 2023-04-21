@@ -1,8 +1,7 @@
 import CheckoutForm from "../components/common/forms/CheckoutForm";
 import OrderDetails from "../components/order/OrderDetails";
-
-const Checkout = () => {
-  const handlePaymentType = async () => {};
+const ThankYou = () => {
+  const handlePaymentType = () => {};
   return (
     <div className="lg:pl-20 flex flex-col lg:flex-row">
       <div className="w-full md:w-[55%] p-8 lg:p-12 order-last lg:order-first">
@@ -15,4 +14,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default ThankYou;

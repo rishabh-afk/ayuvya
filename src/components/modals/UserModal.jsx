@@ -103,7 +103,7 @@ const UserModal = (props) => {
                   placeholder="Name"
                   name="name"
                   id="name"
-                  className="rounded-sm"
+                  className="rounded-sm w-80"
                   value={user.name}
                   onChange={(e) => setUser({ ...user, name: e.target.value })}
                 />
@@ -128,6 +128,7 @@ const UserModal = (props) => {
                     placeholder="Date Of Birth"
                     name="dateOfBirth"
                     id="dateOfBirth"
+                    className="w-80"
                     value={user.dateOfBirth}
                     onChange={(e) =>
                       setUser({ ...user, dateOfBirth: e.target.value })

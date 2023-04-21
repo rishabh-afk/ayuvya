@@ -19,6 +19,7 @@ const ProductDetail = lazy(() =>
 );
 const CategoryBasedProduct = lazy(() => import("./pages/CategoryBasedProduct"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+const ThankYou = lazy(() => import("./pages/ThankYou"));
 // const Error = lazy(() => import("./pages/Error"));
 
 const RoutesWrapper = () => {
@@ -52,6 +53,7 @@ const RoutesWrapper = () => {
       <Route path="/terms-and-condition" element={<TermsAndCondition />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/thank-you" element={<ThankYou />} />
       {/* <Route path="*" element={<Error />} /> */}
     </Routes>
   );

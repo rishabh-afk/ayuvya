@@ -6,7 +6,7 @@ const FormInput = (props) => {
         {...props}
         required
         onChange={props.onChange}
-        className={`border border-gray-300 p-2 w-80 mb-3 outline-none ${props.className}`}
+        className={`border border-gray-300 p-2 mb-3 outline-none ${props.className}`}
       />
     </div>
   );

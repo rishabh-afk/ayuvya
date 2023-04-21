@@ -62,7 +62,7 @@ const AddressModal = (props) => {
                 placeholder="Address Line 1"
                 name="addressLine1"
                 id="addressLine1"
-                className="rounded-sm"
+                className="rounded-sm w-80"
                 onChange={(e) =>
                   setAddress({ ...address, addressLine1: e.target.value })
                 }
@@ -72,7 +72,7 @@ const AddressModal = (props) => {
                 placeholder="Address Line 2"
                 name="addressLine2"
                 id="addressLine2"
-                className="rounded-sm"
+                className="rounded-sm w-80"
                 onChange={(e) =>
                   setAddress({ ...address, addressLine2: e.target.value })
                 }
@@ -84,7 +84,7 @@ const AddressModal = (props) => {
                 placeholder="zipcode"
                 name="zipcode"
                 id="zipcode"
-                className="rounded-sm"
+                className="rounded-sm w-80"
                 onChange={(e) =>
                   setAddress({ ...address, zipcode: e.target.value })
                 }
@@ -94,7 +94,7 @@ const AddressModal = (props) => {
                 placeholder="country"
                 name="country"
                 id="country"
-                className="rounded-sm"
+                className="rounded-sm w-80"
                 onChange={(e) =>
                   setAddress({ ...address, country: e.target.value })
                 }
@@ -106,7 +106,7 @@ const AddressModal = (props) => {
                 placeholder="City"
                 name="city"
                 id="city"
-                className="rounded-sm"
+                className="rounded-sm w-80"
                 onChange={(e) =>
                   setAddress({ ...address, city: e.target.value })
                 }
@@ -116,7 +116,7 @@ const AddressModal = (props) => {
                 placeholder="area"
                 name="area"
                 id="area"
-                className="rounded-sm"
+                className="rounded-sm w-80"
                 onChange={(e) =>
                   setAddress({ ...address, area: e.target.value })
                 }
