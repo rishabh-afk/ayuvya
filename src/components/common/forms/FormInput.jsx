@@ -1,6 +1,6 @@
 const FormInput = (props) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className={`flex flex-col gap-1 ${props.width}`}>
       {props?.label && <label>{props.label}:</label>}
       <input
         {...props}

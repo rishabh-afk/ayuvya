@@ -2,10 +2,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const CartItem = ({ product, isCheckoutPage }) => {
   return (
-    <div className={`flex ${isCheckoutPage ? "pt-2" : "border-b"}`}>
-      <figure className="w-1/3 relative">
+    <div className={`flex pr-4 gap-5 ${isCheckoutPage ? "pt-2" : "border-b"}`}>
+      <figure className="relative">
         <img
-          className="relative w-28 p-3 aspect-square rounded-md"
+          className="w-28 p-3 aspect-square rounded-md"
           src={product?.primary_image}
           alt=""
         />
@@ -28,9 +28,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
                 +
               </span>
             </div>
-            <p className="font-semibold text-gray-500">
-              ₹ {product?.price || "2378.6"}
-            </p>
+            <p className="font-semibold text-gray-500">₹ {product?.price}</p>
             <RiDeleteBin6Line
               onClick={""}
               className="cursor-none lg:cursor-pointer"

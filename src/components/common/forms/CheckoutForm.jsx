@@ -47,14 +47,14 @@ const CheckoutForm = ({ handlePaymentType }) => {
           id="phoneNumber"
           type="number"
           required
-          className="py-3 w-full rounded-md"
+          className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
         />
         <FormInput
           placeholder="Email (Optional)"
           name="email"
           id="email"
           type="email"
-          className="py-3 w-full rounded-md"
+          className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
         />
         <div className="flex gap-3 items-center">
           <FormInput
@@ -68,85 +68,95 @@ const CheckoutForm = ({ handlePaymentType }) => {
           </label>
         </div>
         <h2 className="text-xl pb-2">Shipping Address</h2>
-        <FormInput
-          placeholder="First Name*"
-          name="firstName"
-          id="firstName"
-          type="text"
-          required
-          className="py-3 w-full rounded-md"
-        />
-        <FormInput
-          placeholder="Last Name*"
-          name="lastName"
-          id="lastName"
-          type="text"
-          className="py-3 w-full rounded-md"
-        />
-        <FormInput
-          placeholder="Pincode*"
-          name="pincode"
-          id="pincode"
-          type="number"
-          required
-          className="py-3 w-full rounded-md"
-        />
-        <FormInput
-          placeholder="City/district*"
-          name="city_District"
-          id="city_District"
-          type="text"
-          className="py-3 w-full rounded-md"
-        />
-        <select
-          id="state"
-          className="border w-full py-3 px-1 rounded-md mb-2 outline-none bg-white border-gray-300 text-gray-400"
-        >
-          <option disabled defaultValue>
-            Select State
-          </option>
-          <option value="Delhi">Delhi</option>
-          <option value="Goa">Goa</option>
-          <option value="Mumbai">Mumbai</option>
-          <option value="Bangalore">Bangalore</option>
-          <option value="Chennai">Chennai</option>
-        </select>
+        <div className="flex flex-col md:flex-row gap-2 md:gap-5">
+          <FormInput
+            placeholder="First Name*"
+            name="firstName"
+            id="firstName"
+            type="text"
+            required
+            className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
+            width="w-full md:w-1/2"
+          />
+          <FormInput
+            placeholder="Last Name*"
+            name="lastName"
+            id="lastName"
+            type="text"
+            className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
+            width="w-full md:w-1/2"
+          />
+        </div>
+        <div className="flex flex-col md:flex-row gap-2 md:gap-5">
+          <FormInput
+            placeholder="Pincode*"
+            name="pincode"
+            id="pincode"
+            type="number"
+            required
+            className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
+            width="w-full md:w-1/3"
+          />
+          <FormInput
+            placeholder="City/district*"
+            name="city_District"
+            id="city_District"
+            type="text"
+            className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
+            width="w-full md:w-1/3"
+          />
+          <select
+            id="state"
+            className="border w-full md:w-1/3 py-3 md:py-0 px-1 rounded-md mb-2 md:mb-3 focus:outline focus:outline-blue-200 focus:outline-4 focus:outline-offset-0 bg-white border-gray-300 text-gray-400"
+          >
+            <option disabled defaultValue>
+              Select State
+            </option>
+            <option value="Delhi">Delhi</option>
+            <option value="Goa">Goa</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Chennai">Chennai</option>
+          </select>
+        </div>
         <FormInput
           placeholder="House number and area name*"
           name="addressLine1"
           id="addressLine1"
           type="text"
           required
-          className="py-3 w-full rounded-md"
+          className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
         />
         <FormInput
           placeholder="Apartment, suite, etc. (optional)"
           name="addressLine2"
           id="addressLine2"
           type="text"
-          className="py-3 w-full rounded-md"
+          className="py-3 w-full rounded-md focus:outline-blue-200 focus:outline-4 focus:outline-offset-0"
         />
-        <select className="border w-full py-3 px-1 rounded-md mb-2 outline-none bg-white border-gray-300 text-gray-400">
-          <option disabled defaultValue>
-            Select Country
-          </option>
-          <option value="India">India</option>
-        </select>
-        <select className="border w-full py-3 px-1 rounded-md mb-2 outline-none bg-white border-gray-300 text-gray-400">
-          <option disabled defaultValue>
-            Select Gender
-          </option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Others">Others</option>
-        </select>
+        <div className="flex flex-col md:flex-row gap-2 md:gap-5">
+          <select className="border w-full md:w-1/2 py-3 px-1 rounded-md mb-2 focus:outline focus:outline-blue-200 focus:outline-4 focus:outline-offset-0 bg-white border-gray-300 text-gray-400">
+            <option disabled defaultValue>
+              Select Country
+            </option>
+            <option value="India">India</option>
+          </select>
+          <select className="border w-full md:w-1/2 py-3 px-1 rounded-md mb-2 focus:outline focus:outline-blue-200 focus:outline-4 focus:outline-offset-0 bg-white border-gray-300 text-gray-400">
+            <option disabled defaultValue>
+              Select Gender
+            </option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
         <div className="border border-gray-300 rounded-full pl-4 pr-1 flex justify-between items-center">
           <input
             placeholder="Promo Code"
             name="promocode"
             id="promocode"
             type="text"
-            className="py-3 w-full rounded-md outline-none"
+            className="py-3 w-full rounded-md"
           />
           <span
             onClick={ApplyPromoCode}

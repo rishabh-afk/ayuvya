@@ -52,8 +52,8 @@ const OrderSummary = (props) => {
           <CustomerDetails />
         </div>
       </div>
-      <div className="flex justify-center items-center my-8 gap-2 flex-col lg:flex-row lg:justify-between">
-        <p className="order-last lg:order-first">
+      <div className="flex justify-center items-center my-8 gap-2 flex-col md:flex-row md:justify-between">
+        <p className="order-last md:order-first">
           Need Help?{" "}
           <Link
             to={"/contact-us"}
@@ -62,7 +62,7 @@ const OrderSummary = (props) => {
             Contact Us
           </Link>
         </p>
-        <div className="order-first lg:order-last">
+        <div className="order-first md:order-last">
           <Button className="text-white w-fit bg-gray-400 rounded-lg py-3 px-4 hover:bg-gray-400/90">
             <span className="text-lg">Continue Shopping</span>
           </Button>
