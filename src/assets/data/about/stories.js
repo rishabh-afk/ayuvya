@@ -11,7 +11,7 @@ import flowerMid from '../../images/about/middle-flower.webp';
 const stories = [
     {
         id: 1,
-        title: 'Previous two generations',
+        title: 'Started from previous two generations',
         coverImage: coverImage1,
         summary: [
             {

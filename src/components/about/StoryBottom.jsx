@@ -2,7 +2,8 @@ import classes from "./StoryBottom.module.css";
 
 const StoryBottom = ({ topLeftImage, topCenterImage, topRightImage, centerLeftImage, centerRightImage, summary, mainImage }) => {
     return (
-        <div className="h-full text-centers relative">
+        <div className="min-h-screen">
+        <div className="text-centers relative overflow-hidden">
             <div className="absolute w-full h-full top-0 left-0 bg-red-200/10 -z-10">
                 <img src={topLeftImage} alt="" className={`absolute max-w-md h-auto w-40 -top-4 -left-14 md:w-60 md:-left-20 lg:w-72 lg:-top-8 lg:-left-24 xl:w-96 xl:-left-32 origin-bottom ${classes.move}`}/>
                 <img src={topCenterImage} alt="" className={`absolute max-w-md h-auto w-44 md:w-64 lg:w-72 xl:w-96 -top-8 left-1/2 -translate-y-1/2 -translate-x-1/2 origin-top-left ${classes.move}`} />
@@ -18,6 +19,7 @@ const StoryBottom = ({ topLeftImage, topCenterImage, topRightImage, centerLeftIm
                     <img src={mainImage} alt="" />
                 </div>
             </div>
+        </div>
         </div>
     )
 }

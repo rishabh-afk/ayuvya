@@ -3,7 +3,7 @@ import rays from "../../assets/images/about/rays.png";
 
 const StoryTop = ({ title, coverImage }) => {
     return (
-        <div className="min-h-screen flex flex-col md:flex-row justify-between items-center p-16 gap-8">
+        <div className="h-screen flex flex-col md:flex-row justify-between items-center p-16 gap-8">
             <div className="max-w-sm mx-auto text-center">
                 <div className="flex flex-col items-center">
                     <img src={rays} alt="" className="w-3/5 max-w-[200px]" />

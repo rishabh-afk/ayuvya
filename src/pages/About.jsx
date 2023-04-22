@@ -10,6 +10,7 @@ const About = () => {
         {
             stories.map(story => <Story key={story.id} story={story} />)
         }
+        <div className="h-screen bg-red-300"></div>
     </>
   )
 }
