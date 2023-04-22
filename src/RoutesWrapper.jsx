@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Home = lazy(() => import("./pages/Home"));
 const Account = lazy(() => import("./pages/Account"));
 const AllProduct = lazy(() => import("./pages/AllProduct"));
-const AboutUs = lazy(() => import("./pages/AboutUs"));
+const About = lazy(() => import("./pages/About"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ShippingPolicy = lazy(() => import("./pages/ShippingPolicy"));
 const Blogs = lazy(() => import("./pages/Blogs"));
@@ -27,6 +27,7 @@ const RoutesWrapper = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
       <Route path="/account" element={<Account />} />
       <Route path="/all" element={<AllProduct />} />
       {categories.map((category) => {
@@ -47,7 +48,6 @@ const RoutesWrapper = () => {
       })}
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
-      <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/faqs" element={<Faqs />} />
       <Route path="/terms-and-condition" element={<TermsAndCondition />} />
