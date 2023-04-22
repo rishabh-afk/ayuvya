@@ -63,9 +63,11 @@ const OrderSummary = (props) => {
           </Link>
         </p>
         <div className="order-first md:order-last">
-          <Button className="text-white w-fit bg-gray-400 rounded-lg py-3 px-4 hover:bg-gray-400/90">
-            <span className="text-lg">Continue Shopping</span>
-          </Button>
+          <Link to={"/"}>
+            <Button className="text-white w-fit bg-gray-400 rounded-lg py-3 px-4 hover:bg-gray-400/90">
+              <span className="text-lg">Continue Shopping</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

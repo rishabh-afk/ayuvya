@@ -8,7 +8,7 @@ const ContactUs = () => {
   return (
     <Layouts>
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:px-20">
-        <div className="w-full lg:w-1/2 p-6 lg:p-10 pt-16">
+        <div className="w-full lg:w-1/2 p-6 lg:p-28 pt-16">
           <h4 className="text-2xl font-bold mb-2 text-center lg:text-left">
             GET IN TOUCH
           </h4>
@@ -26,7 +26,7 @@ const ContactUs = () => {
 
           <div className="flex flex-col gap-6 py-4 lg:py-10 text-gray-400">
             <div className="flex gap-8 items-center">
-              <RiCustomerService2Line size={25} color="black" />
+              <RiCustomerService2Line size={30} color="black" />
               <p className="">
                 <Link
                   to={"tel:+91 9717133893"}

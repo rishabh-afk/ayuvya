@@ -11,16 +11,20 @@ const Reviews = ({ reviews }) => {
         data={reviews}
         componentToBeRender={Reviewcard}
         navigation={false}
+        marginHorizontal={"md:mx-20"}
         noOfSlidePerView={[
           {
             0: {
               slidesPerView: 1,
+              spaceBetween: 10,
             },
             576: {
               slidesPerView: 2,
+              spaceBetween: 15,
             },
             980: {
               slidesPerView: 3,
+              spaceBetween: 25,
             },
           },
         ]}
