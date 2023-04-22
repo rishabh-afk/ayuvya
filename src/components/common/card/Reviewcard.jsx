@@ -1,4 +1,4 @@
-import CardHoc from "../../UI/CardHoc";
+// import CardHoc from "../../UI/CardHoc";
 import ProgressBarWithStars from "../custom/ProgressBarWithStars";
 
 const Reviewcard = ({ itemObj }) => {

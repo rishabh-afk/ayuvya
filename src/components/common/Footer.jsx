@@ -52,7 +52,7 @@ const Footer = () => {
                   </h4>
                   <ul className="flex flex-col gap-3 py-6 lg:py-10">
                     <li>
-                      <Link to={"/about-us"}>About Us</Link>
+                      <Link to={"/about"}>About Us</Link>
                     </li>
                   </ul>
                 </div>

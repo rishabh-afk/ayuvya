@@ -1,12 +1,12 @@
 // library imports
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 // custom pages/components imports
 const Home = lazy(() => import("./pages/Home"));
 const Account = lazy(() => import("./pages/Account"));
-const AllProduct = lazy(() => import("./pages/AllProduct"));
+// const AllProduct = lazy(() => import("./pages/AllProduct"));
 const About = lazy(() => import("./pages/About"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ShippingPolicy = lazy(() => import("./pages/ShippingPolicy"));
@@ -20,17 +20,22 @@ const ProductDetail = lazy(() =>
 const CategoryBasedProduct = lazy(() => import("./pages/CategoryBasedProduct"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
-// const Error = lazy(() => import("./pages/Error"));
+const Error = lazy(() => import("./pages/Error"));
 
 const RoutesWrapper = () => {
-  const categories = useSelector((state) => state.common.categories);
+  // const categories = useSelector((state) => state.common.categories);
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
+      <Route path="/">
+        <Route index element={<Home />} />
+        <Route path=":slug">
+          <Route index element={<CategoryBasedProduct />} />
+          <Route path=":slug" element={<ProductDetail />} />
+        </Route>
+      </Route>
       <Route path="/account" element={<Account />} />
-      <Route path="/all" element={<AllProduct />} />
-      {categories.map((category) => {
+      {/* <Route path="/all" element={<AllProduct />} /> */}
+      {/* {categories.map((category) => {
         return (
           <Route key={category.id} path={`/${category.category_slug}`}>
             <Route
@@ -45,8 +50,9 @@ const RoutesWrapper = () => {
             <Route path=":slug" element={<ProductDetail />} />
           </Route>
         );
-      })}
+      })} */}
       <Route path="/blogs" element={<Blogs />} />
+      <Route path="/about" element={<About />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/faqs" element={<Faqs />} />
@@ -54,7 +60,7 @@ const RoutesWrapper = () => {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/thank-you" element={<ThankYou />} />
-      {/* <Route path="*" element={<Error />} /> */}
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 };

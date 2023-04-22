@@ -30,7 +30,7 @@ const Sidebar = ({ setSidebar, categories }) => {
         })}
       </div>
       <div className="flex flex-col gap-3 text-sm pb-6">
-        <Link onClick={handleClick} to={"/about-us"}>
+        <Link onClick={handleClick} to={"/about"}>
           About Us
         </Link>
         <Link onClick={handleClick} to={"/blogs"}>
