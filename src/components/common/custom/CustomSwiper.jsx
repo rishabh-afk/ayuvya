@@ -11,7 +11,9 @@ const CustomSwiper = ({
   noOfSlidePerView,
   cardHeadingSize,
   marginHorizontal,
+  marginVertical,
   marginTop,
+  marginBottom,
   headingText,
   navigation,
   componentToBeRender: Component,
@@ -26,7 +28,7 @@ const CustomSwiper = ({
           {headingText && (
             <h3 className="font-semibold text-lg pb-4">{headingText}</h3>
           )}
-          <div className={`mx-4 mb-10 ${marginHorizontal}`}>
+          <div className={`${marginHorizontal} ${marginBottom}`}>
             <div>
               <Swiper
                 breakpoints={noOfSlidePerView[0]}
@@ -47,7 +49,7 @@ const CustomSwiper = ({
                     <Component
                       key={item.id}
                       itemObj={item}
-                      marginVertical="my-10"
+                      marginVertical={marginVertical}
                       headingSize={cardHeadingSize}
                       isBlogPage={false}
                     />

@@ -1,7 +1,7 @@
 import { AiFillStar } from "react-icons/ai";
 import ProgressBar from "./ProgressBar";
 
-const ProgressBarWithStars = ({ iconSize, percent, noOfStar }) => {
+const ProgressBarWithStars = ({ iconSize, percent, noOfStar, reviewCount }) => {
   const coloredIcons = new Array(noOfStar).fill(null);
   const uncoloredIcons = new Array(5 - noOfStar).fill(null);
 
@@ -19,7 +19,7 @@ const ProgressBarWithStars = ({ iconSize, percent, noOfStar }) => {
       </div>
       {percent && (
         <div className="w-full">
-          <ProgressBar percent={percent} />
+          <ProgressBar percent={percent} reviewCount={reviewCount} />
         </div>
       )}
     </div>

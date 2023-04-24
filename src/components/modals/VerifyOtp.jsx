@@ -28,7 +28,6 @@ Modal.setAppElement("#root");
 const VerifyOtp = (props) => {
   const [otp, setOtp] = useState(null);
   const resendOTP = () => {
-    console.log("akhjgdhf");
     toast("OTP is sent successfully");
   };
   const phoneNumber = "+91 9354697528";

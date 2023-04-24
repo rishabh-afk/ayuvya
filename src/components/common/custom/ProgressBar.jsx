@@ -1,4 +1,4 @@
-const ProgressBar = ({ percent }) => {
+const ProgressBar = ({ percent, reviewCount }) => {
   return (
     <div className="flex gap-5 items-center w-full">
       <div className="bg-slate-200 w-3/5 md:w-3/4 h-4 rounded-[4px]">
@@ -9,7 +9,7 @@ const ProgressBar = ({ percent }) => {
       </div>
       <span className="flex gap-2">
         <span>{percent}%</span>
-        <span>(650)</span>
+        <span>({reviewCount})</span>
       </span>
     </div>
   );

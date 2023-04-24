@@ -36,6 +36,7 @@ const CartModal = (props) => {
                 <CustomSwiper
                   data={products.slice(20, 24)}
                   headingText="You may also like"
+                  marginVertical={"my-10"}
                   componentToBeRender={RecommendationCard}
                   navigation={false}
                   noOfSlidePerView={[

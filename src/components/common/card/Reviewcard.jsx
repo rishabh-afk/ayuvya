@@ -3,7 +3,7 @@ import ProgressBarWithStars from "../custom/ProgressBarWithStars";
 
 const Reviewcard = ({ itemObj }) => {
   return (
-    <div className="mb-20 shadow-2xl p-4">
+    <div className="mb-10 mt-5 shadow-lg p-4">
       <div className="flex gap-3 items-center">
         <div className="w-16 rounded-full aspect-square bg-gray-500 text-white flex justify-center items-center text-4xl">
           {itemObj.review_owner[0]}
@@ -23,7 +23,7 @@ const Reviewcard = ({ itemObj }) => {
           </div>
         </div>
       </div>
-      <div className="h-48">
+      <div className="h-48 lg:h-40">
         <h2 className="text-2xl font-semibold py-2">{itemObj.review_owner}</h2>
         <p className="text-sm">{itemObj.review_description}</p>
       </div>

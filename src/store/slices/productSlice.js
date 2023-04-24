@@ -5,6 +5,7 @@ const initialState = {
   products: [],
   status: "loading",
   message: "",
+  productDetails: {},
 };
 
 export const getAllProducts = createAsyncThunk(
@@ -25,7 +26,11 @@ export const getAllProducts = createAsyncThunk(
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentProduct: (state, action) => {
+      state.productDetails = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllProducts.pending, (state) => {
@@ -42,5 +47,7 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const { setCurrentProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

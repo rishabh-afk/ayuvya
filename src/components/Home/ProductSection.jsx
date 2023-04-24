@@ -16,6 +16,7 @@ const ProductSection = () => {
         marginHorizontal={"md:mx-20"}
         navigation={true}
         marginTop="mt-10"
+        marginVertical="my-10"
         componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
@@ -40,6 +41,7 @@ const ProductSection = () => {
         marginHorizontal={"md:mx-20"}
         marginTop="mt-10"
         navigation={true}
+        marginVertical="my-10"
         componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {
@@ -68,6 +70,7 @@ const ProductSection = () => {
         marginHorizontal={"md:mx-20"}
         marginTop="mt-10"
         navigation={true}
+        marginVertical="my-10"
         componentToBeRender={ProductCard}
         noOfSlidePerView={[
           {

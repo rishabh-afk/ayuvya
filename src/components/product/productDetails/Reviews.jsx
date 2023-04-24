@@ -1,11 +1,11 @@
 import CustomSwiper from "../../common/custom/CustomSwiper";
 import Reviewcard from "../../common/card/Reviewcard";
 
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, review_count }) => {
   return (
     <>
-      <h2 className="border-b-2 border-[#182d4a] w-fit pb-2 my-5 mx-20 font-semibold">
-        Reviews (2129)
+      <h2 className="border-b-2 border-[#182d4a] w-fit pb-2 mx-20 font-semibold">
+        Reviews ({review_count})
       </h2>
       <CustomSwiper
         data={reviews}
