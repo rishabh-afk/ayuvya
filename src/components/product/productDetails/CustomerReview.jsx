@@ -9,7 +9,7 @@ const CustomerReview = ({
   rating_one,
 }) => {
   return (
-    <section className="py-10 mx-4 lg:mx-12">
+    <section className="py-10 lg:mx-12">
       <div className="w-full pb-4">
         <h2 className="text-2xl lg:text-4xl font-semibold">Customer Reviews</h2>
       </div>
@@ -47,8 +47,8 @@ const CustomerReview = ({
           />
           <ProgressBarWithStars
             iconSize={25}
-            percent={rating_two}
-            reviewCount={Math.round((review_count * rating_two) / 100)}
+            percent={rating_one}
+            reviewCount={Math.round((review_count * rating_one) / 100)}
             noOfStar={1}
           />
         </div>

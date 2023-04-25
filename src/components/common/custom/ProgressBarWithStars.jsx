@@ -17,7 +17,7 @@ const ProgressBarWithStars = ({ iconSize, percent, noOfStar, reviewCount }) => {
           );
         })}
       </div>
-      {percent && (
+      {(percent || percent === 0) && (
         <div className="w-full">
           <ProgressBar percent={percent} reviewCount={reviewCount} />
         </div>

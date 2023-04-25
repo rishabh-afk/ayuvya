@@ -32,18 +32,19 @@ const ProductDetail = () => {
     };
     fetchProduct();
   }, [dispatch, productId]);
-  console.log(productData);
+
   if (Object.keys(productData).length === 0) {
     return <Loader />;
   }
+  console.log(productData);
   return (
     <Layouts>
       <section className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row mx-4 lg:mx-16 my-8">
-          <div className="w-full md:w-1/2 p-4">
+        <div className="flex flex-col md:flex-row mx-3 lg:mx-16 my-8">
+          <div className="w-full md:w-1/2 p-1 lg:p-4">
             <ImagesSwiper images={productData.product_images} />
           </div>
-          <div className="w-full md:w-1/2 p-4">
+          <div className="w-full md:w-1/2 p-1 lg:p-4">
             <CommonDetails product={productData} />
             <div className="border-y bg-slate-100 h-auto cursor-none lg:cursor-pointer my-4">
               <CustomSwiper
@@ -79,11 +80,15 @@ const ProductDetail = () => {
           </div>
         </div>
         <div className="mx-4 lg:mx-10">
-          <Ingredients ingredients={productData.ingredients} />
-          <Benefits
-            benefits={productData.benefits}
-            title={productData.product_nick_name.split(" ")[1]}
-          />
+          {productData.ingredients.length > 0 && (
+            <Ingredients ingredients={productData.ingredients} />
+          )}
+          {productData.benefits && (
+            <Benefits
+              benefits={productData.benefits}
+              title={productData.product_nick_name.split(" ")[1]}
+            />
+          )}
           <CustomerReview
             review_count={productData.review_count}
             rating_five={productData.rating_five}
@@ -100,11 +105,14 @@ const ProductDetail = () => {
         <h4 className="text-3xl font-bold mx-4 lg:mx-24 mb-5">
           Products you can't miss
         </h4>
-        <div className="flex flex-wrap mx-4 lg:mx-20">
+        <div className="flex flex-wrap mx-3 lg:mx-20">
           {productData &&
             productData.related_products.map((item) => {
               return (
-                <div key={item.id} className="w-1/2 md:w-1/3 lg:w-1/4 p-3">
+                <div
+                  key={item.id}
+                  className="w-1/2 md:w-1/3 lg:w-1/4 p-2 lg:p-3"
+                >
                   <ProductCard
                     key={item.id}
                     itemObj={item}

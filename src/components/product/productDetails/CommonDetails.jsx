@@ -5,8 +5,8 @@ const CommonDetails = ({ product }) => {
   const items = new Array(Math.round(product.rating)).fill(null);
   return (
     <div>
-      <h1 className="text-4xl font-bold">{product.product_name}</h1>
-      <p className="text-2xl py-2">{product.product_nick_name}</p>
+      <h1 className="text-2xl lg:text-4xl font-bold">{product.product_name}</h1>
+      <p className="text-xl lg:text-2xl py-2">{product.product_nick_name}</p>
       <p className="flex items-end">
         <span className="pr-2 text-3xl font-semibold">{product.rating} </span>
         {items.map((item, i) => {

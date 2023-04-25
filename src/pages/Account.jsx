@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useState } from "react";
 // import { Pagination } from "swiper";
 import Tabs from "../components/accounts/Tabs";
-import CardHoc from "../components/UI/CardHoc";
 import Layouts from "../components/UI/Layouts";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -88,10 +87,10 @@ const Account = () => {
               <Tabs key={tab.id} tab={tab} />
             ))}
           </div>
-          <CardHoc className="mx-4 p-3 md:px-10 w-full md:w-3/4 bg-[#f5f0f7] border-[#f5f0f7] shadow-xl">
+          <div className="rounded-lg shadow-2xl mx-4 p-3 md:px-10 w-full md:w-3/4 bg-[#f5f0f7] border-[#f5f0f7]">
             <UserDetail user={userData} />
             <UserAddress user={userData} />
-          </CardHoc>
+          </div>
         </div>
       </div>
     </Layouts>
