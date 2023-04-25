@@ -44,15 +44,17 @@ const CustomSwiper = ({
                 }}
                 modules={[Autoplay, Navigation, Pagination]}
               >
-                {data.map((item, index) => (
+                {data.map((item) => (
                   <SwiperSlide key={item.id}>
-                    <Component
-                      key={item.id ? item.id : index}
-                      itemObj={item}
-                      marginVertical={marginVertical}
-                      headingSize={cardHeadingSize}
-                      isBlogPage={false}
-                    />
+                    <div className="my-10">
+                      <Component
+                        key={item.id}
+                        itemObj={item}
+                        marginVertical={marginVertical}
+                        headingSize={cardHeadingSize}
+                        isBlogPage={false}
+                      />
+                    </div>
                   </SwiperSlide>
                 ))}
               </Swiper>

@@ -4,7 +4,7 @@ import Reviewcard from "../../common/card/Reviewcard";
 const Reviews = ({ reviews, review_count }) => {
   return (
     <>
-      <h2 className="border-b-2 border-[#182d4a] w-fit pb-2 mx-4 lg:mx-20 font-semibold">
+      <h2 className="border-b-2 border-[#182d4a] w-fit mx-4 lg:mx-20 font-semibold">
         Reviews ({review_count})
       </h2>
       <CustomSwiper

@@ -21,6 +21,7 @@ const ThankYou = lazy(() => import("./pages/ThankYou"));
 const Error = lazy(() => import("./pages/Error"));
 
 const RoutesWrapper = () => {
+  // const categories = useSelector((state) => state.common.categories);
   return (
     <Routes>
       <Route path="/">
@@ -30,6 +31,22 @@ const RoutesWrapper = () => {
           <Route path=":slug" element={<ProductDetail />} />
         </Route>
       </Route>
+      {/* {categories.map((category) => {
+        return (
+          <Route key={category.id} path={`/${category.category_slug}`}>
+            <Route
+              index
+              element={
+                <CategoryBasedProduct
+                  category_slug={category.category_slug}
+                  category_name={category.category_name}
+                />
+              }
+            />
+            <Route path=":slug" element={<ProductDetail />} />
+          </Route>
+        );
+      })} */}
       <Route path="/blogs">
         <Route index element={<Blogs />} />
         <Route path=":slug" element={<BlogDetail />} />

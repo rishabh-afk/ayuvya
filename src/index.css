@@ -14,3 +14,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: gray rgb(216, 208, 208);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(216, 208, 208);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 15px;
+  border: 0px solid rgb(216, 208, 208);
+}

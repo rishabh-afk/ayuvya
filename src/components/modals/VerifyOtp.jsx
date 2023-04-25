@@ -16,7 +16,7 @@ const customStyles = {
     width: "350px",
     borderRadius: "12px",
     marginRight: "-50%",
-    zIndex: 1000,
+    zIndex: 10000,
     backgroundColor: "white",
     border: "#f5f0f7",
     transform: "translate(-50%, -50%)",

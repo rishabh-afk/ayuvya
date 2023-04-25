@@ -10,7 +10,7 @@ const BlogCard = ({ itemObj, isBlogPage }) => {
     >
       <CardHoc
         className="
-      bg-white cursor-none lg:cursor-pointer my-10"
+      bg-white cursor-none lg:cursor-pointer my-1 lg:my-0"
       >
         {isBlogPage && (
           <span className="absolute bg-black text-white opacity-50 px-4 rounded-tl-md rounded-br-md">
@@ -26,15 +26,11 @@ const BlogCard = ({ itemObj, isBlogPage }) => {
           </h2>
           {isBlogPage && <div className="py-1">{itemObj.date}</div>}
           {!isBlogPage && (
-            <Link
-              to={`/blogs/${itemObj.slug}`}
-              state={{ blogSlug: itemObj?.slug, scroll: true }}
-              className="flex justify-center"
-            >
+            <div className="flex justify-center">
               <Button className="bg-black text-white rounded-lg">
                 <span>Read More</span>
               </Button>
-            </Link>
+            </div>
           )}
           {isBlogPage && (
             <div className="">{itemObj.blog_description.slice(0, 50)}...</div>

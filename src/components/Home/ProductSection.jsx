@@ -13,7 +13,7 @@ const ProductSection = () => {
         data={newLaunches}
         category="New Launches"
         cardHeadingSize="text-2xl"
-        marginHorizontal={"md:mx-20"}
+        marginHorizontal={"md:mx-20 mx-4"}
         navigation={true}
         marginTop="mt-10"
         marginVertical="my-10"
@@ -37,8 +37,8 @@ const ProductSection = () => {
       <CustomSwiper
         data={bestSelling}
         category="Best Selling Products"
-        cardHeadingSize="text-md"
-        marginHorizontal={"md:mx-20"}
+        cardHeadingSize="lg:text-md"
+        marginHorizontal={"md:mx-20 mx-4"}
         marginTop="mt-10"
         navigation={true}
         marginVertical="my-10"
@@ -46,11 +46,8 @@ const ProductSection = () => {
         noOfSlidePerView={[
           {
             0: {
-              slidesPerView: 1,
-            },
-            400: {
               slidesPerView: 2,
-              spaceBetween: 25,
+              spaceBetween: 20,
             },
             768: {
               slidesPerView: 3,
@@ -67,7 +64,7 @@ const ProductSection = () => {
         data={combos}
         category="Best Selling Combos"
         cardHeadingSize="text-2xl"
-        marginHorizontal={"md:mx-20"}
+        marginHorizontal={"md:mx-20 mx-4"}
         marginTop="mt-10"
         navigation={true}
         marginVertical="my-10"
