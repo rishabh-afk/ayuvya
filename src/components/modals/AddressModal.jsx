@@ -41,7 +41,6 @@ const AddressModal = (props) => {
     // if (resp.data.message === "success") {
     //   navigate("/account");
     // }
-    // console.log(address);
   };
   return (
     <div>

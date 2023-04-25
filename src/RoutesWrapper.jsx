@@ -10,6 +10,7 @@ const About = lazy(() => import("./pages/About"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ShippingPolicy = lazy(() => import("./pages/ShippingPolicy"));
 const Blogs = lazy(() => import("./pages/Blogs"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const Faqs = lazy(() => import("./pages/Faqs"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsAndCondition = lazy(() => import("./pages/TermsAndCondition"));
@@ -20,7 +21,6 @@ const ThankYou = lazy(() => import("./pages/ThankYou"));
 const Error = lazy(() => import("./pages/Error"));
 
 const RoutesWrapper = () => {
-  // const categories = useSelector((state) => state.common.categories);
   return (
     <Routes>
       <Route path="/">
@@ -30,7 +30,10 @@ const RoutesWrapper = () => {
           <Route path=":slug" element={<ProductDetail />} />
         </Route>
       </Route>
-      <Route path="/blogs" element={<Blogs />} />
+      <Route path="/blogs">
+        <Route index element={<Blogs />} />
+        <Route path=":slug" element={<BlogDetail />} />
+      </Route>
       <Route path="/account" element={<Account />} />
       <Route path="/about" element={<About />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />

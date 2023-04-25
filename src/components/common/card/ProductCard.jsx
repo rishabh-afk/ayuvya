@@ -32,7 +32,9 @@ const ProductCard = ({
         >
           <img
             className={`object-cover rounded-t-lg ${
-              isProductPage ? "hover:opacity-30 transition delay-100" : ""
+              isProductPage
+                ? "hover:opacity-30 transition-all duration-200"
+                : ""
             }`}
             src={itemObj?.primary_image}
             alt=""

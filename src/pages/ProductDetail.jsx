@@ -36,7 +36,7 @@ const ProductDetail = () => {
   if (Object.keys(productData).length === 0) {
     return <Loader />;
   }
-  console.log(productData);
+
   return (
     <Layouts>
       <section className="max-w-7xl mx-auto">
@@ -98,13 +98,17 @@ const ProductDetail = () => {
             rating_one={productData.rating_one}
           />
         </div>
-        <Reviews
-          reviews={productData.reviews}
-          review_count={productData.review_count}
-        />
-        <h4 className="text-3xl font-bold mx-4 lg:mx-24 mb-5">
-          Products you can't miss
-        </h4>
+        {productData.reviews.length > 0 && (
+          <Reviews
+            reviews={productData.reviews}
+            review_count={productData.review_count}
+          />
+        )}
+        {productData.related_products.length > 0 && (
+          <h4 className="text-3xl font-bold mx-4 lg:mx-24 mb-5">
+            Products you can't miss
+          </h4>
+        )}
         <div className="flex flex-wrap mx-3 lg:mx-20">
           {productData &&
             productData.related_products.map((item) => {

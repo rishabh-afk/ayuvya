@@ -5,6 +5,7 @@ const initialState = {
   blogs: [],
   status: "loading",
   message: "",
+  blogDetails: {},
 };
 
 export const getAllBlogs = createAsyncThunk("get/blogs", async (thunkAPI) => {
@@ -22,7 +23,11 @@ export const getAllBlogs = createAsyncThunk("get/blogs", async (thunkAPI) => {
 const blogsSlice = createSlice({
   name: "blogs",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentBlog: (state, action) => {
+      state.blogDetails = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllBlogs.pending, (state) => {
@@ -39,5 +44,7 @@ const blogsSlice = createSlice({
       });
   },
 });
+
+export const { setCurrentBlog } = blogsSlice.actions;
 
 export default blogsSlice.reducer;

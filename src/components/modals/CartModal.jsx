@@ -28,7 +28,7 @@ const CartModal = (props) => {
             </div>
             <div className="p-4 relative h-[100%] overflow-auto mt-24 pb-48">
               <div className="flex flex-col gap-2">
-                {products.slice(10, 15).map((product) => {
+                {products.slice(20, 22).map((product) => {
                   return <CartItem product={product} />;
                 })}
               </div>
