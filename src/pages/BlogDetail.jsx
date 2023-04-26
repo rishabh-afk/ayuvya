@@ -48,7 +48,7 @@ const BlogDetail = () => {
             {productData.slice(18, 20).map((product) => {
               return (
                 <div key={product.id} className="w-1/2 lg:w-full">
-                  <ProductCard itemObj={product} isProductPage={true} />
+                  <ProductCard product={product} isSwiperProduct={true} />
                 </div>
               );
             })}

@@ -60,23 +60,25 @@ const ProductDetail = () => {
           <div className="w-full md:w-1/2 p-1 lg:p-4">
             <CommonDetails product={productData} />
             <div className="border-y bg-slate-100 h-auto cursor-none lg:cursor-pointer my-4">
-              <CustomSwiper
-                componentToBeRender={Platforms}
-                navigation={false}
-                data={platforms}
-                noOfSlidePerView={[
-                  {
-                    0: {
-                      slidesPerView: 4,
-                      spaceBetween: 10,
+              <div className="my-4">
+                <CustomSwiper
+                  componentToBeRender={Platforms}
+                  navigation={false}
+                  data={platforms}
+                  noOfSlidePerView={[
+                    {
+                      0: {
+                        slidesPerView: 4,
+                        spaceBetween: 10,
+                      },
+                      980: {
+                        slidesPerView: 4,
+                        spaceBetween: 25,
+                      },
                     },
-                    980: {
-                      slidesPerView: 4,
-                      spaceBetween: 25,
-                    },
-                  },
-                ]}
-              />
+                  ]}
+                />
+              </div>
             </div>
             <div className="flex flex-col gap-5">
               <Button
@@ -135,7 +137,7 @@ const ProductDetail = () => {
                 >
                   <ProductCard
                     key={item.id}
-                    itemObj={item}
+                    product={item}
                     headingSize="text-lg"
                   />
                 </div>

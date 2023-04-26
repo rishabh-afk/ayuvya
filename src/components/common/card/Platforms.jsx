@@ -1,9 +1,9 @@
-const Platforms = ({ itemObj }) => {
+const Platforms = ({ product }) => {
   return (
     <img
       className="mx-auto w-5 object-contain"
-      src={itemObj.image_url}
-      alt={itemObj.id}
+      src={product.image_url}
+      alt={product.id}
     />
   );
 };

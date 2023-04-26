@@ -6,11 +6,10 @@ import { useDispatch } from "react-redux";
 import ProductBriefCard from "./ProductBriefCard";
 
 const ProductCard = ({
-  itemObj,
+  product,
   headingSize,
-  width,
   marginVertical,
-  isProductPage,
+  isSwiperProduct,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,34 +22,32 @@ const ProductCard = ({
   };
   const buyNow = () => {
     navigate(
-      `/${itemObj?.product_category?.category_slug}/${itemObj?.product_slug}`,
+      `/${product?.product_category?.category_slug}/${product?.product_slug}`,
       {
-        state: { productId: itemObj?.id, scroll: true },
+        state: { productId: product?.id, scroll: true },
       }
     );
   };
 
   return (
     <CardHoc
-      className={`bg-white cursor-none lg:cursor-pointer ${marginVertical} ${
-        width && width
-      }`}
+      className={`bg-white cursor-none lg:cursor-pointer ${marginVertical} `}
     >
       <div
         className={`w-auto rounded-t-lg relative flex justify-center text-white ${
-          isProductPage ? "h-48 md:h-72 bg-white/60 group" : "h-96"
+          isSwiperProduct ? "h-48 md:h-72 bg-white/60 group" : "h-96"
         }`}
       >
         <img
           className={`absolute rounded-t-lg h-full object-cover ${
-            isProductPage
+            isSwiperProduct
               ? "transition delay-75 ease-in-out duration-200 group-hover:opacity-30"
               : ""
           }`}
-          src={itemObj?.primary_image}
+          src={product?.primary_image}
           alt=""
         />
-        {isProductPage && (
+        {isSwiperProduct && (
           <>
             <div className="relative transition-all ease-in-out duration-200 delay-75 w-full h-full flex justify-center items-center opacity-0 group-hover:opacity-100">
               <Button
@@ -68,10 +65,10 @@ const ProductCard = ({
       </div>
       <ProductBriefCard
         headingSize={headingSize}
-        itemObj={itemObj}
+        product={product}
         addItemToCart={addItemToCart}
         buyNow={buyNow}
-        isProductPage={isProductPage}
+        isSwiperProduct={isSwiperProduct}
       />
     </CardHoc>
   );

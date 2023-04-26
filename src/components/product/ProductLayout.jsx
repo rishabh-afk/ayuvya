@@ -10,8 +10,8 @@ const ProductLayout = ({ pageTitle, products }) => {
             <div key={product.id} className="w-1/2 md:w-1/3 lg:w-1/4 p-3">
               <ProductCard
                 key={product.id}
-                itemObj={product}
-                isProductPage={true}
+                product={product}
+                isSwiperProduct={true}
               />
             </div>
           );

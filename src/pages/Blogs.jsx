@@ -13,7 +13,7 @@ const Blogs = () => {
         {blogs.map((blog) => {
           return (
             <div key={blog.id} className="md:w-1/2 lg:w-1/4 p-3">
-              <BlogCard itemObj={blog} isBlogPage={true} />
+              <BlogCard product={blog} isBlogPage={true} />
             </div>
           );
         })}
