@@ -6,7 +6,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
       <figure className="relative">
         <img
           className="w-28 p-3 aspect-square rounded-md"
-          src={product?.primary_image}
+          src={product?.product.product_images[0].product_image}
           alt=""
         />
         {isCheckoutPage && (
@@ -16,19 +16,23 @@ const CartItem = ({ product, isCheckoutPage }) => {
         )}
       </figure>
       <figcaption className="w-2/3">
-        <h2 className="text-base font-medium py-2">{product?.product_name}</h2>
+        <h2 className="text-base font-medium py-2">{product?.name}</h2>
         {!isCheckoutPage && (
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3 w-fit">
               <span className="cursor-none lg:cursor-pointer text-xl font-medium border shadow-lg px-2 rounded-md hover:shadow-2xl">
                 -
               </span>
-              <span className="text-base font-semibold text-gray-500">1</span>
+              <span className="text-base font-semibold text-gray-500">
+                {product.quantity}
+              </span>
               <span className="cursor-none lg:cursor-pointer text-xl font-medium border shadow-lg px-2 rounded-md hover:shadow-2xl">
                 +
               </span>
             </div>
-            <p className="font-semibold text-gray-500">₹ {product?.price}</p>
+            <p className="font-semibold text-gray-500">
+              ₹ {product?.unit_price}
+            </p>
             <RiDeleteBin6Line
               onClick={""}
               className="cursor-none lg:cursor-pointer"

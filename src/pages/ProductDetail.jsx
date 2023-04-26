@@ -16,11 +16,14 @@ import Ingredients from "../components/product/productDetails/Ingredients";
 import CustomerReview from "../components/product/productDetails/CustomerReview";
 import ProductCard from "../components/common/card/ProductCard";
 import Reviews from "../components/product/productDetails/Reviews";
+import { addCartItem, fetchCartItems } from "../store/slices/cartSlice";
+import { cart } from "../data/cartData";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const productData = useSelector((state) => state.product.productDetails);
+  const cartdata = useSelector((state) => state.cart.cartData);
   const { productId } = location?.state ?? "";
   useEffect(() => {
     const fetchProduct = async () => {
@@ -36,6 +39,14 @@ const ProductDetail = () => {
   if (Object.keys(productData).length === 0) {
     return <Loader />;
   }
+  const addToCart = (id) => {
+    const data = {
+      product: id,
+      quantity: 1,
+    };
+    dispatch(addCartItem(data));
+    dispatch(fetchCartItems());
+  };
 
   return (
     <Layouts>
@@ -66,7 +77,10 @@ const ProductDetail = () => {
               />
             </div>
             <div className="flex flex-col gap-5">
-              <Button className="w-full md:w-3/4 bg-white border-2 border-slate-200 py-3">
+              <Button
+                handler={() => addToCart(productData.id)}
+                className="w-full md:w-3/4 bg-white border-2 border-slate-200 py-3"
+              >
                 <span className="text-3xl font-bold text-[#7d8801] text-center mx-auto">
                   Add To Cart
                 </span>

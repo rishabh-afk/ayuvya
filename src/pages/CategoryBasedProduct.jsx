@@ -23,7 +23,7 @@ const CategoryBasedProduct = () => {
       <SideBarLayout>
         <ProductLayout
           pageTitle={category_name === "All" ? "All Products" : category_name}
-          products={category === "all" ? products : filteredProducts}
+          products={category === "all" ? products.slice(14) : filteredProducts}
         />
       </SideBarLayout>
     </Layouts>

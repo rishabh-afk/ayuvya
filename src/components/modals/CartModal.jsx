@@ -5,6 +5,7 @@ import CustomSwiper from "../common/custom/CustomSwiper";
 import CartItem from "../cart/CartItem";
 import { useSelector } from "react-redux";
 import RecommendationCard from "../common/card/RecommendationCard";
+import { cart } from "../../data/cartData";
 
 const CartModal = (props) => {
   const products = useSelector((state) => state.product.products);
@@ -28,13 +29,13 @@ const CartModal = (props) => {
             </div>
             <div className="p-4 relative h-[100%] overflow-auto mt-24 pb-48">
               <div className="flex flex-col gap-2">
-                {products.slice(20, 22).map((product) => {
+                {cart.items.map((product) => {
                   return <CartItem product={product} />;
                 })}
               </div>
               <div className="py-4">
                 <CustomSwiper
-                  data={products.slice(20, 24)}
+                  data={cart.rp}
                   headingText="You may also like"
                   marginVertical={"my-10"}
                   componentToBeRender={RecommendationCard}
@@ -57,7 +58,7 @@ const CartModal = (props) => {
             <div className="border-t p-4 pr-8 bg-white z-50 w-full absolute bottom-0">
               <div className="flex justify-between items-center">
                 <h4 className="text-lg font-bold">SUBTOTAL</h4>
-                <p className="font-semibold">₹ {props.product.price}</p>
+                <p className="font-semibold">₹ {cart.total}</p>
               </div>
               <p className="text-sm py-2">
                 Shipping and taxes calculated at checkout
