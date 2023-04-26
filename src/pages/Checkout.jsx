@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CheckoutForm from "../components/common/forms/CheckoutForm";
 import OrderDetails from "../components/order/OrderDetails";
+import { cart } from "../data/cartData";
 
 const Checkout = () => {
   const [paymentMode, setPaymentMode] = useState("online");
@@ -23,6 +24,7 @@ const Checkout = () => {
         <OrderDetails
           handlePaymentType={handlePaymentType}
           paymentMode={paymentMode}
+          cart={cart}
         />
       </div>
     </div>

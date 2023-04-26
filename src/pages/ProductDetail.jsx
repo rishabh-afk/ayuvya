@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import ImagesSwiper from "../components/product/productDetails/imageswiper/ImagesSwiper";
 import Layouts from "../components/UI/Layouts";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "../components/common/Loader";
 import axios from "axios";
@@ -14,16 +14,16 @@ import Button from "../components/common/Button";
 import Benefits from "../components/product/productDetails/Benefits";
 import Ingredients from "../components/product/productDetails/Ingredients";
 import CustomerReview from "../components/product/productDetails/CustomerReview";
-import ProductCard from "../components/common/card/ProductCard";
+import ProductCard from "../components/product/ProductCard";
 import Reviews from "../components/product/productDetails/Reviews";
 import { addCartItem, fetchCartItems } from "../store/slices/cartSlice";
-import { cart } from "../data/cartData";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const productData = useSelector((state) => state.product.productDetails);
-  const cartdata = useSelector((state) => state.cart.cartData);
+  // const cartdata = useSelector((state) => state.cart.cartData);
   const { productId } = location?.state ?? "";
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,10 +31,12 @@ const ProductDetail = () => {
       if (productId) {
         const resp = await axios.get(`${BASE_URL}api/products/${productId}/`);
         dispatch(setCurrentProduct(resp.data));
+      } else {
+        navigate("/all");
       }
     };
     fetchProduct();
-  }, [dispatch, productId]);
+  }, [dispatch, productId, navigate]);
 
   if (Object.keys(productData).length === 0) {
     return <Loader />;

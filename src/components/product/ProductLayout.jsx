@@ -1,4 +1,4 @@
-import ProductCard from "../common/card/ProductCard";
+import ProductCard from "./ProductCard";
 
 const ProductLayout = ({ pageTitle, products }) => {
   return (

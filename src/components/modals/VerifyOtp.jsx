@@ -21,7 +21,7 @@ const customStyles = {
     border: "#f5f0f7",
     transform: "translate(-50%, -50%)",
   },
-  overlay: { background: "rgba(0, 0, 0, 0.8)" },
+  overlay: { background: "rgba(0, 0, 0, 0.8)", zIndex: 10 },
 };
 Modal.setAppElement("#root");
 

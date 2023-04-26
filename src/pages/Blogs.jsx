@@ -12,7 +12,7 @@ const Blogs = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-20 flex flex-wrap mt-4 lg:mt-10">
         {blogs.map((blog) => {
           return (
-            <div key={blog.id} className="md:w-1/2 lg:w-1/4 p-2">
+            <div key={blog.id} className="md:w-1/2 lg:w-1/4 p-3">
               <BlogCard itemObj={blog} isBlogPage={true} />
             </div>
           );

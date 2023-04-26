@@ -5,7 +5,7 @@ import { setCurrentBlog } from "../store/slices/blogSlice";
 import axios from "axios";
 import Loader from "../components/common/Loader";
 import { useSelector, useDispatch } from "react-redux";
-import ProductCard from "../components/common/card/ProductCard";
+import ProductCard from "../components/product/ProductCard";
 
 const BlogDetail = () => {
   const location = useLocation();

@@ -76,7 +76,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode }) => {
             />
           </div>
           <div className="w-full lg:w-1/2 mt-3 lg:mt-0">
-            <Form type="email" id="lastName" label="Last Name" />
+            <Form type="text" id="lastName" label="Last Name" />
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-2 md:gap-5 mt-0 lg:mt-3">
@@ -97,9 +97,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode }) => {
                 id="city"
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
-                <option disabled selected>
-                  Select City
-                </option>
+                <option disabled>Select City</option>
                 <option value="Delhi">Delhi</option>
                 <option value="Goa">Goa</option>
                 <option value="Mumbai">Mumbai</option>
@@ -137,9 +135,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode }) => {
                 id="country"
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
-                <option disabled selected>
-                  Select Country
-                </option>
+                <option disabled>Select Country</option>
                 <option value="India">India</option>
               </select>
               <label
@@ -156,7 +152,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode }) => {
                 id="gender"
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
-                <option disabled selected>
+                <option disabled value={"select Gender"}>
                   Select Gender
                 </option>
                 <option value="Male">Male</option>

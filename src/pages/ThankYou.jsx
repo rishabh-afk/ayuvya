@@ -1,5 +1,6 @@
 import OrderDetails from "../components/order/OrderDetails";
 import OrderSummary from "../components/order/OrderSummary";
+import { cart } from "../data/cartData";
 const ThankYou = () => {
   const handlePaymentType = () => {};
   return (
@@ -8,7 +9,7 @@ const ThankYou = () => {
         <OrderSummary />
       </div>
       <div className="w-full lg:w-[45%] px-4 lg:p-12 bg-gray-100 border-l border-[#e1e1e1] order-first lg:order-last">
-        <OrderDetails handlePaymentType={handlePaymentType} />
+        <OrderDetails handlePaymentType={handlePaymentType} cart={cart} />
       </div>
     </div>
   );

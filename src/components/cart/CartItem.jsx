@@ -11,7 +11,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
         />
         {isCheckoutPage && (
           <span className="absolute top-0 right-0 bg-gray-500 text-white px-2 rounded-full">
-            1
+            {product.quantity}
           </span>
         )}
       </figure>
@@ -42,7 +42,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
         )}
         {isCheckoutPage && (
           <p className="font-semibold text-gray-500 text-xl">
-            ₹ {product?.price}.00
+            ₹ {product?.unit_price}
           </p>
         )}
       </figcaption>

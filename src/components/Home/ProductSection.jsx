@@ -1,5 +1,5 @@
 import CustomSwiper from "../common/custom/CustomSwiper";
-import ProductCard from "../common/card/ProductCard";
+import ProductCard from "../product/ProductCard";
 import { useSelector } from "react-redux";
 
 const ProductSection = () => {

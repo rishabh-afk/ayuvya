@@ -18,11 +18,21 @@ const BlogCard = ({ itemObj, isBlogPage }) => {
           </span>
         )}
         <figure>
-          <img className="rounded-t-md" src={itemObj.blog_image} alt="" />
+          <img
+            className={`rounded-t-md object-cover h-full ${
+              isBlogPage ? "lg:h-64" : ""
+            }`}
+            src={itemObj.blog_image}
+            alt=""
+          />
         </figure>
-        <figcaption className={`${isBlogPage ? "h-48" : "text-center"} p-6`}>
+        <figcaption
+          className={`${isBlogPage ? "h-48 lg:h-56" : "text-center"} p-5`}
+        >
           <h2 className="text-lg pb-3 font-bold">
-            {itemObj.blog_title.slice(0, 25)}
+            {itemObj.blog_title.length > 30
+              ? itemObj.blog_title.slice(0, 30) + "..."
+              : itemObj.blog_title}
           </h2>
           {isBlogPage && <div className="py-1">{itemObj.date}</div>}
           {!isBlogPage && (
@@ -33,7 +43,7 @@ const BlogCard = ({ itemObj, isBlogPage }) => {
             </div>
           )}
           {isBlogPage && (
-            <div className="">{itemObj.blog_description.slice(0, 50)}...</div>
+            <div className="">{itemObj.blog_description.slice(0, 80)}...</div>
           )}
         </figcaption>
       </CardHoc>

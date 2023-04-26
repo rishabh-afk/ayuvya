@@ -2,12 +2,10 @@ import { useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import CartItem from "../cart/CartItem";
-import { useSelector } from "react-redux";
 import Subtotal from "../cart/Subtotal";
 
-const OrderDetails = ({ paymentMode }) => {
+const OrderDetails = ({ paymentMode, cart }) => {
   const [toggle, setToggle] = useState(false);
-  const products = useSelector((state) => state.product.products);
   return (
     <div className="h-auto">
       <h2 className="text-2xl lg:hidden py-4">Ayuvya Ayurveda</h2>
@@ -17,12 +15,12 @@ const OrderDetails = ({ paymentMode }) => {
           <p className="text-lg">Show order summary</p>
           <RiArrowDropDownLine onClick={() => setToggle(!toggle)} size={35} />
         </div>
-        <p className="">₹ 1357.9</p>
+        <p className="">₹ {cart.total}</p>
       </div>
       {toggle && (
         <>
           <div className="border-b">
-            {products.slice(5, 8).map((product) => {
+            {cart.items.map((product) => {
               return (
                 <CartItem
                   key={product.id}
@@ -32,12 +30,12 @@ const OrderDetails = ({ paymentMode }) => {
               );
             })}
           </div>
-          <Subtotal paymentMode={paymentMode} price={1349.2} />
+          <Subtotal paymentMode={paymentMode} price={cart.total} />
         </>
       )}
       <div className="hidden lg:block">
         <div className="border-b">
-          {products.slice(5, 8).map((product) => {
+          {cart.items.map((product) => {
             return (
               <CartItem
                 key={product.id}
@@ -47,7 +45,7 @@ const OrderDetails = ({ paymentMode }) => {
             );
           })}
         </div>
-        <Subtotal paymentMode={paymentMode} price={1349.2} />
+        <Subtotal paymentMode={paymentMode} price={cart.total} />
       </div>
     </div>
   );

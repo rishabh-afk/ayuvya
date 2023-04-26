@@ -3,12 +3,13 @@ import SideBarLayout from "../components/UI/SideBarLayout";
 import ProductLayout from "../components/product/ProductLayout";
 import Layouts from "../components/UI/Layouts";
 import Loader from "../components/common/Loader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CategoryBasedProduct = () => {
   const products = useSelector((state) => state.product.products);
   const loading = useSelector((state) => state.product.status);
   const { category } = useParams();
+  const navigate = useNavigate();
   const category_name =
     category.split("-").join(" ").charAt(0).toUpperCase() +
     category.split("-").join(" ").slice(1);
@@ -17,6 +18,9 @@ const CategoryBasedProduct = () => {
   );
   if (loading !== "success") {
     return <Loader />;
+  }
+  if (filteredProducts.length === 0 && category !== "all") {
+    navigate("/all");
   }
   return (
     <Layouts>

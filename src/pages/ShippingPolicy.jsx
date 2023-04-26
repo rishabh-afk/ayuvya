@@ -1,5 +1,6 @@
 import HeadingDescription from "../components/common/HeadingDescription";
 import Layouts from "../components/UI/Layouts";
+import { Link } from "react-router-dom";
 
 const ShippingPolicy = () => {
   return (
@@ -11,7 +12,13 @@ const ShippingPolicy = () => {
             <p>
               We want you to love the products that you buy from us. In case you
               have concerns related to your purchase, drop us a mail within 5
-              days of delivery with details at care@ayuvya.com
+              days of delivery with details at{" "}
+              <Link
+                to={"mailto:care@ayuvya.com"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                care@ayuvya.com
+              </Link>{" "}
             </p>
           </div>
           <HeadingDescription
@@ -22,18 +29,77 @@ const ShippingPolicy = () => {
             heading="Shipping and Delivery"
             description="Ayuvya Ayurveda shall handle the logistics of the delivery of the products ordered by you. At the time of placing your order, depending on your place of residence, an estimated time of delivery( 3- 10 business days) would be shared with you along with the consignment number for tracking the status of your order. Please note that Ayuvya Ayurveda will try its level best to make sure that you receive your order as fast as possible but due to certain external circumstances, your order might take a while longer to get delivered. Ayuvya Ayurveda will take responsibility of your order, if the order has been shipped to any of the major cities (metros) where we use Best available Courier Partners based on their TAT and performance like Bluedart, Delhivery, Xpressbees, Ecom, Ekart, etc to ship your order."
           />
-          <HeadingDescription
-            heading="In case you received the wrong itemn"
-            description="Drop us an email at care@ayuvya.com or call us at +919717133893 within 5 days of the date of delivery. Our Customer delight team will resolve it at the earliest."
-          />
-          <HeadingDescription
-            heading="In case you received a damaged item"
-            description="Drop us an email with your order id and the picture of the damaged product at care@ayuvya.com or call at +919717133893 within 5 days of the date of delivery. Our customer delight team will help you with your queries and resolve it at the earliest."
-          />
-          <HeadingDescription
-            heading="In case you have concerns related to the product"
-            description="Drop us an email at care@ayuvya.com or call at +919717133893 . Our customer delight team will help you with your queries and resolve it within 24 hours"
-          />
+          <div className="pt-6">
+            <h2 className="text-xl font-semibold">
+              In case you received the wrong item
+            </h2>
+            <p>
+              Drop us an email at{" "}
+              <Link
+                to={"mailto:care@ayuvya.com"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                care@ayuvya.com
+              </Link>{" "}
+              or call us at{" "}
+              <Link
+                to={"tel:+919717133893"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                +91 9717133893
+              </Link>{" "}
+              within 5 days of the date of delivery. Our Customer delight team
+              will resolve it at the earliest.
+            </p>
+          </div>
+          <div className="pt-6">
+            <h2 className="text-xl font-semibold">
+              In case you received a damaged item
+            </h2>
+            <p>
+              Drop us an email with your order id and the picture of the damaged
+              product at{" "}
+              <Link
+                to={"mailto:care@ayuvya.com"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                care@ayuvya.com
+              </Link>{" "}
+              or call at{" "}
+              <Link
+                to={"tel:+919717133893"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                +91 9717133893
+              </Link>{" "}
+              within 5 days of the date of delivery. Our customer delight team
+              will help you with your queries and resolve it at the earliest.
+            </p>
+          </div>
+          <div className="pt-6">
+            <h2 className="text-xl font-semibold">
+              In case you have concerns related to the product
+            </h2>
+            <p>
+              Drop us an email at{" "}
+              <Link
+                to={"mailto:care@ayuvya.com"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                care@ayuvya.com
+              </Link>{" "}
+              care@ayuvya.com or call at
+              <Link
+                to={"tel:+919717133893"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                +91 9717133893
+              </Link>{" "}
+              . Our customer delight team will help you with your queries and
+              resolve it within 24 hours
+            </p>
+          </div>
+          <HeadingDescription heading="" description="" />
           <div className="pt-6">
             <h2 className="text-xl font-semibold">Order Cancellation</h2>
             <ul className="list-decimal ml-6 lg:ml-5">
@@ -50,10 +116,29 @@ const ShippingPolicy = () => {
               </li>
             </ul>
           </div>
-          <HeadingDescription
-            heading="In case your order is marked delivered but not received by youm"
-            description="Drop us an email at care@ayuvya.com or call us at +919717133893 within 3 days (72 hours) of the date of delivery. Our Customer delight team will resolve it at the earliest."
-          />
+          <div className="pt-6">
+            <h2 className="text-xl font-semibold">
+              In case your order is marked delivered but not received by you
+            </h2>
+            <p>
+              Drop us an email at{" "}
+              <Link
+                to={"mailto:care@ayuvya.com"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                care@ayuvya.com
+              </Link>{" "}
+              care@ayuvya.com or call us at{" "}
+              <Link
+                to={"tel:+919717133893"}
+                className="text-blue-400 hover:text-blue-800"
+              >
+                +91 9717133893
+              </Link>{" "}
+              within 3 days (72 hours) of the date of delivery. Our Customer
+              delight team will resolve it at the earliest.
+            </p>
+          </div>
           <HeadingDescription
             heading="Shipping charges on purchaset"
             description="Shipping charges on purchase
