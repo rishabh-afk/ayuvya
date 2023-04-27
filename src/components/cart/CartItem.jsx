@@ -1,0 +1,53 @@
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+const CartItem = ({ product, isCheckoutPage }) => {
+  return (
+    <div className={`flex pr-4 gap-5 ${isCheckoutPage ? "pt-2" : "border-b"}`}>
+      <figure className="relative">
+        <img
+          className="w-28 p-3 aspect-square rounded-md"
+          src={product?.product.product_images[0].product_image}
+          alt=""
+        />
+        {isCheckoutPage && (
+          <span className="absolute top-0 right-0 bg-gray-500 text-white px-2 rounded-full">
+            {product.quantity}
+          </span>
+        )}
+      </figure>
+      <figcaption className="w-2/3">
+        <h2 className="text-base font-medium py-2">{product?.name}</h2>
+        {!isCheckoutPage && (
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-3 w-fit">
+              <span className="cursor-none lg:cursor-pointer text-xl font-medium border shadow-lg px-2 rounded-md hover:shadow-2xl">
+                -
+              </span>
+              <span className="text-base font-semibold text-gray-500">
+                {product.quantity}
+              </span>
+              <span className="cursor-none lg:cursor-pointer text-xl font-medium border shadow-lg px-2 rounded-md hover:shadow-2xl">
+                +
+              </span>
+            </div>
+            <p className="font-semibold text-gray-500">
+              ₹ {product?.unit_price}
+            </p>
+            <RiDeleteBin6Line
+              onClick={""}
+              className="cursor-none lg:cursor-pointer"
+              size={20}
+            />
+          </div>
+        )}
+        {isCheckoutPage && (
+          <p className="font-semibold text-gray-500 text-xl">
+            ₹ {product?.unit_price}
+          </p>
+        )}
+      </figcaption>
+    </div>
+  );
+};
+
+export default CartItem;
