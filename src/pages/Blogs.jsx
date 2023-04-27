@@ -3,9 +3,14 @@ import blogBanner from "../assets/images/BLOG-BANNER.-1.webp";
 import BlogCard from "../components/common/card/BlogCard";
 import { useSelector } from "react-redux";
 import Layouts from "../components/UI/Layouts";
+import Loader from "../components/common/Loader";
 
 const Blogs = () => {
   const blogs = useSelector((state) => state.blog.blogs);
+  const loading = useSelector((state) => state.blog.status);
+  if (loading !== "success") {
+    return <Loader />;
+  }
   return (
     <Layouts>
       <img className="w-full" src={blogBanner} alt="Banner" />

@@ -26,7 +26,7 @@ export const updateCartItem = createAsyncThunk(
   "update/cartItem",
   async (data, thunkAPI) => {
     try {
-      return await cartServices.updateCartItem(data, data.id);
+      return await cartServices.updateCartItem(data, data.product);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -41,7 +41,7 @@ export const removeCartItem = createAsyncThunk(
   "remove/cartItem",
   async (data, thunkAPI) => {
     try {
-      return await cartServices.deleteCartItem(data, data.id);
+      return await cartServices.deleteCartItem(data, data.product);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||

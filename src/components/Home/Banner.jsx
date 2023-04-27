@@ -20,7 +20,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // import required modules
-import { Autoplay, Navigation, Pagination } from "swiper";
+import { Autoplay } from "swiper";
+// import { Autoplay, Navigation, Pagination } from "swiper";
 
 const Banner = () => {
   const BANNERS = [
@@ -96,7 +97,7 @@ const Banner = () => {
           pagination={{
             clickable: true,
           }}
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Autoplay]}
         >
           {BANNERS.map((banner) => (
             <SwiperSlide key={banner.id}>
@@ -120,7 +121,7 @@ const Banner = () => {
           pagination={{
             clickable: true,
           }}
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Autoplay]}
         >
           {MOBILE_BANNERS.map((banner) => (
             <SwiperSlide key={banner.id}>

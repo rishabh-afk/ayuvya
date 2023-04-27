@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import NavbarIcons from "./NavbarIcons";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   //to show all categories on navbar & on sidebar
@@ -93,7 +94,12 @@ const Navbar = () => {
         ) : (
           <>
             <div className="hidden lg:flex gap-6 text-sm">
-              <Link to={"/all"}>ALL PRODUCTS</Link>
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                <Link to={"/all"}>ALL PRODUCTS</Link>
+              </motion.div>
               {categories.map((category) => {
                 return (
                   <Link key={category.id} to={`/${category.category_slug}`}>
@@ -101,7 +107,12 @@ const Navbar = () => {
                   </Link>
                 );
               })}
-              <Link to={"/blogs"}>BLOGS</Link>
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                <Link to={"/blogs"}>BLOGS</Link>
+              </motion.div>
             </div>
           </>
         )}

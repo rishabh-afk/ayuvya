@@ -19,7 +19,9 @@ const Subtotal = ({ price, paymentMode }) => {
       </div>
       <p className="flex justify-between text-xl border-b py-6 text-gray-700">
         <span className="">Total</span>
-        <span className="">₹ {price - price / 10}</span>
+        <span className="">
+          ₹ {paymentMode === "online" ? price - price / 10 : price}
+        </span>
       </p>
     </div>
   );

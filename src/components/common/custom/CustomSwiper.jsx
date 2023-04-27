@@ -3,7 +3,7 @@ import HeadingText from "../../product/HeadingText";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Autoplay, Navigation, Pagination } from "swiper";
+// import { Autoplay, Navigation, Pagination } from "swiper";
 
 const CustomSwiper = ({
   category,
