@@ -40,10 +40,7 @@ const Navbar = () => {
 
   const isSticky = () => {
     const scroll = window.scrollY;
-    const stickyClass =
-      scroll > 20
-        ? "fixed transition-all top-0 duration-500 delay-500 ease-linear w-full shadow-md z-50"
-        : "";
+    const stickyClass = scroll > 36 ? "fixed top-0 w-full shadow-md z-50" : "";
     setSticky(stickyClass);
   };
   return (

@@ -23,7 +23,10 @@ const OrderDetails = ({ paymentMode, cart }) => {
             <RiArrowDropDownLine onClick={() => setToggle(!toggle)} size={45} />
           </motion.div>
         </div>
-        <p className="">₹ {cart.total}</p>
+        <p className="">
+          ₹{" "}
+          {paymentMode === "online" ? cart.total - cart.total / 10 : cart.total}
+        </p>
       </div>
       <motion.div
         initial={{ height: 0, opacity: 0 }}

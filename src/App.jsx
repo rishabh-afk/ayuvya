@@ -8,11 +8,15 @@ import { getAllCategories } from "./store/slices/commonSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+  // const loading = useSelector((state) => state.product.status);
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getAllBlogs());
     dispatch(getAllCategories());
   }, [dispatch]);
+  // if (loading !== "success") {
+  //   return <Loader />;
+  // }
   return (
     <Suspense fallback={<Loader />}>
       <RoutesWrapper />
