@@ -2,6 +2,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { updateCartItem, removeCartItem } from "../../store/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const CartItem = ({ product, isCheckoutPage }) => {
   const dispatch = useDispatch();
@@ -74,13 +75,15 @@ const CartItem = ({ product, isCheckoutPage }) => {
             <p className="font-semibold text-gray-500">
               ₹ {product?.unit_price}
             </p>
-            <RiDeleteBin6Line
-              onClick={() => {
-                removeProductFromCart(product.id);
-              }}
-              className="cursor-none lg:cursor-pointer"
-              size={20}
-            />
+            <motion.div whileHover={{ scale: 1.1 }}>
+              <RiDeleteBin6Line
+                onClick={() => {
+                  removeProductFromCart(product.id);
+                }}
+                className="cursor-none lg:cursor-pointer"
+                size={20}
+              />
+            </motion.div>
           </div>
         )}
         {isCheckoutPage && (

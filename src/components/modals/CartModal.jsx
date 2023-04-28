@@ -52,13 +52,15 @@ const CartModal = (props) => {
       >
         <div className="bg-white h-screen overflow-y-scroll pt-20 pb-36">
           <div className="fixed top-0 bg-white z-50 h-20 w-96">
-            <div className="flex justify-between px-5 py-3 font-semibold text-lg">
+            <div className="flex justify-between px-5 py-3 font-semibold text-lg items-center">
               <h3>Your Shopping Cart ({cart.items.length})</h3>
-              <VscChromeClose
-                className="cursor-none lg:cursor-pointer"
-                onClick={() => props.handleClose(false)}
-                size={20}
-              />
+              <motion.div whileHover={{ scale: 1.2 }}>
+                <VscChromeClose
+                  className="cursor-none lg:cursor-pointer"
+                  onClick={() => props.handleClose(false)}
+                  size={20}
+                />
+              </motion.div>
             </div>
             <div className="flex justify-center items-center w-full h-9 bg-black text-white">
               <p className="text-sm">Free shipping on all orders!</p>
@@ -106,7 +108,7 @@ const CartModal = (props) => {
           <div className="fixed bottom-0 bg-white z-50 h-36 w-96 border-t p-4">
             <div className="flex justify-between items-center">
               <h4 className="text-lg font-bold">SUBTOTAL</h4>
-              <p className="font-semibold">₹ {cart.total}</p>
+              <p className="text-md lg:text-xl font-semibold">₹ {cart.total}</p>
             </div>
             <p className="text-sm py-2">
               Shipping and taxes calculated at checkout
