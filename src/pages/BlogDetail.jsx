@@ -15,7 +15,8 @@ const BlogDetail = () => {
   const productData = useSelector((state) => state.product.products);
   useEffect(() => {
     const fetchBlog = async () => {
-      const BASE_URL = process.env.REACT_APP_BASE_URL;
+      const BASE_URL = "http://192.168.0.110:80/";
+      // const BASE_URL = process.env.REACT_APP_BASE_URL;
       if (blogSlug) {
         const resp = await axios.get(`${BASE_URL}api/blogs/test/${blogSlug}/`);
         dispatch(setCurrentBlog(resp.data));
@@ -48,7 +49,7 @@ const BlogDetail = () => {
             {productData.slice(18, 20).map((product) => {
               return (
                 <div key={product.id} className="w-1/2 lg:w-full">
-                  <ProductCard product={product} isSwiperProduct={true} />
+                  <ProductCard product={product} isNotSwiperProduct={true} />
                 </div>
               );
             })}

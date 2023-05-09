@@ -25,7 +25,9 @@ const OrderDetails = ({ paymentMode, cart }) => {
         </div>
         <p className="">
           ₹{" "}
-          {paymentMode === "online" ? cart.total - cart.total / 10 : cart.total}
+          {paymentMode === "online"
+            ? cart?.totalAmount - cart?.totalAmount / 10
+            : cart?.totalAmount}
         </p>
       </div>
       <motion.div
@@ -34,7 +36,7 @@ const OrderDetails = ({ paymentMode, cart }) => {
         transition={{ duration: 0.2 }}
       >
         <div className="border-b">
-          {cart.items.map((product) => {
+          {cart?.items.map((product) => {
             return (
               <CartItem
                 key={product.id}
@@ -44,11 +46,11 @@ const OrderDetails = ({ paymentMode, cart }) => {
             );
           })}
         </div>
-        <Subtotal paymentMode={paymentMode} price={cart.total} />
+        <Subtotal paymentMode={paymentMode} price={cart?.totalAmount} />
       </motion.div>
       <div className="hidden lg:block">
         <div className="border-b">
-          {cart.items.map((product) => {
+          {cart?.items.map((product) => {
             return (
               <CartItem
                 key={product.id}
@@ -58,7 +60,7 @@ const OrderDetails = ({ paymentMode, cart }) => {
             );
           })}
         </div>
-        <Subtotal paymentMode={paymentMode} price={cart.total} />
+        <Subtotal paymentMode={paymentMode} price={cart?.totalAmount} />
       </div>
     </div>
   );

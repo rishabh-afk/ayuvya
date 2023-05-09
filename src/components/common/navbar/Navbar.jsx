@@ -5,21 +5,28 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import CartModal from "../../modals/CartModal";
 import { product } from "../../../data/products";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import NavbarIcons from "./NavbarIcons";
 import { motion } from "framer-motion";
+import { category } from "../../../data/categories";
+// import { fetchCartItems } from "../../../store/slices/cartSlice";
 
 const Navbar = () => {
   //to show all categories on navbar & on sidebar
-  const categories = useSelector((state) => state.common.categories);
+  // const categories = useSelector((state) => state.common.categories);
+  const categories = category;
 
   //to show cart modal when user clicks
   const [cartModal, showCartModal] = useState(false);
   function handleClose() {
     showCartModal(false);
   }
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchCartItems());
+  // }, [dispatch]);
 
   //Sidebar for mobile devices
   const [sidebar, setSidebar] = useState(false);
@@ -99,9 +106,15 @@ const Navbar = () => {
               </motion.div>
               {categories.map((category) => {
                 return (
-                  <Link key={category.id} to={`/${category.category_slug}`}>
-                    {category.category_name.toUpperCase()}
-                  </Link>
+                  <motion.div
+                    key={category.id}
+                    whileHover={{ scale: 1.2 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <Link to={`/${category.category_slug}`}>
+                      {category.category_name.toUpperCase()}
+                    </Link>
+                  </motion.div>
                 );
               })}
               <motion.div
@@ -117,13 +130,13 @@ const Navbar = () => {
           <></>
         ) : (
           <NavbarIcons
-            className={"flex lg:hidden"}
+            className={"flex lg:hidden items-center"}
             openSearchBar={openSearchBar}
             showCartModal={showCartModal}
           />
         )}
         <NavbarIcons
-          className={"hidden lg:flex"}
+          className={"hidden lg:flex items-center"}
           openSearchBar={openSearchBar}
           showCartModal={showCartModal}
         />

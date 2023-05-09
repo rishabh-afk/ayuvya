@@ -3,6 +3,7 @@ import HeadingText from "../../product/HeadingText";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Autoplay, Navigation } from "swiper";
 // import { Autoplay, Navigation, Pagination } from "swiper";
 
 const CustomSwiper = ({
@@ -42,7 +43,7 @@ const CustomSwiper = ({
                 pagination={{
                   clickable: true,
                 }}
-                // modules={[Autoplay]}
+                modules={[Autoplay, Navigation]}
               >
                 {data.map((item) => (
                   <SwiperSlide key={item.id}>

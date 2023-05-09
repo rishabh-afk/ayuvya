@@ -1,9 +1,31 @@
-import { FaShoppingCart } from "react-icons/fa";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../../store/slices/cartSlice";
+import { useEffect } from "react";
+
+export const variants = {
+  show: {
+    opacity: 1,
+    scale: 1.2,
+    transition: {
+      ease: "easeOut",
+      duration: 0.3,
+    },
+  },
+  hide: {
+    scale: 0,
+    opacity: 0,
+  },
+};
 
 const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
-  const cart = [];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+  const cartData = useSelector((state) => state.cart);
   return (
     <div className={`gap-2 ${className}`}>
       <motion.div
@@ -23,15 +45,32 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
         transition={{ ease: "easeInOut" }}
         className="flex"
       >
-        <FaShoppingCart
-          className="cursor-none lg:cursor-pointer"
-          title={cart.length === 0 ? "Your Cart is empty" : "Cart"}
-          onClick={() => showCartModal(true)}
-          size={18}
-        />
-        <span className="text-xs text-white relative bottom-2 left-1 bg-[#555] items-center flex justify-center px-1 lg:px-[6px] lg:py-[2px] rounded-full">
-          0
-        </span>
+        {cartData.items.length === 0 ? (
+          <>
+            <HiOutlineShoppingBag
+              className="cursor-none lg:cursor-pointer"
+              title={"Your Cart is empty"}
+              size={20}
+            />
+          </>
+        ) : (
+          <>
+            <HiOutlineShoppingBag
+              className="cursor-none lg:cursor-pointer"
+              onClick={() => showCartModal(true)}
+              size={20}
+            />
+          </>
+        )}
+        <motion.span
+          key={cartData.items.length}
+          variants={variants}
+          animate="show"
+          initial="hide"
+          className="text-xs text-white relative bottom-[6px] left-1 bg-[#555] items-center flex justify-center w-5 aspect-square rounded-full"
+        >
+          {cartData?.items.length ? cartData.items.length : 0}
+        </motion.span>
       </motion.div>
     </div>
   );

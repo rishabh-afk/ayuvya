@@ -4,6 +4,7 @@ import services from "../services/getServices";
 const initialState = {
   categories: [],
   concerns: [],
+  relatedProducts: [],
   status: "loading",
   message: "",
 };
@@ -28,6 +29,21 @@ export const getAllConcerns = createAsyncThunk(
   async (thunkAPI) => {
     try {
       return await services.getAllConcerns();
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
+export const getAllRelatedProducts = createAsyncThunk(
+  "post/related-products",
+  async (data, thunkAPI) => {
+    try {
+      return await services.getAllRelatedProducts(data);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -66,6 +82,18 @@ const commonSlice = createSlice({
       .addCase(getAllConcerns.rejected, (state, action) => {
         state.status = "rejected";
         state.concerns = [];
+        state.message = action.payload;
+      })
+      .addCase(getAllRelatedProducts.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getAllRelatedProducts.fulfilled, (state, action) => {
+        state.status = "success";
+        state.relatedProducts = action.payload;
+      })
+      .addCase(getAllRelatedProducts.rejected, (state, action) => {
+        state.status = "rejected";
+        state.relatedProducts = [];
         state.message = action.payload;
       });
   },

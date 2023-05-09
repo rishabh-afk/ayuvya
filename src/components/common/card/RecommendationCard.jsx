@@ -5,7 +5,7 @@ const RecommendationCard = ({ product, marginVertical }) => {
     <div
       className={`flex flex-col gap-2 cursor-pointer shadow-sm mt-0 ${marginVertical}`}
     >
-      <figure className="">
+      <figure className="flex justify-center">
         <img
           className="h-32 aspect-square object-cover"
           src={product.primary_image}

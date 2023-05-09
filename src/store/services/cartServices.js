@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.0.131:80/";
-// const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const ADD_ITEM_TO_CART_URL = "api/cart/item/";
 const addItemToCart = async (data) => {
@@ -10,8 +9,6 @@ const addItemToCart = async (data) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(resp);
-
   return resp.data;
 };
 
@@ -44,17 +41,9 @@ const deleteCartItem = async (data, id) => {
 };
 
 const FETCH_CART_ITEMS_URL = "api/cart/";
-const fetchCart = async () => {
-  const resp = await axios.get(`${BASE_URL}${FETCH_CART_ITEMS_URL}`, {
-    headers: {
-      Cookie: "sessionid=ekpbv3fcsvryliqipqfxgqda7jfgfjj0",
-    },
-  });
-  const cartresponse = {
-    ...resp.data,
-    sessionId: resp.config.headers.Cookie,
-  };
-  return cartresponse;
+const fetchCart = async (cartId) => {
+  const resp = await axios.get(`${BASE_URL}${FETCH_CART_ITEMS_URL}/${cartId}`);
+  return resp.data;
 };
 
 const cartServices = {

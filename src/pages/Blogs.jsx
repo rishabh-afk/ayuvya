@@ -7,6 +7,7 @@ import Loader from "../components/common/Loader";
 
 const Blogs = () => {
   const blogs = useSelector((state) => state.blog.blogs);
+  console.log(blogs);
   const loading = useSelector((state) => state.blog.status);
   if (loading !== "success") {
     return <Loader />;

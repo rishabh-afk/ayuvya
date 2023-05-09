@@ -7,27 +7,31 @@ import Loader from "../components/common/Loader";
 import axios from "axios";
 import { setCurrentProduct } from "../store/slices/productSlice";
 import CommonDetails from "../components/product/productDetails/CommonDetails";
-import CustomSwiper from "../components/common/custom/CustomSwiper";
-import { platforms } from "../data/ottplatform";
-import Platforms from "../components/common/card/Platforms";
+// import CustomSwiper from "../components/common/custom/CustomSwiper";
+// import { platforms } from "../data/ottplatform";
+// import Platforms from "../components/common/card/Platforms";
 import Button from "../components/common/Button";
 import Benefits from "../components/product/productDetails/Benefits";
 import Ingredients from "../components/product/productDetails/Ingredients";
 import CustomerReview from "../components/product/productDetails/CustomerReview";
 import ProductCard from "../components/product/ProductCard";
 import Reviews from "../components/product/productDetails/Reviews";
-import { addCartItem, fetchCartItems } from "../store/slices/cartSlice";
+import HowToUse from "../components/product/productDetails/HowToUse";
+// import { addCartItem, fetchCartItems } from "../store/slices/cartSlice";
+// import { product } from "../data/ProductDetail";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const productData = useSelector((state) => state.product.productDetails);
+  // const productData = product;
   // const cartdata = useSelector((state) => state.cart.cartData);
   const { productId } = location?.state ?? "";
   useEffect(() => {
     const fetchProduct = async () => {
-      const BASE_URL = process.env.REACT_APP_BASE_URL;
+      const BASE_URL = "http://192.168.0.110:80/";
+      // const BASE_URL = process.env.REACT_APP_BASE_URL;
       if (productId) {
         const resp = await axios.get(`${BASE_URL}api/products/${productId}/`);
         dispatch(setCurrentProduct(resp.data));
@@ -42,12 +46,12 @@ const ProductDetail = () => {
     return <Loader />;
   }
   const addToCart = (id) => {
-    const data = {
-      product: id,
-      quantity: 1,
-    };
-    dispatch(addCartItem(data));
-    dispatch(fetchCartItems());
+    // const data = {
+    //   product: id,
+    //   quantity: 1,
+    // };
+    // dispatch(addCartItem(data));
+    // dispatch(fetchCartItems());
   };
 
   return (
@@ -59,7 +63,7 @@ const ProductDetail = () => {
           </div>
           <div className="w-full md:w-1/2 p-1 lg:p-4">
             <CommonDetails product={productData} />
-            <div className="border-y bg-slate-100 h-auto cursor-none lg:cursor-pointer my-4">
+            {/* <div className="border-y bg-slate-100 h-auto cursor-none lg:cursor-pointer my-4">
               <div className="my-4">
                 <CustomSwiper
                   componentToBeRender={Platforms}
@@ -79,8 +83,8 @@ const ProductDetail = () => {
                   ]}
                 />
               </div>
-            </div>
-            <div className="flex flex-col gap-5">
+            </div> */}
+            <div className="flex mt-3 flex-col gap-5">
               <Button
                 handler={() => addToCart(productData.id)}
                 className="w-full md:w-3/4 bg-white border-2 border-slate-200 py-3"
@@ -98,13 +102,13 @@ const ProductDetail = () => {
           </div>
         </div>
         <div className="mx-4 lg:mx-10">
-          {productData.ingredients.length > 0 && (
-            <Ingredients ingredients={productData.ingredients} />
+          {productData.ingredient_section.length > 0 && (
+            <Ingredients ingredients={productData.ingredient_section} />
           )}
-          {productData.benefits && (
+          {productData.benefits_section && (
             <Benefits
-              benefits={productData.benefits}
-              title={productData.product_nick_name.split(" ")[1]}
+              benefits={productData.benefits_section[0]}
+              title={productData.benefits_section[0].title}
             />
           )}
           <CustomerReview
@@ -144,6 +148,32 @@ const ProductDetail = () => {
               );
             })}
         </div>
+        {productData.how_to_use_section &&
+          productData.how_to_use_section.map((item) => {
+            return (
+              <div key={item.id}>
+                <h4 className="text-2xl font-semibold">{item?.title}</h4>
+                <HowToUse data={item.step} />
+              </div>
+            );
+          })}
+        {productData.safe_and_effective && (
+          <div className="text-center">
+            <h2 className="text-4xl font-semibold">100% Safe & Effective</h2>
+            <div className="flex gap-4 justify-center my-10">
+              {productData.safe_and_effective.map((item) => {
+                return (
+                  <img
+                    key={item.id}
+                    src={item.image}
+                    alt={item.title}
+                    className="w-28"
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
       </section>
     </Layouts>
   );

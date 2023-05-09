@@ -1,5 +1,7 @@
+import axios from "axios";
 import Button from "../Button";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const ContactForm = () => {
   const [feedBack, setFeedBack] = useState({
@@ -7,9 +9,29 @@ const ContactForm = () => {
     phoneNumber: "",
     comment: "",
     emailId: "",
+    countryCode: "+91",
   });
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const data = {
+      email: feedBack.emailId,
+      name: feedBack.username,
+      message: feedBack.comment,
+      phone: feedBack.countryCode + feedBack.phoneNumber,
+    };
+    const resp = await axios.post(
+      "http://192.168.0.101:80/api/contact/create/",
+      data,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (resp.status === 201) {
+      toast("Your feedback has been submitted");
+      setFeedBack({});
+    } else {
+      toast("Something went wrong");
+    }
   };
   return (
     <div className="rounded-none shadow-2xl">

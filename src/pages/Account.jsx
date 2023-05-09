@@ -54,7 +54,7 @@ const Account = () => {
         />
         <div className="flex justify-between mx-4 items-center mt-8 md:mb-8">
           <h2 className="text-xl text-[#5e0d8b] font-bold">
-            Hi, {userData.firstName} {userData.lastName}
+            Hi, {userData.firstName} {userData.last_name}
           </h2>
           <button
             onClick={logoutModal}

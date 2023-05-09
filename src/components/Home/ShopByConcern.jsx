@@ -1,24 +1,26 @@
-// import HeadingText from "../product/HeadingText";
+import HeadingText from "../product/HeadingText";
 import CustomSwiper from "../common/custom/CustomSwiper";
 import ConcernCard from "../common/card/ConcernCard";
 import { useSelector } from "react-redux";
+import { category } from "../../data/categories";
 
 const ShopByConcern = () => {
+  // const categories = category;
   const categories = useSelector((state) => state.common.categories);
   return (
     <>
       {categories.length > 0 && (
         <div className="bg-[#f8f9fa] flex flex-col gap-10">
-          {/* <div className="mt-10">
+          <div className="mt-10">
             <HeadingText heading={"Shop By Concern"} />
-          </div> */}
+          </div>
           <div>
             <CustomSwiper
               data={categories.slice(0, 6)}
-              category="Shop By Concern"
+              // category="Shop By Concern"
               componentToBeRender={ConcernCard}
               navigation={false}
-              marginTop={"mt-10"}
+              // marginTop={"mt-10"}
               marginHorizontal="mx-0"
               noOfSlidePerView={[
                 {

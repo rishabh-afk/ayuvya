@@ -1,13 +1,15 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import SideBarLayout from "../components/UI/SideBarLayout";
 import ProductLayout from "../components/product/ProductLayout";
 import Layouts from "../components/UI/Layouts";
-import Loader from "../components/common/Loader";
+// import Loader from "../components/common/Loader";
 import { useNavigate, useParams } from "react-router-dom";
+import { product } from "../data/products";
 
 const CategoryBasedProduct = () => {
-  const products = useSelector((state) => state.product.products);
-  const loading = useSelector((state) => state.product.status);
+  // const products = useSelector((state) => state.product.products);
+  const products = product;
+  // const loading = useSelector((state) => state.product.status);
   const { category } = useParams();
   const navigate = useNavigate();
   const category_name =
@@ -16,9 +18,9 @@ const CategoryBasedProduct = () => {
   const filteredProducts = products.filter(
     (item) => item.product_category.category_slug === category
   );
-  if (loading !== "success") {
-    return <Loader />;
-  }
+  // if (loading !== "success") {
+  //   return <Loader />;
+  // }
   if (filteredProducts.length === 0 && category !== "all") {
     navigate("/all");
   }

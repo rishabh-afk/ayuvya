@@ -1,28 +1,39 @@
+import image from "../assets/images/BLOG-BANNER.-1.webp";
 export const product = {
   id: 57,
   product_images: [
     {
       product_image:
+        image ||
+        "https://storage.googleapis.com/ayuvya_images/product_image/i-Gain_festive_combo_Pack.jpeg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642338&Signature=b35qULSewpotql5rd3Qm%2B7B%2FsLTIBS2BUM5NxR2vQGEdQildWgx0y%2FnX9Uwvf6MEjBPZ9KF8Yqq5W4Xv3OIJMwTQ%2FQ48BErLKlzn5zK8%2Bp2%2FEmJC4rErbzotlkevT7Y8C5KJ5O428RtM%2B9JzN0yPkh1Y3h6EoET%2FQ8J3v7oyy9r99lUoOaqYkWmXm5spv86p%2Bd4%2FtWz%2FparcPnHaXN%2FqgCglDJs8Qm%2BpTA%2FiBe6rkBl%2FYh3WGcel%2FhVTMd3ZB1V9MgD9h%2Bg8Z1jRDyVKetchVni8SWP4JnN%2Bv5wyqUQOBvlPFEJvTfEWSTybV5Bpno1YUY3fC0i1bCv8eiyJFVutxg%3D%3D",
+    },
+    {
+      product_image:
+        image ||
         "https://storage.googleapis.com/ayuvya_images/product_image/i-Gain_festive_combo_Pack.jpeg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642338&Signature=b35qULSewpotql5rd3Qm%2B7B%2FsLTIBS2BUM5NxR2vQGEdQildWgx0y%2FnX9Uwvf6MEjBPZ9KF8Yqq5W4Xv3OIJMwTQ%2FQ48BErLKlzn5zK8%2Bp2%2FEmJC4rErbzotlkevT7Y8C5KJ5O428RtM%2B9JzN0yPkh1Y3h6EoET%2FQ8J3v7oyy9r99lUoOaqYkWmXm5spv86p%2Bd4%2FtWz%2FparcPnHaXN%2FqgCglDJs8Qm%2BpTA%2FiBe6rkBl%2FYh3WGcel%2FhVTMd3ZB1V9MgD9h%2Bg8Z1jRDyVKetchVni8SWP4JnN%2Bv5wyqUQOBvlPFEJvTfEWSTybV5Bpno1YUY3fC0i1bCv8eiyJFVutxg%3D%3D",
     },
   ],
   benefits: [
     {
       benefit_image:
+        image ||
         "https://storage.googleapis.com/ayuvya_images/benefits/Helps_in_gaining_weight-fs.jpeg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642338&Signature=NFcrStqzs9e9jUivat6tQrjXeeJ6a%2FzIMJpkk9ozdYJqafuULVTpI1zkjELl8r9XY7pVwjveRsXgb6q%2FeW3LuMMDNYG1iTg39n9cLbesWxGOkjFeNAR97%2FuPVRupPKmC%2BIOaXnWn2tGtfyJ2hjqVYHghAzJ%2BOPxEaQ65t8eLMBhTmUyte2NiSsa9ypA9%2BjMtuSIAaXraHnKcJbU6Gno%2BAONxJas1Wc8kltMuRb95XzK33AhJV%2BfxKA%2BQ%2Fojhhngd6fnOO31%2FonyDWt%2FJ9Kn7u3cES7JhGs3kAL5hjfzt%2F%2FLuNIoQ7ACmQSX1TRDKAHkHBYiRODP1WyHHiFElzQRIQg%3D%3D",
     },
     {
       benefit_image:
+        image ||
         "https://storage.googleapis.com/ayuvya_images/benefits/improves_muscle_tone-fs.jpeg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642338&Signature=ShKQUPvJkM19g935L6c%2ByNCnBgpHWm1tjqo0%2FEtG%2FONxrWBJpBc1D94mco92zP43ol7yYW%2Bvt7uPJHUbToWYuNBQmCKU1%2FqyWnepIZ9HsQDVGRLv0ZUCI%2FJnXXQVQKRBRFF7UPn%2FY5hTuYwHlb2OlJh6HgrBwbC4I%2F9t2Z7ypyAhsnTv0lRduek0h8%2BdOpQYgI%2FSb1fC%2BdfVHkD9n9d2NgGhLJYQCa3JZPuF3AdUOCQYxHyMY22ig6ghbWCNjhp0DpA97k3PwnBOxj6X6zh%2B39whfNRAhdSWrdJdskjYajynlUgAuYWiinPdSqbQOyuyaIS1xalQf97ED9ryH%2FJJnA%3D%3D",
     },
     {
       benefit_image:
+        image ||
         "https://storage.googleapis.com/ayuvya_images/benefits/provides_nutrition_in_Body-fs.jpeg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642338&Signature=Ox8OHhc%2FBxuJWuyksh8c%2FVZDCi7dON8eXYf3LBMT%2B%2B1uZMtZ4NQv3%2FunhzKYXNd1oDZEIH0T9gOgTxCX7TNfixgQ52pqGcs%2BzsvHtGDNX6wAuUI0bNcdDezO6dJaMpk1b%2FtwYXw2LdYPgsbLQSDkePNfOwToMKKDatCrwzvG7BT6FuZT9hQ5L3VnRpWRjmjGpnz65sEznPTe0WyUQjL%2BD0r6TbTPzKlqxawNRrrrd7e%2Frps2Hn21PngROvdDUerewP0p7L%2FK7ToXFFOIshpIM25%2Bu%2BysSC3vzWhCFMr%2BBefMNfrpQp%2FJH4FkLqITkwOuhQfQ2l%2F03Wgv1QhU9LAtfQ%3D%3D",
     },
   ],
   ingredients: [
     {
       ingredient_image:
+        image ||
         "https://storage.googleapis.com/ayuvya_images/ingredients/annona_squamosa.jpg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642339&Signature=TW0SIGUK54vvq5ZKbn2Kive7oYpgx4reyHueN2ln9KrUIfSLJ4Hc6xRV1XLMU0FSybjVEVGdWyFH%2B50DMNsFMGo44M1e41sxLTC4T0qVIXaEsjoxnQYb%2BzQQThC5YXNJXQ%2FLlLLIoKYwcWVHLYDdfWdiJy2EIOt8Ngk7ybZoOswLAwwKWAhk%2FAjtgLqrEpe5pZ%2FcDqWDZN%2FDe5yY%2FViDnE0iZwmVIgysHfoW%2B1deEq7aw7oqIScNvhYma9EIE9V%2BhsoqL%2BRCzOFrHXaeoaS022lAIhdsTYoP65YV4Z2cb2nyKrMHI9ABuSLm5i5kbXj2C%2FDLOIDDO5rCVldPzZGPBw%3D%3D",
       ingredient_name: "Annona Squamosa",
       ingredient_description:
@@ -30,6 +41,7 @@ export const product = {
     },
     {
       ingredient_image:
+        image ||
         "https://storage.googleapis.com/ayuvya_images/ingredients/chlorophytum_borivilianum.jpg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642339&Signature=VhEVknQf1UepuIZgrS29CqZzecWvQGfT%2BUWorUEpgAns0%2BtE%2BLpdXucAe%2Fp4IFxDplg1a8tVtnAOlAk58Yv74cNpVUvGqWhsAV0g%2FfMTBeTq3VzEWqTYsA1MUPHk6v4MuoTJbOkoVG2S6eZow5Rp6UegEStvDFleZemECToUOQX9OP%2BmU1Mi4evKoG6hdOGseJ6CCSIgPBIughrAYpSGM1wjPpncThhPAjOe13NrcznB%2FI4Lro%2FXwPNLeeeyv6LoUI3ZCeGvN1QHIfAbTlQGNPFD374LSw8tsfx9mTBPBe6ApRPtaLCBHemDvU0WYNRzPyohxfnp47iaMTqWIu4yKA%3D%3D",
       ingredient_name: "Chlorophytum borivilianum (Safed Musli)",
       ingredient_description:
@@ -37,6 +49,7 @@ export const product = {
     },
     {
       ingredient_image:
+        image ||
         "https://storage.googleapis.com/ayuvya_images/ingredients/Zingiber_officinale.jpg?GoogleAccessId=35659971224-compute%40developer.gserviceaccount.com&Expires=1681642339&Signature=i%2BX3LKiocI2QJTQJpEAx02impew1Q640mnYXUnOYZlXHIOkifs%2F3Y%2B4iRDDKatM7DshLcJKUAmLO6US7uBp%2FMNLzIzGqp0NXEHMbpjxNqWQcgo2XLvZRtJpWQ60SIL4Wck65b0F6i61Muqdbvirr35DcwTF6WlB66te0WcBs%2Bi3DX5PN0zBxvhIyT49u1EeOyxHE958zr4NWSRz7eAmeJBVQwyq%2Fr857otMBXUocGlH%2FAKR9Pb2ZJgfrHuxePMv2MsE%2BlqsWNHikcrJZj0TH02wmDNJbtbyyCwqGFJEGjf56dRBv7R0nO243GjEb6PeIge3wD0qMnnL76Yn9PIXrLA%3D%3D",
       ingredient_name: "Zingiber officinale",
       ingredient_description:
@@ -205,9 +218,14 @@ export const product = {
   product_shipping_name: "Ayuvya i-Gain Combo pack",
   product_slug: "i-gain-weight-gainer",
   product_sku: "AYUIG-FS-001",
-  review_count: 23,
+  review_count: 24,
   price: 1348.0,
   cut_price: 1498.0,
+  rating_five: 80,
+  rating_four: 5,
+  rating_three: 7,
+  rating_two: 0,
+  rating_one: 4,
   product_description:
     "i-Gain is a combination of 19 Ayurvedic herbs that supports natural weight gain by increasing appetite and improving metabolism. It also promotes good energy levels and fitness by building body╬ô├ç├ûs resistance. It is suitable for both men and women.",
   negative_name: "Other Mass Gainers",

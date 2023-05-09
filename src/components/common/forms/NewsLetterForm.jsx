@@ -1,15 +1,35 @@
-import { useState } from "react";
+import axios from "axios";
 import Button from "../Button";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { MdEmail } from "react-icons/md";
 
 const NewsLetterForm = () => {
   const [newsLetter, setNewsletter] = useState({
     email: "",
     phoneNumber: "",
+    countryCode: "+91",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = {
+      email: newsLetter.email,
+      phone_number: newsLetter.countryCode + newsLetter.phoneNumber,
+    };
+    const resp = await axios.post(
+      "http://192.168.0.101:80/api/newsletter/create/",
+      data,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (resp.status === 201) {
+      toast("Your feedback has been submitted");
+      setNewsletter({});
+    } else {
+      toast("Something went wrong");
+    }
   };
   return (
     <>
@@ -38,12 +58,20 @@ const NewsLetterForm = () => {
             <select
               name="phoneNumber"
               id="phoneNumber"
-              className="text-lg text-gray-400 w-14 focus:bg-white outline-none bg-white"
+              onChange={(e) => {
+                setNewsletter({
+                  ...newsLetter,
+                  countryCode: e.target.value || +91,
+                });
+              }}
+              value={newsLetter.countryCode}
+              className="text-lg text-gray-400 w-16 outline-none"
+              style={{ background: "none" }}
             >
               <option disabled value="none">
                 Select Country Code
               </option>
-              <option defaultValue={+91}>+91</option>
+              <option value={"+91"}>+91</option>
             </select>
           </div>
           <input
@@ -51,7 +79,9 @@ const NewsLetterForm = () => {
             placeholder="PHONE NUMBER"
             name="phoneNumber"
             id="phoneNumber"
-            maxLength={10}
+            onChange={(e) =>
+              setNewsletter({ ...newsLetter, phoneNumber: e.target.value })
+            }
             required
             className="border border-gray-300 text-gray-400 text-lg rounded-full py-3 bg-white block w-full pl-20"
           />

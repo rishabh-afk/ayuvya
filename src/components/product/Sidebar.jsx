@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import CustomSwiper from "../common/custom/CustomSwiper";
 import ConcernCard from "../common/card/ConcernCard";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { category } from "../../data/categories";
 
 const Sidebar = () => {
   const location = useLocation();
-  const categories = useSelector((state) => state.common.categories);
+  const categories = category;
+  // const categories = useSelector((state) => state.common.categories);
   return (
     <>
       <div className="hidden lg:block">

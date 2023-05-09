@@ -29,9 +29,9 @@ export default function App({ images }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {images.map((productImg, index) => {
+        {images.map((productImg) => {
           return (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={productImg.id}>
               <img src={productImg.product_image} alt="" className="" />
             </SwiperSlide>
           );
@@ -46,9 +46,9 @@ export default function App({ images }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        {images.map((productImg, index) => {
+        {images.map((productImg) => {
           return (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={productImg.id}>
               <img src={productImg.product_image} alt="" className="" />
             </SwiperSlide>
           );

@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
 import dummyImage from "../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
 import { BsInstagram } from "react-icons/bs";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const InstagramPosts = () => {
+  const [instaPosts, setInstaPosts] = useState([]);
+  const fetchInstaPosts = async () => {
+    const resp = await axios.get("http://192.168.0.110:80/api/insta");
+    if (resp.statusCode === 200) {
+      setInstaPosts(resp.body.results);
+    }
+  };
+  useEffect(() => {
+    fetchInstaPosts();
+  }, []);
   return (
     <div className="flex bg-[#f8f9fa] flex-col justify-center items-center px-2 py-10 lg:pt-10 pb-0">
       <Link

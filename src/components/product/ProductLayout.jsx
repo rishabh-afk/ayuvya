@@ -11,7 +11,7 @@ const ProductLayout = ({ pageTitle, products }) => {
               <ProductCard
                 key={product.id}
                 product={product}
-                isSwiperProduct={true}
+                isNotSwiperProduct={true}
               />
             </div>
           );

@@ -1,30 +1,43 @@
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CardHoc from "../UI/CardHoc";
 import Button from "../common/Button";
-import { addCartItem } from "../../store/slices/cartSlice";
-import { useDispatch } from "react-redux";
 import ProductBriefCard from "./ProductBriefCard";
+import { addCartItem, fetchCart } from "../../store/slices/cartSlice";
+import { getAllRelatedProducts } from "../../store/slices/commonSlice";
+import productImg from "../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
 
 const ProductCard = ({
   product,
   headingSize,
   marginVertical,
-  isSwiperProduct,
+  isNotSwiperProduct,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const addItemToCart = (id) => {
+
+  const addItemToCart = async (product) => {
     const data = {
-      product: id,
-      quantiy: 1,
+      id: product.id,
+      primary_image: product.primary_image,
+      product_name: product.product_name,
+      price: product.price,
+      cut_price: product.cut_price,
+      qty: 1,
     };
     dispatch(addCartItem(data));
+    dispatch(fetchCart());
+    const relatedIds = await JSON.parse(localStorage.getItem("ayuvya-cart"));
+    dispatch(getAllRelatedProducts(relatedIds?.related_product_Id));
+    toast("Item is added successfully", { position: "top-center" });
   };
+
   const buyNow = () => {
     navigate(
       `/${product?.product_category?.category_slug}/${product?.product_slug}`,
       {
-        state: { productId: product?.id, scroll: true },
+        state: { productId: product?.product_slug, scroll: true },
       }
     );
   };
@@ -35,19 +48,19 @@ const ProductCard = ({
     >
       <div
         className={`w-auto rounded-t-lg relative flex justify-center text-white ${
-          isSwiperProduct ? "h-48 md:h-72 bg-white/60 group" : "h-96"
+          isNotSwiperProduct ? "h-48 md:h-64 bg-white/60 group" : "h-96"
         }`}
       >
         <img
           className={`absolute rounded-t-lg h-full object-cover ${
-            isSwiperProduct
+            isNotSwiperProduct
               ? "transition delay-75 ease-in-out duration-200 group-hover:opacity-30"
               : ""
           }`}
-          src={product?.primary_image}
+          src={productImg || product?.primary_image}
           alt=""
         />
-        {isSwiperProduct && (
+        {isNotSwiperProduct && (
           <>
             <div className="relative transition-all ease-in-out duration-200 delay-75 w-full h-full flex justify-center items-center opacity-0 group-hover:opacity-100">
               <Button
@@ -68,7 +81,7 @@ const ProductCard = ({
         product={product}
         addItemToCart={addItemToCart}
         buyNow={buyNow}
-        isSwiperProduct={isSwiperProduct}
+        isNotSwiperProduct={isNotSwiperProduct}
       />
     </CardHoc>
   );

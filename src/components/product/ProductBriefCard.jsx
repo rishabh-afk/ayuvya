@@ -6,10 +6,10 @@ const ProductBriefCard = ({
   product,
   addItemToCart,
   buyNow,
-  isSwiperProduct,
+  isNotSwiperProduct,
 }) => {
   return (
-    <div className="flex flex-col items-center text-center p-4 gap-2 h-56">
+    <div className="flex flex-col items-center text-center p-4 gap-2 h-64">
       <h1 className={`font-semibold ${headingSize}`}>
         {product?.product_name.slice(0, 45)}{" "}
         {product?.product_name.length > 45 && <span>...</span>}
@@ -32,18 +32,18 @@ const ProductBriefCard = ({
         </span>
         <span className="">₹ {product?.price}</span>
       </div>
-      {isSwiperProduct && (
+      {isNotSwiperProduct && (
         <span className="text-xs">
           (save ₹ {product.cut_price - product.price})
         </span>
       )}
       <Button
-        handler={isSwiperProduct ? () => addItemToCart(product.id) : buyNow}
+        handler={isNotSwiperProduct ? () => addItemToCart(product) : buyNow}
         className={`bg-black text-md md:text-xl text-white rounded-lg outline-none hover:bg-gray-500 ${
-          isSwiperProduct ? "px-6" : "px-4"
+          isNotSwiperProduct ? "px-6" : "px-4"
         }`}
       >
-        {isSwiperProduct ? "Add To Cart" : "Buy Now"}
+        {isNotSwiperProduct ? "Add To Cart" : "Buy Now"}
       </Button>
     </div>
   );

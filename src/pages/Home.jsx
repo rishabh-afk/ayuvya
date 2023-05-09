@@ -23,7 +23,7 @@ const Home = () => {
       <ProductSection />
       <InstagramPosts />
       <Testimonials />
-      <Blogs />
+      {/* <Blogs /> */}
       <PlaystoreApp />
     </Layouts>
   );
