@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import CartModal from "../../modals/CartModal";
 import { product } from "../../../data/products";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import NavbarIcons from "./NavbarIcons";

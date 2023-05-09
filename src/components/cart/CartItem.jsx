@@ -13,23 +13,23 @@ import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 
 const CartItem = ({ product, isCheckoutPage }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(product.qty);
-  const addItemQuantity = (id, qty, price) => {
-    setQuantity(qty + 1);
+  const [quantity, setQuantity] = useState(product.quantity);
+  const addItemQuantity = (id, quantity, price) => {
+    setQuantity(quantity + 1);
     const data = {
       id: id,
-      qty: qty + 1,
+      quantity: quantity + 1,
       price: price,
     };
     dispatch(updateCartItem(data));
     dispatch(fetchCart());
   };
-  const removeItemQuantity = (id, qty, price) => {
-    if (qty !== 1) {
-      setQuantity(qty - 1);
+  const removeItemQuantity = (id, quantity, price) => {
+    if (quantity !== 1) {
+      setQuantity(quantity - 1);
       const data = {
         id: id,
-        qty: qty - 1,
+        quantity: quantity - 1,
         price: price,
         type: "remove",
       };
@@ -62,7 +62,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
         />
         {isCheckoutPage && (
           <span className="absolute top-0 right-0 bg-gray-500 text-white px-2 rounded-full">
-            {product.qty}
+            {product.quantity}
           </span>
         )}
       </figure>

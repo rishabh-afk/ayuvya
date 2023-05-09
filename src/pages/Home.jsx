@@ -6,7 +6,7 @@ import ShopByConcern from "../components/Home/ShopByConcern";
 import ProductSection from "../components/Home/ProductSection";
 import InstagramPosts from "../components/Home/InstagramPosts";
 import Testimonials from "../components/Home/Testimonials";
-import Blogs from "../components/Home/Blogs";
+// import Blogs from "../components/Home/Blogs";
 import PlaystoreApp from "../components/Home/PlaystoreApp";
 
 const Home = () => {

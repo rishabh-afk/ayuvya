@@ -51,7 +51,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         cart: "4b922503-302a-4f13-ae33-28eb97f01f4d",
       };
       const resp = await axios.post(
-        "http://192.168.0.101:80/api/checkout/create/order/",
+        "http://192.168.0.105:80/api/checkout/create/order/",
         data
       );
       if (resp.status === 201) {
@@ -77,7 +77,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   };
   const sendOtp = async (data) => {
     const resp = await axios.post(
-      "http://192.168.0.101:80/api/auth/otp/send/",
+      "http://192.168.0.105:80/api/auth/otp/send/",
       data
     );
     if (resp.status === 200) {
@@ -101,7 +101,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     e.preventDefault();
     if (e.target.value.length === 6) {
       const resp = await axios.get(
-        "http://192.168.0.101:80/check-pincode/?pincode=" + e.target.value
+        "http://192.168.0.105:80/check-pincode/?pincode=" + e.target.value
       );
       if (resp.data) {
         setCustomerDetail({

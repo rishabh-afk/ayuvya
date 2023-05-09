@@ -24,7 +24,7 @@ const ProductCard = ({
       product_name: product.product_name,
       price: product.price,
       cut_price: product.cut_price,
-      qty: 1,
+      quantity: 1,
     };
     dispatch(addCartItem(data));
     dispatch(fetchCart());

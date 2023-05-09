@@ -2,7 +2,7 @@ import HeadingText from "../product/HeadingText";
 import CustomSwiper from "../common/custom/CustomSwiper";
 import ConcernCard from "../common/card/ConcernCard";
 import { useSelector } from "react-redux";
-import { category } from "../../data/categories";
+// import { category } from "../../data/categories";
 
 const ShopByConcern = () => {
   // const categories = category;

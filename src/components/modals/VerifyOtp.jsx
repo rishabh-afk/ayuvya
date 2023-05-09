@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+// import { useState } from "react";
 
 const customStyles = {
   content: {
@@ -52,7 +52,7 @@ const VerifyOtp = ({
       otp: otp,
     };
     const resp = await axios.post(
-      "http://192.168.0.101:80/api/auth/otp/verify/",
+      "http://192.168.0.105:80/api/auth/otp/verify/",
       data
     );
     if (resp.status === 200) {
@@ -70,7 +70,7 @@ const VerifyOtp = ({
     };
     console.log(token);
     const resp = await axios.post(
-      "http://192.168.0.101:80/api/checkout/create/order/",
+      "http://192.168.0.105:80/api/checkout/create/order/",
       data,
       {
         headers: {

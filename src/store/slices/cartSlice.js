@@ -1,72 +1,59 @@
-import { createSlice } from "@reduxjs/toolkit";
-// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import cartServices from "../services/cartServices";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import cartServices from "../services/cartServices";
 
 const initialState = {
   status: "loading",
   message: "",
-  items: [],
-  totalAmount: 0,
-  numberOfItems: 0,
-  related_product_Id: [],
+  items: [], // fetch cart items using apis
+  totalAmount: 0, // total amount of cart items
+  numberOfItems: 0, // number of items present in cart
+  related_product_Id: [], // related product based on product present in cart
 };
 
-// export const addCartItem = createAsyncThunk(
-//   "add/cartItem",
-//   async (data, thunkAPI) => {
-//     try {
-//       return await cartServices.addItemToCart(data);
-//     } catch (e) {
-//       const msg =
-//         (e.response && e.response.data && e.response.data.message) ||
-//         e.message ||
-//         e.toString();
-//       return thunkAPI.rejectWithValue(msg);
-//     }
-//   }
-// );
+export const addToCartAuth = createAsyncThunk(
+  "add/addToCart",
+  async (data, thunkAPI) => {
+    try {
+      return await cartServices.addItemToCart(data);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
 
-// export const updateCartItem = createAsyncThunk(
-//   "update/cartItem",
-//   async (data, thunkAPI) => {
-//     try {
-//       return await cartServices.updateCartItem(data, data.product);
-//     } catch (e) {
-//       const msg =
-//         (e.response && e.response.data && e.response.data.message) ||
-//         e.message ||
-//         e.toString();
-//       return thunkAPI.rejectWithValue(msg);
-//     }
-//   }
-// );
+export const updateCartAuth = createAsyncThunk(
+  "update/updateCart",
+  async (data, thunkAPI) => {
+    try {
+      return await cartServices.updateCartItem(data, data.product);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
 
-// export const removeCartItem = createAsyncThunk(
-//   "remove/cartItem",
-//   async (data, thunkAPI) => {
-//     try {
-//       return await cartServices.deleteCartItem(data, data.product);
-//     } catch (e) {
-//       const msg =
-//         (e.response && e.response.data && e.response.data.message) ||
-//         e.message ||
-//         e.toString();
-//       return thunkAPI.rejectWithValue(msg);
-//     }
-//   }
-// );
-
-// export const fetchCartItems = createAsyncThunk("get/cart", async (thunkAPI) => {
-//   try {
-//     return await cartServices.fetchCart();
-//   } catch (e) {
-//     const msg =
-//       (e.response && e.response.data && e.response.data.message) ||
-//       e.message ||
-//       e.toString();
-//     return thunkAPI.rejectWithValue(msg);
-//   }
-// });
+export const fetchCartAuth = createAsyncThunk(
+  "get/getcart",
+  async (thunkAPI) => {
+    try {
+      return await cartServices.fetchCart();
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
 
 const cartSlice = createSlice({
   name: "myCart",
@@ -80,12 +67,7 @@ const cartSlice = createSlice({
         );
         if (itemExists) {
           itemExists.total_item_price += action.payload.price;
-          itemExists.qty += action.payload.qty;
-          // cart?.items.map((cartItem) => {
-          //   if (cartItem.id === itemExists.id) {
-          //     return (cartItem = itemExists);
-          //   }
-          // });
+          itemExists.quantity += action.payload.quantity;
           cart.totalAmount += action.payload.price;
           localStorage.setItem("ayuvya-cart", JSON.stringify(cart));
         } else {
@@ -102,7 +84,7 @@ const cartSlice = createSlice({
       let itemExists = cart?.items?.find(
         (cartItem) => cartItem.id === action.payload.id
       );
-      const total_item_price = itemExists.qty * itemExists.price;
+      const total_item_price = itemExists.quantity * itemExists.price;
       state.items = state.items.filter((item) => item.id !== action.payload.id);
       state.related_product_Id = state.related_product_Id.filter(
         (item) => item !== action.payload.id
@@ -126,14 +108,9 @@ const cartSlice = createSlice({
         const itemExists = cart?.items?.find(
           (cartItem) => cartItem.id === action.payload.id
         );
-        const totalitemAmount = action.payload.qty * action.payload.price;
+        const totalitemAmount = action.payload.quantity * action.payload.price;
         itemExists.total_item_price = totalitemAmount;
-        itemExists.qty = action.payload.qty;
-        // cart?.items?.map((cartItem) => {
-        //   if (cartItem.id === itemExists.id) {
-        //     return (cartItem = itemExists);
-        //   }
-        // });
+        itemExists.quantity = action.payload.quantity;
         if (action.payload.type === "remove") {
           cart.totalAmount -= action.payload.price;
         } else {
@@ -143,51 +120,40 @@ const cartSlice = createSlice({
       }
     },
   },
-  // extraReducers: (builder) => {
-  //   builder;
-  // .addCase(addCartItem.pending, (state) => {
-  //   state.status = "loading";
-  // })
-  // .addCase(addCartItem.fulfilled, (state, action) => {
-  //   state.status = "success";
-  //   localStorage.setItem("sessionId", action.payload.session_id);
-  //   state.message = action.payload.message;
-  // })
-  // .addCase(addCartItem.rejected, (state, action) => {
-  //   state.status = "rejected";
-  // })
-  // .addCase(updateCartItem.pending, (state) => {
-  //   state.status = "loading";
-  // })
-  // .addCase(updateCartItem.fulfilled, (state, action) => {
-  //   state.status = "success";
-  //   state.message = action.payload.message;
-  // })
-  // .addCase(updateCartItem.rejected, (state, action) => {
-  //   state.status = "rejected";
-  // })
-  // .addCase(removeCartItem.pending, (state) => {
-  //   state.status = "loading";
-  // })
-  // .addCase(removeCartItem.fulfilled, (state, action) => {
-  //   state.status = "success";
-  //   state.message = action.payload.message;
-  // })
-  // .addCase(removeCartItem.rejected, (state, action) => {
-  //   state.status = "rejected";
-  // })
-  // .addCase(fetchCartItems.pending, (state) => {
-  //   state.status = "loading";
-  // })
-  // .addCase(fetchCartItems.fulfilled, (state, action) => {
-  //   state.status = "success";
-  //   state.message = action.payload.message;
-  //   state.cartData = action.payload;
-  // })
-  // .addCase(fetchCartItems.rejected, (state, action) => {
-  //   state.status = "rejected";
-  // });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(addToCartAuth.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addToCartAuth.fulfilled, (state, action) => {
+        state.status = "success";
+        state.message = action.payload.message;
+      })
+      .addCase(addToCartAuth.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(updateCartAuth.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateCartAuth.fulfilled, (state, action) => {
+        state.status = "success";
+        state.message = action.payload.message;
+      })
+      .addCase(updateCartAuth.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(fetchCartAuth.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchCartAuth.fulfilled, (state, action) => {
+        state.status = "success";
+        state.message = action.payload.message;
+        state.cartData = action.payload;
+      })
+      .addCase(fetchCartAuth.rejected, (state, action) => {
+        state.status = "rejected";
+      });
+  },
 });
 
 export const { addCartItem, removeCartItem, fetchCart, updateCartItem } =

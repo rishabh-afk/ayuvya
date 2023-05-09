@@ -25,7 +25,7 @@ const ThankYou = () => {
 
   // const fetchDetails = async (orderId) => {
   //   const resp = await axios.post(
-  //     "http://192.168.0.101:80/api/checkout/verify/payment/",
+  //     "http://192.168.0.105:80/api/checkout/verify/payment/",
   //     {
   //       order_id: orderId,
   //     }
