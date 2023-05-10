@@ -1,0 +1,12 @@
+.move {
+    animation: flower 6s ease-in-out infinite alternate;
+}
+
+
+@keyframes flower {
+    from {
+        rotate: -5deg;
+    } to {
+        rotate: 5deg;
+    }
+}

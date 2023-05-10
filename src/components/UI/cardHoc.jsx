@@ -1,8 +1,13 @@
+import { motion } from "framer-motion";
 const CardHoc = (props) => {
   return (
-      <div className={`rounded-xl border ${props.className}`}>
-        {props.children}
-      </div>
+    <motion.div
+      whileHover={{ y: -12 }}
+      transition={{ duration: 0.3 }}
+      className={`rounded-lg border-none shadow-3xl shadow-blue-300 ${props.className}`}
+    >
+      {props.children}
+    </motion.div>
   );
 };
 
