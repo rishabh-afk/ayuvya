@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CardHoc from "../../UI/CardHoc";
+import CardHoc from "../../UI/cardHoc"
 import Button from "../Button";
 
 const BlogCard = ({ product, isBlogPage, marginVertical }) => {

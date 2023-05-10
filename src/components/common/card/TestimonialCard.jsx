@@ -1,5 +1,5 @@
 import { AiFillStar } from "react-icons/ai";
-import CardHoc from "../../UI/CardHoc";
+import CardHoc from "../../UI/cardHoc";
 
 const TestimonialCard = ({ product }) => {
   const items = new Array(Math.round(product.rating)).fill(null);

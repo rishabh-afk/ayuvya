@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import CardHoc from "../UI/CardHoc";
+import CardHoc from "../UI/cardHoc";
 import Button from "../common/Button";
 import ProductBriefCard from "./ProductBriefCard";
 import { addCartItem, fetchCart } from "../../store/slices/cartSlice";
