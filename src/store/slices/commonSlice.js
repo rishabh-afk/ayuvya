@@ -2,11 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import services from "../services/getServices";
 
 const initialState = {
-  categories: [],
-  concerns: [],
-  relatedProducts: [],
-  status: "loading",
   message: "",
+  concerns: [],
+  categories: [],
+  accessToken: "",
+  isOTPVerified: "",
+  status: "loading",
+  relatedProducts: [],
 };
 
 export const getAllCategories = createAsyncThunk(
@@ -44,6 +46,21 @@ export const getAllRelatedProducts = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       return await services.getAllRelatedProducts(data);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
+export const verifyOTP = createAsyncThunk(
+  "post/verifyOtp",
+  async (data, thunkAPI) => {
+    try {
+      return await services.verifyOTP(data);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -95,6 +112,17 @@ const commonSlice = createSlice({
         state.status = "rejected";
         state.relatedProducts = [];
         state.message = action.payload;
+      })
+      .addCase(verifyOTP.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(verifyOTP.fulfilled, (state, action) => {
+        localStorage.setItem("ayuvya-cart-token", action.payload.token);
+        state.isOTPVerified = "success";
+        state.accessToken = action.payload.token;
+      })
+      .addCase(verifyOTP.rejected, (state, action) => {
+        state.status = "rejected";
       });
   },
 });

@@ -10,9 +10,15 @@ const initialorderState = {
 
 export const createOrder = createAsyncThunk(
   "order/createNewOrder",
-  async (data, thunkAPI) => {
+  async (customerDetail, thunkAPI) => {
     try {
-      return await orderServices.createOrder(data);
+      const token = localStorage.getItem("ayuvya-cart-token");
+      const cartId = localStorage.getItem("ayuvya-cart-cartId");
+      const data = {
+        ...customerDetail,
+        cart: "4b922503-302a-4f13-ae33-28eb97f01f4d" || cartId,
+      };
+      return await orderServices.createOrder(data, token);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||

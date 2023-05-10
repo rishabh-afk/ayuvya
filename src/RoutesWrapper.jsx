@@ -38,7 +38,7 @@ const RoutesWrapper = () => {
       <Route path="/account" element={<Account />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/contact-us" element={<ContactUs />} />
-      <Route path="/thank-you/:orderId" element={<ThankYou />} />
+      <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
       <Route path="/terms-and-condition" element={<TermsAndCondition />} />

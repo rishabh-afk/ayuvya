@@ -1,6 +1,7 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
-const BASE_URL = "http://192.168.0.110:80/";
+const BASE_URL = "http://192.168.0.105:80/";
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const PRODUCT_URL = "api/products/";
@@ -33,11 +34,21 @@ const getAllRelatedProducts = async (data) => {
   return resp.data;
 };
 
+const VERIFY_OTP_URL = "api/auth/otp/verify/";
+const verifyOTP = async (data) => {
+  const resp = await axios.post(`${BASE_URL}${VERIFY_OTP_URL}`, data);
+  if (resp.status === 200) {
+    toast.success("Phone Number verified successfully!");
+  }
+  return resp.data;
+};
+
 const services = {
-  getAllProducts,
+  verifyOTP,
   getAllBlogs,
-  getAllCategories,
   getAllConcerns,
+  getAllProducts,
+  getAllCategories,
   getAllRelatedProducts,
 };
 

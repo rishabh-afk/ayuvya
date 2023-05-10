@@ -1,14 +1,13 @@
-import { VscChromeClose } from "react-icons/vsc";
 import Modal from "react-modal";
 import Button from "../common/Button";
-// import { useState } from "react";
 import OTPInput from "react-otp-input";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-// import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import { VscChromeClose } from "react-icons/vsc";
+import { verifyOTP } from "../../store/slices/commonSlice";
+import { createOrder } from "../../store/slices/orderSlice";
 
 const customStyles = {
   content: {
@@ -38,6 +37,8 @@ const VerifyOtp = ({
   customerDetail,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const resendOTP = () => {
     const data = {
       phone: phone,
@@ -45,43 +46,32 @@ const VerifyOtp = ({
     sendOtp(data);
     setOtp(null);
   };
+
   const handleverifyOtp = async (e) => {
     e.preventDefault();
     const data = {
       phone: phone,
       otp: otp,
     };
-    const resp = await axios.post(
-      "http://192.168.0.105:80/api/auth/otp/verify/",
-      data
-    );
-    if (resp.status === 200) {
-      toast.success("Phone Number verified successfully!");
-      handleCreateOrder(resp.data.token);
-    } else {
-      toast.warn("Please check your number");
-    }
+    dispatch(verifyOTP(data)).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        handleCreateOrder();
+      }
+    });
   };
 
-  const handleCreateOrder = async (token) => {
-    const data = {
-      ...customerDetail,
-      cart: "4b922503-302a-4f13-ae33-28eb97f01f4d",
-    };
-    console.log(token);
-    const resp = await axios.post(
-      "http://192.168.0.105:80/api/checkout/create/order/",
-      data,
-      {
-        headers: {
-          Authorization: "Token " + token,
-        },
+  const handleCreateOrder = async () => {
+    dispatch(createOrder(customerDetail)).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        navigate("/thank-you/", {
+          state: {
+            orderId: response.payload.get_order_id,
+          },
+        });
       }
-    );
-    if (resp.status === 201) {
-      navigate(`/thank-you/${resp.data.get_order_id}`);
-    }
+    });
   };
+
   return (
     <div>
       <ToastContainer

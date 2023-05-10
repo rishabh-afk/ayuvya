@@ -1,11 +1,9 @@
-// import axios from "axios";
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Loader from "../components/common/Loader";
+import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "../components/order/OrderDetails";
 import OrderSummary from "../components/order/OrderSummary";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { verifyPaymentStatus } from "../store/slices/orderSlice";
 
 const variants = {
@@ -15,27 +13,13 @@ const variants = {
 };
 
 const ThankYou = () => {
-  const { orderId } = useParams();
+  const orderId = localStorage.getItem("orderId");
   const [thankYou, showThankYou] = useState(false);
   const dispatch = useDispatch();
   const cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
   const userDetails = JSON.parse(localStorage.getItem("ayuvya-user-details"));
   const payment_status = useSelector((state) => state.order.payment_status);
-  // console.log(cart, userDetails);
 
-  // const fetchDetails = async (orderId) => {
-  //   const resp = await axios.post(
-  //     "http://192.168.0.105:80/api/checkout/verify/payment/",
-  //     {
-  //       order_id: orderId,
-  //     }
-  //   );
-  //   if (resp.status === 200 && resp.data.payment_status === "SUCCESS") {
-  //     showThankYou(true);
-  //   } else {
-  //     return <Loader />;
-  //   }
-  // };
   useEffect(() => {
     if (orderId.includes("order")) {
       const data = {
@@ -43,17 +27,18 @@ const ThankYou = () => {
       };
       dispatch(verifyPaymentStatus(data));
       if (payment_status === "SUCCESS") {
+        localStorage.removeItem("ayuvya-cart");
+        localStorage.removeItem("ayuvya-user-details");
+        localStorage.removeItem("orderId");
         showThankYou(true);
       }
     } else {
       showThankYou(true);
     }
   }, [orderId, dispatch, payment_status]);
-
   if (payment_status !== "SUCCESS") {
     return <Loader />;
   }
-
   return (
     <>
       {!thankYou ? (

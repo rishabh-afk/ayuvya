@@ -60,9 +60,10 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         const cashfree = await load({
           mode: "sandbox", //or production
         });
+        localStorage.setItem("orderId", resp.data.order_id);
         let checkoutOptions = {
           paymentSessionId: resp.data.order_token,
-          returnUrl: `http://localhost:3000/thank-you/${resp.data.order_id}`,
+          returnUrl: `http://localhost:3000/thank-you`,
         };
         cashfree.checkout(checkoutOptions).then(function (result) {
           if (result.error) {

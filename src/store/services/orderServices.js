@@ -2,10 +2,12 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const CREATE_ORDER_COD_URL = "api/checkout/create/";
-const createOrder = async (data) => {
+const CREATE_ORDER_COD_URL = "api/checkout/create/order/";
+const createOrder = async (data, token) => {
   const resp = await axios.post(`${BASE_URL}${CREATE_ORDER_COD_URL}`, data, {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      Authorization: "Token " + token,
+    },
   });
   return resp.data;
 };

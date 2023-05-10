@@ -127,7 +127,6 @@ const cartSlice = createSlice({
       })
       .addCase(addToCartAuth.fulfilled, (state, action) => {
         state.status = "success";
-        state.message = action.payload.message;
       })
       .addCase(addToCartAuth.rejected, (state, action) => {
         state.status = "rejected";
@@ -147,8 +146,15 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCartAuth.fulfilled, (state, action) => {
         state.status = "success";
-        state.message = action.payload.message;
-        state.cartData = action.payload;
+        if (action.payload?.cart) {
+          localStorage.setItem("ayuvya-cart-cartId", action.payload.cart);
+          const cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
+          state.items = action.payload.items;
+          state.numberOfItems = cart.numberOfItems;
+          state.related_product_Id = cart.related_product_Id;
+          state.totalAmount = action.payload.totalAmount;
+          localStorage.setItem("ayuvya-cart", JSON.stringify(state));
+        }
       })
       .addCase(fetchCartAuth.rejected, (state, action) => {
         state.status = "rejected";
