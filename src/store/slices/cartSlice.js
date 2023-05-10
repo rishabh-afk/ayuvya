@@ -55,6 +55,21 @@ export const fetchCartAuth = createAsyncThunk(
   }
 );
 
+export const applyCoupon = createAsyncThunk(
+  "get/applyCoupon",
+  async (data, thunkAPI) => {
+    try {
+      return await cartServices.applyCoupon(data);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: "myCart",
   initialState,
@@ -157,6 +172,16 @@ const cartSlice = createSlice({
         }
       })
       .addCase(fetchCartAuth.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(applyCoupon.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(applyCoupon.fulfilled, (state, action) => {
+        state.status = "success";
+        console.log(action.payload)
+      })
+      .addCase(applyCoupon.rejected, (state, action) => {
         state.status = "rejected";
       });
   },

@@ -53,8 +53,11 @@ const VerifyOtp = ({
       otp: otp,
     };
     dispatch(verifyOTP(data)).then((response) => {
-      if (response.meta.requestStatus === "fulfilled") {
+      const couponApplied = false;
+      if (response.meta.requestStatus === "fulfilled" && couponApplied) {
         handleCreateOrder();
+      } else if (response.meta.requestStatus === "fulfilled" && !couponApplied) {
+        handleClose();
       } else {
         toast.warn("Something went wrong!");
       }

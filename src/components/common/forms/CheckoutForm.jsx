@@ -8,6 +8,7 @@ import FormInput from "../forms/FormInput";
 import VerifyOtp from "../../modals/VerifyOtp";
 import { load } from "@cashfreepayments/cashfree-js";
 import { sendOTP } from "../../../store/slices/commonSlice";
+import { applyCoupon } from "../../../store/slices/cartSlice";
 import { createOrder } from "../../../store/slices/orderSlice";
 
 const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
@@ -77,9 +78,16 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
 
   const ApplyPromoCode = async (e) => {
     e.preventDefault();
-    // const resp = await axios.get(
-    //   "http://192.168.0.111:80/check-pincode/?pincode=" + e.target.value
-    // );
+    const loggedIn = false;
+    if (loggedIn) {
+      const data = {
+        coupon: "bbf",
+        cart: "d8c957db-bd2b-4960-b399-cadc9cde3446",
+      };
+      dispatch(applyCoupon(data));
+    } else {
+      sendOtp({ phone: customerDetail.phone });
+    }
   };
   const handlePinCode = async (e) => {
     e.preventDefault();
