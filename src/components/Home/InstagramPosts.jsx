@@ -14,7 +14,6 @@ const InstagramPosts = () => {
   };
   useEffect(() => {
     fetchInstaPosts();
-    console.log(instaPosts);
   }, [instaPosts]);
   return (
     <div className="flex bg-[#f8f9fa] flex-col justify-center items-center px-2 py-10 lg:pt-10 pb-0">

@@ -31,14 +31,13 @@ const ThankYou = () => {
         localStorage.removeItem("ayuvya-user-details");
         localStorage.removeItem("orderId");
         showThankYou(true);
+      } else {
+        return <Loader />;
       }
     } else {
       showThankYou(true);
     }
   }, [orderId, dispatch, payment_status]);
-  if (payment_status !== "SUCCESS") {
-    return <Loader />;
-  }
   return (
     <>
       {!thankYou ? (

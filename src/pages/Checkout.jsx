@@ -28,7 +28,6 @@ const Checkout = () => {
   // redirect to homepage if no item is selected
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
-    console.log(cart);
     if (cart?.items.length === 0 || cart === null) {
       navigate("/");
     }

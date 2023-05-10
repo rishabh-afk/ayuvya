@@ -4,7 +4,7 @@ import OTPInput from "react-otp-input";
 import { useDispatch } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { VscChromeClose } from "react-icons/vsc";
 import { verifyOTP } from "../../store/slices/commonSlice";
 import { createOrder } from "../../store/slices/orderSlice";
@@ -46,7 +46,6 @@ const VerifyOtp = ({
     sendOtp(data);
     setOtp(null);
   };
-
   const handleverifyOtp = async (e) => {
     e.preventDefault();
     const data = {
@@ -56,18 +55,18 @@ const VerifyOtp = ({
     dispatch(verifyOTP(data)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
         handleCreateOrder();
+      } else {
+        toast.warn("Something went wrong!");
       }
     });
   };
-
   const handleCreateOrder = async () => {
     dispatch(createOrder(customerDetail)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
-        navigate("/thank-you/", {
-          state: {
-            orderId: response.payload.get_order_id,
-          },
-        });
+        localStorage.setItem("orderId", response.payload.get_order_id);
+        navigate("/thank-you/");
+      } else {
+        toast.warn("Something went wrong!");
       }
     });
   };

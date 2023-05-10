@@ -1,97 +1,80 @@
-// import { useState } from "react";
-import { useState } from "react";
-import Button from "../Button";
-import FormInput from "../forms/FormInput";
-import VerifyOtp from "../../modals/VerifyOtp";
 import Form from "./Form";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import Button from "../Button";
+import { useState } from "react";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import FormInput from "../forms/FormInput";
+import VerifyOtp from "../../modals/VerifyOtp";
 import { load } from "@cashfreepayments/cashfree-js";
+import { sendOTP } from "../../../store/slices/commonSlice";
+import { createOrder } from "../../../store/slices/orderSlice";
 
 const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [customerDetail, setCustomerDetail] = useState({
-    phone: "",
-    email: "",
-    notification: "false",
-    first_name: "",
-    last_name: "",
-    address: "",
-    apartment: "",
-    pin_code: "",
     city: "",
+    phone: "",
     state: "",
-    country: "India",
-    gender: "Male",
+    email: "",
+    address: "",
+    pin_code: "",
+    apartment: "",
+    last_name: "",
     promoCode: "",
-    payment_method: "Prepaid",
+    first_name: "",
+    gender: "Male",
+    country: "India",
+    notification: "false",
     saveInformation: "false",
+    payment_method: "Prepaid",
   });
   const [otpModal, showOtpModal] = useState(false);
   const [otp, setOtp] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userDetails = await JSON.parse(
-      localStorage.getItem("ayuvya-user-details")
-    );
-    if (userDetails) {
-      localStorage.removeItem("ayuvya-user-details");
-    }
-    localStorage.setItem("ayuvya-user-details", JSON.stringify(customerDetail));
-    if (customerDetail.payment_method === "COD") {
-      const data = {
-        phone: customerDetail.phone,
-      };
-      sendOtp(data);
-    } else {
-      const data = {
-        ...customerDetail,
-        cart: "4b922503-302a-4f13-ae33-28eb97f01f4d",
-      };
-      const resp = await axios.post(
-        "http://192.168.0.105:80/api/checkout/create/order/",
-        data
-      );
-      if (resp.status === 201) {
-        toast.success("order created successfully");
-        console.log(resp.data);
-        const cashfree = await load({
-          mode: "sandbox", //or production
-        });
-        localStorage.setItem("orderId", resp.data.order_id);
-        let checkoutOptions = {
-          paymentSessionId: resp.data.order_token,
-          returnUrl: `http://localhost:3000/thank-you`,
-        };
-        cashfree.checkout(checkoutOptions).then(function (result) {
-          if (result.error) {
-            alert(result.error.message);
-          }
-          if (result.redirect) {
-            console.log("Redirection");
-          }
-        });
-      }
-    }
-  };
   const sendOtp = async (data) => {
-    const resp = await axios.post(
-      "http://192.168.0.105:80/api/auth/otp/send/",
-      data
-    );
-    if (resp.status === 200) {
-      toast.success("OTP is sent successfully");
-      showOtpModal(true);
-    } else {
-      toast.warn("Failed to send OTP. Try again later");
-    }
+    dispatch(sendOTP(data)).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        showOtpModal(true);
+      }
+    });
   };
   const handleClose = () => {
     showOtpModal(false);
     setOtp(null);
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    localStorage.setItem("ayuvya-user-details", JSON.stringify(customerDetail));
+    if (customerDetail.payment_method === "COD") {
+      sendOtp({ phone: customerDetail.phone });
+    } else {
+      dispatch(createOrder(customerDetail)).then(async (response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          localStorage.setItem("orderId", response.payload.order_id);
+          toast.success("order created successfully");
+          const cashfree = await load({
+            mode: "sandbox", //or production
+          });
+          let checkoutOptions = {
+            paymentSessionId: response.payload.order_token,
+            returnUrl: `http://localhost:3000/thank-you`,
+          };
+          cashfree.checkout(checkoutOptions).then((result) => {
+            if (result.error) {
+              toast.error(result.error.message);
+            }
+            if (result.redirect) {
+              console.log("Redirection");
+            }
+          });
+        } else {
+          toast.warn("Something went wrong!");
+        }
+      });
+    }
+  };
+
   const ApplyPromoCode = async (e) => {
     e.preventDefault();
     // const resp = await axios.get(
@@ -114,6 +97,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       }
     }
   };
+
   const handleOnChange = (e) => {
     const { name, value, checked, type } = e.target;
     setCustomerDetail((prevFields) => ({
@@ -144,7 +128,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             name="phone"
             id="phone"
             pattern="[0-9\/]*"
-            maxlength="10"
+            maxLength="10"
             value={customerDetail.phone || userDetails?.phone}
             onChange={handleOnChange}
             label="Phone Number *"

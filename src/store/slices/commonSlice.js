@@ -71,6 +71,21 @@ export const verifyOTP = createAsyncThunk(
   }
 );
 
+export const sendOTP = createAsyncThunk(
+  "post/sendOTP",
+  async (data, thunkAPI) => {
+    try {
+      return await services.sendOTP(data);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
 const commonSlice = createSlice({
   name: "categories",
   initialState,
@@ -122,6 +137,15 @@ const commonSlice = createSlice({
         state.accessToken = action.payload.token;
       })
       .addCase(verifyOTP.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(sendOTP.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(sendOTP.fulfilled, (state, action) => {
+        state.status = "success";
+      })
+      .addCase(sendOTP.rejected, (state, action) => {
         state.status = "rejected";
       });
   },
