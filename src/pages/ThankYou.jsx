@@ -23,7 +23,7 @@ const ThankYou = () => {
   const payment_status = useSelector((state) => state.order.payment_status);
   useEffect(() => {
     if (orderId === null) {
-     return navigate("/");
+      return navigate("/");
     }
     if (orderId.includes("order")) {
       const data = {
@@ -31,6 +31,9 @@ const ThankYou = () => {
       };
       dispatch(verifyPaymentStatus(data));
       if (payment_status === "SUCCESS") {
+        // localStorage.removeItem("AYUVYA_USERDATA");
+        // localStorage.removeItem("AYUVYA_ORDER_ID");
+        // localStorage.removeItem("AYUVYA_CART");
         showThankYou(true);
       }
     } else {

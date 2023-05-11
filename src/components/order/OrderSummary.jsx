@@ -1,18 +1,26 @@
+import { useState } from "react";
 import Button from "../common/Button";
-import { Link, useNavigate } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
 import { BsClipboard } from "react-icons/bs";
 import CustomerDetails from "./CustomerDetails";
+import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 
 const OrderSummary = ({ userDetails, totalAmount, orderId }) => {
   const navigate = useNavigate();
-  const payOnline = async () => {
-    navigate("/checkout");
-  };
+  const [copyToClip, setCopyToClip] = useState(false);
+
   const backToHome = async () => {
     localStorage.removeItem("AYUVYA_CART");
     localStorage.removeItem("AYUVYA_USERDATA");
     navigate("/");
+  };
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(orderId);
+    setCopyToClip(true);
+    setTimeout(() => {
+      setCopyToClip(false);
+    }, 3000);
   };
   return (
     <div>
@@ -24,12 +32,28 @@ const OrderSummary = ({ userDetails, totalAmount, orderId }) => {
           <TiTick className="text-gray-400" size={40} />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="inline-flex items-center text-lg">
-            Order #{orderId}
-            <span className="pl-2">
-              <BsClipboard />
-            </span>
-          </p>
+          <div
+            id="copyToClipboard"
+            className="inline-flex items-center text-lg"
+          >
+            Order #{orderId.includes("order") ? orderId.slice(6) : orderId}
+            <div className="pl-2">
+              {copyToClip ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center"
+                >
+                  <TiTick className="text-green-600" size={25} />
+                  <p className="text-sm">Copied!</p>
+                </motion.div>
+              ) : (
+                <motion.div whileHover={{ scale: 1.2 }}>
+                  <BsClipboard onClick={copyToClipboard} />
+                </motion.div>
+              )}
+            </div>
+          </div>
           <p className="text-xl">Thank You {userDetails?.first_name}!</p>
         </div>
       </div>
@@ -45,7 +69,7 @@ const OrderSummary = ({ userDetails, totalAmount, orderId }) => {
               </p>
             </div>
             <Button
-              handler={payOnline}
+              handler={() => navigate("/checkout")}
               className="text-white h-fit bg-blue-500 px-4 hover:bg-blue-500/90 rounded-lg relative z-50"
             >
               <span className="text-lg">Pay Online</span>
