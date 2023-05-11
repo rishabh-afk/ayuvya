@@ -3,7 +3,7 @@ import Sidebar from "../product/Sidebar";
 const SideBarLayout = (props) => {
   return (
     <section className="max-w-7xl mx-auto my-10">
-      <div className="flex flex-col lg:flex-row px-8">
+      <div className="flex flex-col lg:flex-row px-1 lg:px-8">
         <div className="w-full lg:w-1/5">
           <Sidebar />
         </div>

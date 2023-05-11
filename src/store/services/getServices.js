@@ -43,9 +43,9 @@ const verifyOTP = async (data) => {
   return resp.data;
 };
 
-const SEND_OTO_URL = "api/auth/otp/send/";
+const SEND_OTP_URL = "api/auth/otp/send/";
 const sendOTP = async (data) => {
-  const resp = await axios.post(`${BASE_URL}${SEND_OTO_URL}`, data);
+  const resp = await axios.post(`${BASE_URL}${SEND_OTP_URL}`, data);
   if (resp.status === 200) {
     toast.success("OTP is sent successfully");
     return resp.data;

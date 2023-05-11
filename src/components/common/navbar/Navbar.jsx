@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import CartModal from "../../modals/CartModal";
 import { product } from "../../../data/products";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import NavbarIcons from "./NavbarIcons";
 import { motion } from "framer-motion";
 import { category } from "../../../data/categories";
+import { fetchCart } from "../../../store/slices/cartSlice";
 // import { fetchCartItems } from "../../../store/slices/cartSlice";
 
 const Navbar = () => {
@@ -23,10 +24,10 @@ const Navbar = () => {
   function handleClose() {
     showCartModal(false);
   }
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(fetchCartItems());
-  // }, [dispatch]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
 
   //Sidebar for mobile devices
   const [sidebar, setSidebar] = useState(false);

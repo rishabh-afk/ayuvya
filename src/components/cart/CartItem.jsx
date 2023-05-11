@@ -46,7 +46,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
     };
     dispatch(removeCartItem(data));
     dispatch(fetchCart());
-    const relatedIds = await JSON.parse(localStorage.getItem("ayuvya-cart"));
+    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
     dispatch(getAllRelatedProducts(relatedIds?.related_product_Id));
     toast("Product deleted successfully", { position: "top-center" });
   };

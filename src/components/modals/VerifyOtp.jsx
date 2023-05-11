@@ -1,13 +1,12 @@
 import Modal from "react-modal";
 import Button from "../common/Button";
 import OTPInput from "react-otp-input";
-import { useDispatch } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import { VscChromeClose } from "react-icons/vsc";
+import { login } from "../../store/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import { verifyOTP } from "../../store/slices/commonSlice";
-import { createOrder } from "../../store/slices/orderSlice";
 
 const customStyles = {
   content: {
@@ -34,10 +33,10 @@ const VerifyOtp = ({
   phone,
   setOtp,
   otp,
-  customerDetail,
+  user,
 }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const resendOTP = () => {
     const data = {
@@ -53,23 +52,14 @@ const VerifyOtp = ({
       otp: otp,
     };
     dispatch(verifyOTP(data)).then((response) => {
-      const couponApplied = false;
-      if (response.meta.requestStatus === "fulfilled" && couponApplied) {
-        handleCreateOrder();
-      } else if (response.meta.requestStatus === "fulfilled" && !couponApplied) {
-        handleClose();
-      } else {
-        toast.warn("Something went wrong!");
-      }
-    });
-  };
-  const handleCreateOrder = async () => {
-    dispatch(createOrder(customerDetail)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
-        localStorage.setItem("orderId", response.payload.get_order_id);
-        navigate("/thank-you/");
+        if (isLoggedIn) {
+          handleClose();
+        } else {
+          dispatch(login());
+        }
       } else {
-        toast.warn("Something went wrong!");
+        toast.warn("Try again later");
       }
     });
   };

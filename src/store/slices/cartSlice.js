@@ -76,7 +76,7 @@ const cartSlice = createSlice({
   reducers: {
     addCartItem: (state, action) => {
       if (action.payload) {
-        let cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
+        let cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
         let itemExists = cart?.items?.find(
           (cartItem) => cartItem.id === action.payload.id
         );
@@ -84,18 +84,18 @@ const cartSlice = createSlice({
           itemExists.total_item_price += action.payload.price;
           itemExists.quantity += action.payload.quantity;
           cart.totalAmount += action.payload.price;
-          localStorage.setItem("ayuvya-cart", JSON.stringify(cart));
+          localStorage.setItem("AYUVYA_CART", JSON.stringify(cart));
         } else {
           state.items.push(action.payload);
           state.numberOfItems += 1;
           state.related_product_Id.push(action.payload.id);
           state.totalAmount += action.payload.price;
-          localStorage.setItem("ayuvya-cart", JSON.stringify(state));
+          localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
         }
       }
     },
     removeCartItem: (state, action) => {
-      let cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
+      let cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
       let itemExists = cart?.items?.find(
         (cartItem) => cartItem.id === action.payload.id
       );
@@ -106,10 +106,10 @@ const cartSlice = createSlice({
       );
       state.numberOfItems -= 1;
       state.totalAmount -= total_item_price;
-      localStorage.setItem("ayuvya-cart", JSON.stringify(state));
+      localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
     },
     fetchCart: (state, action) => {
-      const localData = JSON.parse(localStorage.getItem("ayuvya-cart"));
+      const localData = JSON.parse(localStorage.getItem("AYUVYA_CART"));
       if (localData) {
         state.items = localData?.items;
         state.totalAmount = localData?.totalAmount;
@@ -119,7 +119,7 @@ const cartSlice = createSlice({
     },
     updateCartItem: (state, action) => {
       if (action.payload) {
-        let cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
+        let cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
         const itemExists = cart?.items?.find(
           (cartItem) => cartItem.id === action.payload.id
         );
@@ -131,7 +131,7 @@ const cartSlice = createSlice({
         } else {
           cart.totalAmount += action.payload.price;
         }
-        localStorage.setItem("ayuvya-cart", JSON.stringify(cart));
+        localStorage.setItem("AYUVYA_CART", JSON.stringify(cart));
       }
     },
   },
@@ -162,13 +162,13 @@ const cartSlice = createSlice({
       .addCase(fetchCartAuth.fulfilled, (state, action) => {
         state.status = "success";
         if (action.payload?.cart) {
-          localStorage.setItem("ayuvya-cart-cartId", action.payload.cart);
-          const cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
+          localStorage.setItem("AYUVYA_CART-cartId", action.payload.cart);
+          const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
           state.items = action.payload.items;
           state.numberOfItems = cart.numberOfItems;
           state.related_product_Id = cart.related_product_Id;
           state.totalAmount = action.payload.totalAmount;
-          localStorage.setItem("ayuvya-cart", JSON.stringify(state));
+          localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
         }
       })
       .addCase(fetchCartAuth.rejected, (state, action) => {

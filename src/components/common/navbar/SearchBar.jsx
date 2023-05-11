@@ -11,7 +11,7 @@ const SearchBar = ({ openSearchBar }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ delay: 0.2 }}
-        className="flex justify-between pr-2 items-center z-[5000] w-full lg:w-3/4 border-2 rounded-md cursor-none lg:cursor-pointer"
+        className="flex justify-between pr-2 relative z-10 items-center w-full lg:w-3/4 border-2 rounded-md cursor-none lg:cursor-pointer"
       >
         <input
           type="text"

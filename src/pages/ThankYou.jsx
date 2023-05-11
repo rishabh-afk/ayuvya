@@ -13,11 +13,11 @@ const variants = {
 };
 
 const ThankYou = () => {
-  const orderId = localStorage.getItem("orderId");
+  const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
   const [thankYou, showThankYou] = useState(false);
   const dispatch = useDispatch();
-  const cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
-  const userDetails = JSON.parse(localStorage.getItem("ayuvya-user-details"));
+  const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+  const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
   const payment_status = useSelector((state) => state.order.payment_status);
 
   useEffect(() => {
@@ -27,12 +27,7 @@ const ThankYou = () => {
       };
       dispatch(verifyPaymentStatus(data));
       if (payment_status === "SUCCESS") {
-        localStorage.removeItem("ayuvya-cart");
-        localStorage.removeItem("ayuvya-user-details");
-        localStorage.removeItem("orderId");
         showThankYou(true);
-      } else {
-        return <Loader />;
       }
     } else {
       showThankYou(true);

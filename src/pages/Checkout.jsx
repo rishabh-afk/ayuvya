@@ -12,8 +12,8 @@ const variants = {
 
 const Checkout = () => {
   const [paymentMode, setPaymentMode] = useState("online");
-  const cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
-  const userDetails = JSON.parse(localStorage.getItem("ayuvya-user-details"));
+  const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+  const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
   const navigate = useNavigate();
 
   // Payment Types
@@ -27,7 +27,7 @@ const Checkout = () => {
 
   // redirect to homepage if no item is selected
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("ayuvya-cart"));
+    const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
     if (cart?.items.length === 0 || cart === null) {
       navigate("/");
     }

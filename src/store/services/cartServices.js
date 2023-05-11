@@ -2,8 +2,8 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const CART_URL = "api/cart/item/";
-let token = localStorage.getItem("ayuvya-cart-token");
-const cartId = localStorage.getItem("ayuvya-cart-cartId");
+let token = localStorage.getItem("AYUVYA_TOKEN_USER");
+const cartId = localStorage.getItem("AYUVYA_CART-cartId");
 let headers = {
   "Content-Type": "application/json",
   Authorization: "Token" + token,
@@ -31,7 +31,11 @@ const fetchCart = async () => {
 };
 
 const APPLY_COUPON_URL = "api/cart/coupon/";
-const applyCoupon = async (data) => {
+const applyCoupon = async (coupon) => {
+  const data = {
+    coupon: coupon,
+    cart: "d8c957db-bd2b-4960-b399-cadc9cde3446" || cartId,
+  };
   const resp = await axios.post(`${BASE_URL}${APPLY_COUPON_URL}`, data, {
     headers: headers,
   });

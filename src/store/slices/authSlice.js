@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authServices from "../services/authServices";
+import { toast } from "react-toastify";
 
 const initialAuthState = {
   isLoggedIn: false,
@@ -47,6 +48,16 @@ const authSlice = createSlice({
       Object.assign(state, initialAuthState);
       localStorage.removeItem("AYUVYA-AYURVEDA-252d-4e76-9b06");
     },
+    login: (state) => {
+      let token = localStorage.getItem("AYUVYA_TOKEN_USER");
+      if (token) {
+        state.isLoggedIn = true;
+        state.accessToken = token;
+        state.status = "success";
+      } else {
+        toast.warn("Please login to Proceed");
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -79,6 +90,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, login } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -132,7 +132,7 @@ const commonSlice = createSlice({
         state.status = "loading";
       })
       .addCase(verifyOTP.fulfilled, (state, action) => {
-        localStorage.setItem("ayuvya-cart-token", action.payload.token);
+        localStorage.setItem("AYUVYA_TOKEN_USER", action.payload.token);
         state.isOTPVerified = "success";
         state.accessToken = action.payload.token;
       })

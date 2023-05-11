@@ -3,17 +3,20 @@ import axios from "axios";
 import Button from "../Button";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../forms/FormInput";
 import VerifyOtp from "../../modals/VerifyOtp";
 import { load } from "@cashfreepayments/cashfree-js";
 import { sendOTP } from "../../../store/slices/commonSlice";
 import { applyCoupon } from "../../../store/slices/cartSlice";
 import { createOrder } from "../../../store/slices/orderSlice";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   const dispatch = useDispatch();
-  const [customerDetail, setCustomerDetail] = useState({
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const [user, setUser] = useState({
     city: "",
     phone: "",
     state: "",
@@ -46,29 +49,14 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("ayuvya-user-details", JSON.stringify(customerDetail));
-    if (customerDetail.payment_method === "COD") {
-      sendOtp({ phone: customerDetail.phone });
+    localStorage.setItem("AYUVYA_USERDATA", JSON.stringify(user));
+    if (user.payment_method === "COD") {
+      handleCodOrder();
     } else {
-      dispatch(createOrder(customerDetail)).then(async (response) => {
+      dispatch(createOrder(user)).then(async (response) => {
         if (response.meta.requestStatus === "fulfilled") {
-          localStorage.setItem("orderId", response.payload.order_id);
-          toast.success("order created successfully");
-          const cashfree = await load({
-            mode: "sandbox", //or production
-          });
-          let checkoutOptions = {
-            paymentSessionId: response.payload.order_token,
-            returnUrl: `http://localhost:3000/thank-you`,
-          };
-          cashfree.checkout(checkoutOptions).then((result) => {
-            if (result.error) {
-              toast.error(result.error.message);
-            }
-            if (result.redirect) {
-              console.log("Redirection");
-            }
-          });
+          localStorage.setItem("AYUVYA_ORDER_ID", response.payload.order_id);
+          handlePrepaidOrder(response.payload.order_token);
         } else {
           toast.warn("Something went wrong!");
         }
@@ -76,17 +64,58 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     }
   };
 
+  const handleCodOrder = () => {
+    if (user.promoCode.length === 0 && !isLoggedIn) {
+      sendOtp({ phone: user.phone });
+    } else if (isLoggedIn) {
+      handleCreateOrder();
+    } else {
+      sendOtp({ phone: user.phone });
+      handleCreateOrder();
+    }
+  };
+
+  const handlePrepaidOrder = async (order_token) => {
+    const cashfree = await load({
+      mode: "sandbox", //or production
+    });
+    let checkoutOptions = {
+      paymentSessionId: order_token,
+      returnUrl: `http://localhost:3000/thank-you`,
+    };
+    cashfree.checkout(checkoutOptions).then((result) => {
+      if (result.error) {
+        toast.error(result.error.message);
+      }
+      if (result.redirect) {
+        console.log("Redirection");
+      }
+    });
+  };
+
+  const handleCreateOrder = async () => {
+    dispatch(createOrder(user)).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
+        navigate("/thank-you/");
+      } else {
+        toast.warn("Something went wrong!");
+      }
+    });
+  };
+
   const ApplyPromoCode = async (e) => {
     e.preventDefault();
-    const loggedIn = false;
-    if (loggedIn) {
-      const data = {
-        coupon: "bbf",
-        cart: "d8c957db-bd2b-4960-b399-cadc9cde3446",
-      };
-      dispatch(applyCoupon(data));
+    if (user.phone.length === 10 && user.promoCode.length > 0 && isLoggedIn) {
+      dispatch(applyCoupon(user.promoCode));
+    } else if (
+      user.phone.length === 10 &&
+      user.promoCode.length > 0 &&
+      !isLoggedIn
+    ) {
+      sendOtp({ phone: user.phone });
     } else {
-      sendOtp({ phone: customerDetail.phone });
+      toast.warn("Please enter a phone number");
     }
   };
   const handlePinCode = async (e) => {
@@ -96,8 +125,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         "http://192.168.0.105:80/check-pincode/?pincode=" + e.target.value
       );
       if (resp.data) {
-        setCustomerDetail({
-          ...customerDetail,
+        setUser({
+          ...user,
           pin_code: resp.data.data.pincode,
           city: resp.data?.data.city,
           state: resp.data?.data.state,
@@ -108,7 +137,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
 
   const handleOnChange = (e) => {
     const { name, value, checked, type } = e.target;
-    setCustomerDetail((prevFields) => ({
+    setUser((prevFields) => ({
       ...prevFields,
       [name]: type === "checkbox" ? checked : value,
     }));
@@ -122,8 +151,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         sendOtp={sendOtp}
         setOtp={setOtp}
         otp={otp}
-        phone={customerDetail.phone}
-        customerDetail={customerDetail}
+        phone={user.phone}
+        user={user}
       />
       <h2 className="text-3xl text-black mb-4 hidden lg:block">
         Ayuvya Ayurveda
@@ -137,7 +166,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             id="phone"
             pattern="[0-9\/]*"
             maxLength="10"
-            value={customerDetail.phone || userDetails?.phone}
+            value={user.phone || userDetails?.phone}
             onChange={handleOnChange}
             label="Phone Number *"
             autoFocus
@@ -150,7 +179,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             id="email"
             name="email"
             label="Email (Optional)"
-            value={customerDetail.email || userDetails?.email}
+            value={user.email || userDetails?.email}
             onChange={handleOnChange}
           />
         </div>
@@ -159,7 +188,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="checkbox"
             name="notification"
             id="notification"
-            value={customerDetail.notification || userDetails?.notification}
+            value={user.notification || userDetails?.notification}
             onChange={handleOnChange}
             className="h-5 w-5 mt-2 rounded-md"
           />
@@ -174,7 +203,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               type="text"
               id="first_name"
               name="first_name"
-              value={customerDetail.first_name || userDetails?.first_name}
+              value={user.first_name || userDetails?.first_name}
               onChange={handleOnChange}
               label="First Name *"
               required
@@ -186,7 +215,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               id="last_name"
               label="Last Name"
               name="last_name"
-              value={customerDetail.last_name || userDetails?.last_name}
+              value={user.last_name || userDetails?.last_name}
               onChange={handleOnChange}
             />
           </div>
@@ -207,10 +236,10 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               type="text"
               id="city"
               name="city"
-              value={userDetails?.city || customerDetail.city}
+              value={userDetails?.city || user.city}
               onChange={(e) =>
-                setCustomerDetail({
-                  ...customerDetail,
+                setUser({
+                  ...user,
                   city: e.target.value,
                 })
               }
@@ -227,9 +256,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
                 <option disabled>Select state</option>
-                <option value={customerDetail?.state}>
-                  {customerDetail?.state}
-                </option>
+                <option value={user?.state}>{user?.state}</option>
               </select>
               <label
                 htmlFor="state"
@@ -245,7 +272,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="text"
             id="address"
             name="address"
-            value={customerDetail.address || userDetails?.address}
+            value={user.address || userDetails?.address}
             onChange={handleOnChange}
             label="House number and area name *"
             required
@@ -256,7 +283,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="text"
             id="apartment"
             name="apartment"
-            value={customerDetail.apartment || userDetails?.apartment}
+            value={user.apartment || userDetails?.apartment}
             onChange={handleOnChange}
             label="Apartment, suite, etc. (optional)"
           />
@@ -267,7 +294,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               <select
                 id="country"
                 name="country"
-                value={customerDetail.country || userDetails?.country}
+                value={user.country || userDetails?.country}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
                 <option disabled>Select Country</option>
@@ -286,7 +313,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               <select
                 id="gender"
                 name="gender"
-                value={customerDetail.gender || userDetails?.gender}
+                value={user.gender || userDetails?.gender}
                 onChange={handleOnChange}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
@@ -311,7 +338,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             placeholder="Promo Code"
             name="promoCode"
             id="promoCode"
-            value={customerDetail.promoCode || userDetails?.promoCode}
+            value={user.promoCode || userDetails?.promoCode}
             onChange={handleOnChange}
             type="text"
             className="py-3 w-full rounded-md font-medium outline-none"
@@ -333,8 +360,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               checked={paymentMode === "offline"}
               onChange={(e) => {
                 handlePaymentType(e.target.value);
-                setCustomerDetail({
-                  ...customerDetail,
+                setUser({
+                  ...user,
                   payment_method: e.target.value,
                 });
               }}
@@ -353,8 +380,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               checked={paymentMode === "online"}
               onChange={(e) => {
                 handlePaymentType(e.target.value);
-                setCustomerDetail({
-                  ...customerDetail,
+                setUser({
+                  ...user,
                   payment_method: e.target.value,
                 });
               }}
@@ -370,9 +397,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="checkbox"
             name="saveInformation"
             id="saveInformation"
-            value={
-              customerDetail.saveInformation || userDetails?.saveInformation
-            }
+            value={user.saveInformation || userDetails?.saveInformation}
             onChange={handleOnChange}
             className="h-5 w-5 mt-2 rounded-md"
           />

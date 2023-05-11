@@ -10,8 +10,8 @@ const OrderSummary = ({ userDetails, totalAmount, orderId }) => {
     navigate("/checkout");
   };
   const backToHome = async () => {
-    localStorage.removeItem("ayuvya-cart");
-    localStorage.removeItem("ayuvya-user-details");
+    localStorage.removeItem("AYUVYA_CART");
+    localStorage.removeItem("AYUVYA_USERDATA");
     navigate("/");
   };
   return (
