@@ -1,11 +1,11 @@
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import CardHoc from "../UI/cardHoc";
 import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
 import ProductBriefCard from "./ProductBriefCard";
+import { useDispatch, useSelector } from "react-redux";
 import { addCartItem, fetchCart } from "../../store/slices/cartSlice";
 import { getAllRelatedProducts } from "../../store/slices/commonSlice";
+import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
 import productImg from "../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
 
 const ProductCard = ({
@@ -16,21 +16,24 @@ const ProductCard = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const addItemToCart = async (product) => {
     const data = {
+      quantity: 1,
       id: product.id,
-      primary_image: product.primary_image,
-      product_name: product.product_name,
       price: product.price,
       cut_price: product.cut_price,
-      quantity: 1,
+      product_name: product.product_name,
+      primary_image: product.primary_image,
     };
-    dispatch(addCartItem(data));
-    dispatch(fetchCart());
-    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
-    dispatch(getAllRelatedProducts(relatedIds?.related_product_Id));
-    toast("Item is added successfully", { position: "top-center" });
+    if (isLoggedIn) {
+      dispatch(addToCartAuth(data)).then(dispatch(fetchCartAuth()));
+    } else {
+      dispatch(addCartItem(data)).then(dispatch(fetchCart()));
+      const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
+      dispatch(getAllRelatedProducts(relatedIds?.related_product_Id));
+    }
   };
 
   const buyNow = () => {

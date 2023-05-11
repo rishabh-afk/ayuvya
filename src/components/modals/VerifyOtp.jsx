@@ -7,6 +7,8 @@ import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { verifyOTP } from "../../store/slices/commonSlice";
+import { useEffect } from "react";
+import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
 
 const customStyles = {
   content: {
@@ -26,15 +28,7 @@ const customStyles = {
 };
 Modal.setAppElement("#root");
 
-const VerifyOtp = ({
-  otpModal,
-  handleClose,
-  sendOtp,
-  phone,
-  setOtp,
-  otp,
-  user,
-}) => {
+const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
@@ -53,9 +47,21 @@ const VerifyOtp = ({
     };
     dispatch(verifyOTP(data)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
-        localStorage.setItem("AYUVYA_TOKEN_USER", response.payload.token);
         if (isLoggedIn) {
-          handleClose();
+          const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+          let data = [];
+          cart.items.map((item) => {
+            data.push({ product: item.id, quantity: item.quantity });
+            return data;
+          });
+          if (data.length === cart.items.length) {
+            dispatch(addToCartAuth(data)).then((response) => {
+              if (response.meta.requestStatus === "fulfilled") {
+                dispatch(fetchCartAuth());
+                handleClose();
+              }
+            });
+          }
         } else {
           dispatch(login());
         }
@@ -64,6 +70,10 @@ const VerifyOtp = ({
       }
     });
   };
+
+  useEffect(() => {
+    dispatch(login());
+  }, [dispatch]);
 
   return (
     <div>

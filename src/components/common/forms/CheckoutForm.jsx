@@ -72,7 +72,6 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       handleCreateOrder();
     }
   };
-
   const handlePrepaidOrder = async (order_token) => {
     const cashfree = await load({
       mode: "sandbox", //or production
@@ -90,7 +89,6 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       }
     });
   };
-
   const handleCreateOrder = async () => {
     dispatch(createOrder(user)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {

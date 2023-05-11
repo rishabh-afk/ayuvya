@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import cartServices from "../services/cartServices";
+import { toast } from "react-toastify";
 
 const initialState = {
   status: "loading",
@@ -14,7 +15,13 @@ export const addToCartAuth = createAsyncThunk(
   "add/addToCart",
   async (data, thunkAPI) => {
     try {
-      return await cartServices.addItemToCart(data);
+      let token = localStorage.getItem("AYUVYA_TOKEN_USER");
+      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      const cartdata = {
+        items: data,
+        cart: "" || cartId,
+      };
+      return await cartServices.addItemToCart(cartdata, token);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -44,12 +51,14 @@ export const fetchCartAuth = createAsyncThunk(
   "get/getcart",
   async (thunkAPI) => {
     try {
-      return await cartServices.fetchCart();
+      let token = localStorage.getItem("AYUVYA_TOKEN_USER");
+      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      return await cartServices.fetchCart(token, cartId);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
         e.message ||
-        e.toString();
+        e.toString(); 
       return thunkAPI.rejectWithValue(msg);
     }
   }
@@ -59,7 +68,9 @@ export const applyCoupon = createAsyncThunk(
   "get/applyCoupon",
   async (data, thunkAPI) => {
     try {
-      return await cartServices.applyCoupon(data);
+      let token = localStorage.getItem("AYUVYA_TOKEN_USER");
+      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      return await cartServices.applyCoupon(data, token, cartId);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -92,6 +103,9 @@ const cartSlice = createSlice({
           state.totalAmount += action.payload.price;
           localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
         }
+        toast.success("Item is added successfully", {
+          position: "bottom-left",
+        });
       }
     },
     removeCartItem: (state, action) => {
@@ -142,6 +156,13 @@ const cartSlice = createSlice({
       })
       .addCase(addToCartAuth.fulfilled, (state, action) => {
         state.status = "success";
+        const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+        state.items = action.payload.items;
+        localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
+        state.totalAmount = action.payload.totalAmount;
+        state.numberOfItems = action.payload.items.length;
+        state.related_product_Id = cart.related_product_Id;
+        localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
       })
       .addCase(addToCartAuth.rejected, (state, action) => {
         state.status = "rejected";
@@ -162,7 +183,7 @@ const cartSlice = createSlice({
       .addCase(fetchCartAuth.fulfilled, (state, action) => {
         state.status = "success";
         if (action.payload?.cart) {
-          localStorage.setItem("AYUVYA_CART-cartId", action.payload.cart);
+          localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
           const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
           state.items = action.payload.items;
           state.numberOfItems = cart.numberOfItems;
@@ -179,7 +200,6 @@ const cartSlice = createSlice({
       })
       .addCase(applyCoupon.fulfilled, (state, action) => {
         state.status = "success";
-        console.log(action.payload)
       })
       .addCase(applyCoupon.rejected, (state, action) => {
         state.status = "rejected";

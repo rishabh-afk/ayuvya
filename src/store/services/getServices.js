@@ -39,6 +39,7 @@ const verifyOTP = async (data) => {
   const resp = await axios.post(`${BASE_URL}${VERIFY_OTP_URL}`, data);
   if (resp.status === 200) {
     toast.success("Phone Number verified successfully!");
+    localStorage.setItem("AYUVYA_TOKEN_USER", resp.data.token);
   }
   return resp.data;
 };
