@@ -57,8 +57,6 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         if (response.meta.requestStatus === "fulfilled") {
           localStorage.setItem("AYUVYA_ORDER_ID", response.payload.order_id);
           handlePrepaidOrder(response.payload.order_token);
-        } else {
-          toast.warn("Something went wrong!");
         }
       });
     }

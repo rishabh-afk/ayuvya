@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "../components/order/OrderDetails";
 import OrderSummary from "../components/order/OrderSummary";
 import { verifyPaymentStatus } from "../store/slices/orderSlice";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   initial: { y: -500 },
@@ -16,11 +17,14 @@ const ThankYou = () => {
   const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
   const [thankYou, showThankYou] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
   const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
   const payment_status = useSelector((state) => state.order.payment_status);
-
   useEffect(() => {
+    if (orderId === null) {
+     return navigate("/");
+    }
     if (orderId.includes("order")) {
       const data = {
         order_id: orderId,
@@ -32,7 +36,7 @@ const ThankYou = () => {
     } else {
       showThankYou(true);
     }
-  }, [orderId, dispatch, payment_status]);
+  }, [orderId, dispatch, payment_status, navigate]);
   return (
     <>
       {!thankYou ? (

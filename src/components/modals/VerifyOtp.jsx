@@ -53,6 +53,7 @@ const VerifyOtp = ({
     };
     dispatch(verifyOTP(data)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
+        localStorage.setItem("AYUVYA_TOKEN_USER", response.payload.token);
         if (isLoggedIn) {
           handleClose();
         } else {

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authServices from "../services/authServices";
-import { toast } from "react-toastify";
 
 const initialAuthState = {
   isLoggedIn: false,
@@ -54,8 +53,6 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.accessToken = token;
         state.status = "success";
-      } else {
-        toast.warn("Please login to Proceed");
       }
     },
   },
