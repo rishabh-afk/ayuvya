@@ -103,7 +103,7 @@ const Navbar = () => {
                 whileHover={{ scale: 1.2 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                <Link to={"/all"}>ALL PRODUCTS</Link>
+                <Link to={"/collection/all"}>ALL PRODUCTS</Link>
               </motion.div>
               {categories.map((category) => {
                 return (
@@ -112,7 +112,7 @@ const Navbar = () => {
                     whileHover={{ scale: 1.2 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <Link to={`/${category.category_slug}`}>
+                    <Link to={`/collection/${category.category_slug}`}>
                       {category.category_name.toUpperCase()}
                     </Link>
                   </motion.div>

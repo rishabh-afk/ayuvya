@@ -7,7 +7,7 @@ import axios from "axios";
 const InstagramPosts = () => {
   const [instaPosts, setInstaPosts] = useState([]);
   const fetchInstaPosts = async () => {
-    const resp = await axios.get("http://192.168.0.110:80/api/insta");
+    const resp = await axios.get("http://192.168.0.117:8000/api/insta");
     if (resp.statusCode === 200) {
       setInstaPosts(resp.body.results);
     }

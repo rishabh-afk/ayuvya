@@ -24,7 +24,7 @@ const RoutesWrapper = () => {
     <Routes>
       <Route path="/">
         <Route index element={<Home />} />
-        <Route path=":category">
+        <Route path="collection/:category">
           <Route index element={<CategoryBasedProduct />} />
           <Route path=":slug" element={<ProductDetail />} />
         </Route>

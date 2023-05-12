@@ -118,7 +118,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     e.preventDefault();
     if (e.target.value.length === 6) {
       const resp = await axios.get(
-        "http://192.168.0.105:80/check-pincode/?pincode=" + e.target.value
+        "http://192.168.0.117:8000/check-pincode/?pincode=" + e.target.value
       );
       if (resp.data) {
         setUser({

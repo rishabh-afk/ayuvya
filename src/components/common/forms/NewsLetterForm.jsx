@@ -18,7 +18,7 @@ const NewsLetterForm = () => {
       phone_number: newsLetter.countryCode + newsLetter.phoneNumber,
     };
     const resp = await axios.post(
-      "http://192.168.0.105:80/api/newsletter/create/",
+      "http://192.168.0.117:8000/api/newsletter/create/",
       data,
       {
         headers: { "Content-Type": "application/json" },

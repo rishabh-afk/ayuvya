@@ -15,7 +15,7 @@ const BlogDetail = () => {
   const productData = useSelector((state) => state.product.products);
   useEffect(() => {
     const fetchBlog = async () => {
-      const BASE_URL = "http://192.168.0.110:80/";
+      const BASE_URL = "http://192.168.0.117:8000/";
       // const BASE_URL = process.env.REACT_APP_BASE_URL;
       if (blogSlug) {
         const resp = await axios.get(`${BASE_URL}api/blogs/test/${blogSlug}/`);
