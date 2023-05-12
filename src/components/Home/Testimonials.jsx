@@ -10,7 +10,7 @@ const Testimonials = () => {
           data={testimonials}
           category="WHAT OUR CUSTOMERS SAY"
           cardHeadingSize="text-2xl"
-          marginHorizontal={"md:mx-20 mx-4"}
+          marginHorizontal={"md:mx-16 mx-4"}
           navigation={false}
           marginVertical="my-10"
           componentToBeRender={TestimonialCard}

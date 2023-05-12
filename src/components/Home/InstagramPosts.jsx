@@ -1,15 +1,14 @@
-import { Link } from "react-router-dom";
-import dummyImage from "../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
-import { BsInstagram } from "react-icons/bs";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BsInstagram } from "react-icons/bs";
 
 const InstagramPosts = () => {
   const [instaPosts, setInstaPosts] = useState([]);
   const fetchInstaPosts = async () => {
-    const resp = await axios.get("http://192.168.0.117:8000/api/insta/test/");
-    if (resp.statusCode === 200) {
-      setInstaPosts(resp.body.results);
+    const resp = await axios.get("http://192.168.0.117:8000/api/insta/feed/");
+    if (resp.status === 200) {
+      setInstaPosts(resp.data);
     }
   };
   useEffect(() => {
@@ -26,118 +25,26 @@ const InstagramPosts = () => {
         <p className="text-3xl">see you at the 'gram</p>
       </Link>
       <div className="max-w-7xl flex flex-wrap justify-center gap-3 py-8">
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative block bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative block bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative block bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative block bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative block bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative block bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
-        <Link
-          className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative block bg-gray-900 group"
-          to={"https://www.instagram.com/ayuvyayurveda/"}
-          target="blank"
-        >
-          <img
-            className="absolute object-cover group-hover:opacity-50"
-            src={dummyImage}
-            alt=""
-          />
-          <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
-            <BsInstagram size={30} color="white" />
-          </div>
-        </Link>
+        {instaPosts.length > 0 &&
+          instaPosts.map((instaPost) => {
+            return (
+              <Link
+                key={instaPost.id}
+                className="w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 relative bg-gray-900 group"
+                to={instaPost.permalink}
+                target="blank"
+              >
+                <img
+                  className="absolute w-32 h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 object-cover group-hover:opacity-50"
+                  src={instaPost.thumbnail_url}
+                  alt=""
+                />
+                <div className="relative top-[45%] w-16 left-[45%] transition-all transform translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
+                  <BsInstagram size={30} color="white" />
+                </div>
+              </Link>
+            );
+          })}
       </div>
     </div>
   );

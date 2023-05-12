@@ -12,14 +12,15 @@ const ProductSection = () => {
   return (
     <>
       <CustomSwiper
-        data={newLaunches}
-        category="New Launches"
-        cardHeadingSize="text-2xl"
-        marginHorizontal={"md:mx-20 mx-4"}
+        height={"h-96"}
         navigation={true}
         marginTop="mt-10"
+        data={newLaunches}
         marginVertical="my-10"
+        category="New Launches"
+        cardHeadingSize="text-2xl"
         componentToBeRender={ProductCard}
+        marginHorizontal={"md:mx-16 mx-4"}
         noOfSlidePerView={[
           {
             0: {
@@ -37,14 +38,15 @@ const ProductSection = () => {
         ]}
       />
       <CustomSwiper
-        data={bestSelling}
-        category="Best Selling Products"
-        cardHeadingSize="lg:text-md"
-        marginHorizontal={"md:mx-20 mx-4"}
-        marginTop="mt-10"
         navigation={true}
+        marginTop="mt-10"
+        data={bestSelling}
         marginVertical="my-10"
+        height={"h-48 md:h-72"}
+        cardHeadingSize="lg:text-md"
+        category="Best Selling Products"
         componentToBeRender={ProductCard}
+        marginHorizontal={"md:mx-14 mx-4"}
         noOfSlidePerView={[
           {
             0: {
@@ -64,13 +66,14 @@ const ProductSection = () => {
       />
       <CustomSwiper
         data={combos}
-        category="Best Selling Combos"
-        cardHeadingSize="text-2xl"
-        marginHorizontal={"md:mx-20 mx-4"}
+        height={"h-96"}
         marginTop="mt-10"
         navigation={true}
         marginVertical="my-10"
+        cardHeadingSize="text-2xl"
+        category="Best Selling Combos"
         componentToBeRender={ProductCard}
+        marginHorizontal={"md:mx-16 mx-4"}
         noOfSlidePerView={[
           {
             0: {

@@ -26,16 +26,17 @@ const ThankYou = () => {
       return navigate("/");
     }
     if (orderId.includes("order")) {
-      const data = {
-        order_id: orderId,
-      };
-      dispatch(verifyPaymentStatus(data));
-      if (payment_status === "SUCCESS") {
-        // localStorage.removeItem("AYUVYA_USERDATA");
-        // localStorage.removeItem("AYUVYA_ORDER_ID");
-        // localStorage.removeItem("AYUVYA_CART");
-        showThankYou(true);
-      }
+      const paymentCheck = setInterval(() => {
+        if (payment_status === "SUCCESS") {
+          clearInterval(paymentCheck);
+          showThankYou(true);
+        }
+        dispatch(
+          verifyPaymentStatus({
+            order_id: orderId,
+          })
+        );
+      }, 5000);
     } else {
       showThankYou(true);
     }

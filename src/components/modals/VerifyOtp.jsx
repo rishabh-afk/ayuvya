@@ -81,13 +81,10 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
         position="top-center"
         autoClose={1000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
+        theme="dark"
       />
       <Modal
         isOpen={otpModal}

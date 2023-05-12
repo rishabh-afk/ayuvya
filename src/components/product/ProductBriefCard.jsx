@@ -15,15 +15,15 @@ const ProductBriefCard = ({
         {product?.product_name.length > 45 && <span>...</span>}
       </h1>
       <div className="flex flex-wrap justify-center items-center">
-        <div className="flex text-sm">
+        <div className="flex text-sm items-center">
           <ProgressBarWithStars
-            iconSize={15}
+            iconSize={25}
             noOfStar={Math.round(product?.rating || 5)}
           />
-          <span className="px-2 break-words">{product?.rating || ""}</span>
+          <span className="px-2 break-words">{product?.rating}</span>
         </div>
         <span className="break-words text-sm">
-          ({product?.review_count || ""}+ Reviews)
+          ({product?.review_count}+ Reviews)
         </span>
       </div>
       <div className="flex gap-2 font-semibold text-xl">

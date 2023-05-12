@@ -8,6 +8,7 @@ import { Autoplay, Navigation } from "swiper";
 
 const CustomSwiper = ({
   category,
+  height,
   data,
   noOfSlidePerView,
   cardHeadingSize,
@@ -49,6 +50,7 @@ const CustomSwiper = ({
                   <SwiperSlide key={item.id}>
                     <Component
                       key={item.id}
+                      isheight={height}
                       product={item}
                       marginVertical={marginVertical}
                       headingSize={cardHeadingSize}

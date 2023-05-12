@@ -10,6 +10,7 @@ import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
 
 const ProductCard = ({
   product,
+  isheight,
   headingSize,
   marginVertical,
   isNotSwiperProduct,
@@ -51,7 +52,7 @@ const ProductCard = ({
     >
       <div
         className={`w-auto rounded-t-lg relative flex justify-center text-white ${
-          isNotSwiperProduct ? "h-48 md:h-64 bg-white/60 group" : "h-96"
+          isNotSwiperProduct ? "h-48 md:h-64 bg-white/60 group" : isheight
         }`}
       >
         <img

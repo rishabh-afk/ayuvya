@@ -10,13 +10,10 @@ const Layouts = (props) => {
         position="bottom-right"
         autoClose={1000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
+        theme="dark"
       />
       <Navbar />
       <main>{props.children}</main>

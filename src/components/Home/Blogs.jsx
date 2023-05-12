@@ -11,7 +11,7 @@ const Blogs = () => {
         category="Blogs"
         navigation={false}
         cardHeadingSize="text-2xl"
-        marginHorizontal={"md:mx-20 mx-4"}
+        marginHorizontal={"md:mx-16 mx-4"}
         marginVertical={"my-10"}
         marginTop={"mt-10"}
         componentToBeRender={BlogCard}
