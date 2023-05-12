@@ -19,7 +19,7 @@ export const addToCartAuth = createAsyncThunk(
       const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
       const cartdata = {
         items: data,
-        cart: "" || cartId,
+        cart: cartId,
       };
       return await cartServices.addItemToCart(cartdata, token);
     } catch (e) {
@@ -36,7 +36,8 @@ export const updateCartAuth = createAsyncThunk(
   "update/updateCart",
   async (data, thunkAPI) => {
     try {
-      return await cartServices.updateCartItem(data, data.product);
+      let token = localStorage.getItem("AYUVYA_TOKEN_USER");
+      return await cartServices.updateCartItem(data.items, data.item_id, token);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -58,7 +59,7 @@ export const fetchCartAuth = createAsyncThunk(
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
         e.message ||
-        e.toString(); 
+        e.toString();
       return thunkAPI.rejectWithValue(msg);
     }
   }
@@ -163,6 +164,9 @@ const cartSlice = createSlice({
         state.numberOfItems = action.payload.items.length;
         state.related_product_Id = cart.related_product_Id;
         localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
+        toast.success("Item is added successfully", {
+          position: "bottom-left",
+        });
       })
       .addCase(addToCartAuth.rejected, (state, action) => {
         state.status = "rejected";
@@ -182,13 +186,20 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCartAuth.fulfilled, (state, action) => {
         state.status = "success";
+        // const ids = [];
         if (action.payload?.cart) {
           localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
-          const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
           state.items = action.payload.items;
-          state.numberOfItems = cart.numberOfItems;
-          state.related_product_Id = cart.related_product_Id;
-          state.totalAmount = action.payload.totalAmount;
+          state.numberOfItems = action.payload.items.length;
+          // state.related_product_Id = action.payload?.related_products.forEach(
+          //   (item) => {
+          //     ids.push(item.id);
+          //     if (ids.length === action.payload.related_products.length) {
+          //       return item.id;
+          //     }
+          //   }
+          // );
+          state.totalAmount = action.payload.total_amount;
           localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
         }
       })

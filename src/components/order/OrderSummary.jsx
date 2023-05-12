@@ -12,7 +12,9 @@ const OrderSummary = ({ userDetails, totalAmount, orderId }) => {
 
   const backToHome = async () => {
     localStorage.removeItem("AYUVYA_CART");
+    localStorage.removeItem("AYUVYA_ORDER_ID");
     localStorage.removeItem("AYUVYA_USERDATA");
+    localStorage.removeItem("AYUVYA_CART-CARTID");
     navigate("/");
   };
   const copyToClipboard = () => {

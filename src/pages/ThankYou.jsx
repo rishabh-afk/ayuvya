@@ -26,17 +26,25 @@ const ThankYou = () => {
       return navigate("/");
     }
     if (orderId.includes("order")) {
-      const paymentCheck = setInterval(() => {
-        if (payment_status === "SUCCESS") {
-          clearInterval(paymentCheck);
-          showThankYou(true);
-        }
+      dispatch(
+        verifyPaymentStatus({
+          order_id: orderId,
+        })
+      );
+      if (payment_status === "SUCCESS") {
+        showThankYou(true);
+      } else if (payment_status === "FAILED") {
+        localStorage.removeItem("AYUVYA_CART");
+        localStorage.removeItem("AYUVYA_USERDATA");
+        localStorage.removeItem("AYUVYA_CART-CARTID");
+        navigate("/");
+      } else {
         dispatch(
           verifyPaymentStatus({
             order_id: orderId,
           })
         );
-      }, 5000);
+      }
     } else {
       showThankYou(true);
     }

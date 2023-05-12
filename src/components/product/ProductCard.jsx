@@ -29,7 +29,9 @@ const ProductCard = ({
       primary_image: product.primary_image,
     };
     if (isLoggedIn) {
-      dispatch(addToCartAuth(data)).then(dispatch(fetchCartAuth()));
+      dispatch(addToCartAuth([{ quantity: 1, product: product.id }])).then(
+        dispatch(fetchCartAuth())
+      );
     } else {
       dispatch(addCartItem(data)).then(dispatch(fetchCart()));
       const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));

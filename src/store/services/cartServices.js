@@ -24,13 +24,12 @@ const updateCartItem = async (data, item_id, token) => {
 };
 
 const fetchCart = async (token, cartId) => {
-  const resp = await axios.get(`${BASE_URL}${CART_URL}${cartId}`, {
+  const resp = await axios.get(`${BASE_URL}${CART_URL}${cartId}/`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Token " + token,
     },
   });
-  console.log(resp.data);
   return resp.data;
 };
 
