@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import concernImg from "../../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
+// import concernImg from "../../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
 
 const ConcernCard = ({ product }) => {
   return (
     <div className="px-1 pb-8">
-      <Link to={`/${product?.category_slug}`}>
+      <Link to={`/collection/${product?.category_slug}`}>
         <div className="shadow-xl rounded-md">
           <figure>
             <img
-              className="rounded-t-md"
-              src={concernImg || product?.image}
+              className="rounded-t-md w-full aspect-square object-cover"
+              src={product?.category_image}
               alt={product?.category_name}
             />
           </figure>

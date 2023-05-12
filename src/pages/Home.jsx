@@ -19,7 +19,7 @@ const Home = () => {
       location.pathname === "/collection/" ||
       location.pathname === "/collection"
     ) {
-      navigate("/");
+      navigate("/collection/all");
     }
   }, [navigate, location]);
   return (

@@ -1,12 +1,12 @@
 import HeadingText from "../product/HeadingText";
 import CustomSwiper from "../common/custom/CustomSwiper";
 import ConcernCard from "../common/card/ConcernCard";
-// import { useSelector } from "react-redux";
-import { category } from "../../data/categories";
+import { useSelector } from "react-redux";
+// import { category } from "../../data/categories";
 
 const ShopByConcern = () => {
-  const categories = category;
-  // const categories = useSelector((state) => state.common.categories);
+  // const categories = category;
+  const categories = useSelector((state) => state.common.categories);
   return (
     <>
       {categories.length > 0 && (
@@ -17,10 +17,8 @@ const ShopByConcern = () => {
           <div>
             <CustomSwiper
               data={categories.slice(0, 6)}
-              // category="Shop By Concern"
               componentToBeRender={ConcernCard}
               navigation={false}
-              // marginTop={"mt-10"}
               marginHorizontal="mx-0"
               noOfSlidePerView={[
                 {

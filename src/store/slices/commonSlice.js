@@ -5,6 +5,7 @@ const initialState = {
   message: "",
   concerns: [],
   categories: [],
+  instaPosts: [],
   accessToken: "",
   isOTPVerified: "",
   status: "loading",
@@ -61,6 +62,21 @@ export const verifyOTP = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       return await services.verifyOTP(data);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
+export const getInstaPosts = createAsyncThunk(
+  "get/getInstaPost",
+  async (thunkAPI) => {
+    try {
+      return await services.getInstaPosts();
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -146,6 +162,16 @@ const commonSlice = createSlice({
         state.status = "success";
       })
       .addCase(sendOTP.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(getInstaPosts.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getInstaPosts.fulfilled, (state, action) => {
+        state.status = "success";
+        state.instaPosts = action.payload;
+      })
+      .addCase(getInstaPosts.rejected, (state, action) => {
         state.status = "rejected";
       });
   },

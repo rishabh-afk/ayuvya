@@ -33,6 +33,12 @@ const getAllRelatedProducts = async (data) => {
   return resp.data;
 };
 
+const INSTA_POSTS_URL = "api/insta/feed/";
+const getInstaPosts = async (data) => {
+  const resp = await axios.get(`${BASE_URL}${INSTA_POSTS_URL}`);
+  return resp.data;
+};
+
 const VERIFY_OTP_URL = "api/auth/otp/verify/";
 const verifyOTP = async (data) => {
   const resp = await axios.post(`${BASE_URL}${VERIFY_OTP_URL}`, data);
@@ -58,6 +64,7 @@ const services = {
   sendOTP,
   verifyOTP,
   getAllBlogs,
+  getInstaPosts,
   getAllConcerns,
   getAllProducts,
   getAllCategories,
