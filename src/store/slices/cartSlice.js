@@ -157,12 +157,19 @@ const cartSlice = createSlice({
       })
       .addCase(addToCartAuth.fulfilled, (state, action) => {
         state.status = "success";
-        const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+        const ids = [];
         state.items = action.payload.items;
         localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
         state.totalAmount = action.payload.totalAmount;
         state.numberOfItems = action.payload.items.length;
-        state.related_product_Id = cart.related_product_Id;
+        state.related_product_Id = action.payload?.related_products.forEach(
+          (item) => {
+            ids.push(item.id);
+            if (ids.length === action.payload.related_products.length) {
+              return ids;
+            }
+          }
+        );
         localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
         toast.success("Item is added successfully", {
           position: "bottom-left",
@@ -186,19 +193,19 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCartAuth.fulfilled, (state, action) => {
         state.status = "success";
-        // const ids = [];
+        const ids = [];
         if (action.payload?.cart) {
           localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
           state.items = action.payload.items;
           state.numberOfItems = action.payload.items.length;
-          // state.related_product_Id = action.payload?.related_products.forEach(
-          //   (item) => {
-          //     ids.push(item.id);
-          //     if (ids.length === action.payload.related_products.length) {
-          //       return item.id;
-          //     }
-          //   }
-          // );
+          state.related_product_Id = action.payload?.related_products.forEach(
+            (item) => {
+              ids.push(item.id);
+              if (ids.length === action.payload.related_products.length) {
+                return ids;
+              }
+            }
+          );
           state.totalAmount = action.payload.total_amount;
           localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
         }
