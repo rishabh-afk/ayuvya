@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import CustomSwiper from "../common/custom/CustomSwiper";
 import ConcernCard from "../common/card/ConcernCard";
-// import { useSelector } from "react-redux";
-import { category } from "../../data/categories";
+import CustomSwiper from "../common/custom/CustomSwiper";
+// import { category } from "../../data/categories";
 
 const Sidebar = () => {
   const location = useLocation();
-  const categories = category;
-  // const categories = useSelector((state) => state.common.categories);
+  // const categories = category;
+  const categories = useSelector((state) => state.common.categories);
   return (
     <>
       <div className="hidden lg:block">
@@ -17,8 +17,8 @@ const Sidebar = () => {
           {categories.map((category) => {
             return (
               <li key={category.id}>
-                <Link to={`/${category.category_slug}`} className="text-md">
-                  {location.pathname === `/${category.category_slug}` ? (
+                <Link to={`/collection/${category.category_slug}`} className="text-md">
+                  {location.pathname === `/collection/${category.category_slug}` ? (
                     <span className="font-bold">{category.category_name}</span>
                   ) : (
                     <span>{category.category_name}</span>

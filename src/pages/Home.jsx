@@ -1,15 +1,27 @@
+import { useEffect } from "react";
+import Banner from "../components/Home/Banner";
 import Layouts from "../components/UI/Layouts";
 import MetaTags from "../components/meta/MetaTags";
-import Banner from "../components/Home/Banner";
 import WhyAyuvya from "../components/Home/WhyAyuvya";
+import Testimonials from "../components/Home/Testimonials";
+import PlaystoreApp from "../components/Home/PlaystoreApp";
+import { useLocation, useNavigate } from "react-router-dom";
 import ShopByConcern from "../components/Home/ShopByConcern";
 import ProductSection from "../components/Home/ProductSection";
 import InstagramPosts from "../components/Home/InstagramPosts";
-import Testimonials from "../components/Home/Testimonials";
-// import Blogs from "../components/Home/Blogs";
-import PlaystoreApp from "../components/Home/PlaystoreApp";
+import Blogs from "../components/Home/Blogs";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    if (
+      location.pathname === "/collection/" ||
+      location.pathname === "/collection"
+    ) {
+      navigate("/");
+    }
+  }, [navigate, location]);
   return (
     <Layouts>
       <MetaTags
@@ -23,7 +35,7 @@ const Home = () => {
       <ProductSection />
       <InstagramPosts />
       <Testimonials />
-      {/* <Blogs /> */}
+      <Blogs />
       <PlaystoreApp />
     </Layouts>
   );

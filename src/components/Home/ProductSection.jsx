@@ -1,11 +1,11 @@
-import CustomSwiper from "../common/custom/CustomSwiper";
+import { useSelector } from "react-redux";
 import ProductCard from "../product/ProductCard";
-// import { useSelector } from "react-redux";
-import { product } from "../../data/products";
+import CustomSwiper from "../common/custom/CustomSwiper";
+// import { product } from "../../data/products";
 
 const ProductSection = () => {
-  const products = product;
-  // const products = useSelector((state) => state.product.products);
+  // const products = product;
+  const products = useSelector((state) => state.product.products);
   const newLaunches = products.filter((item) => item.new_launched === true);
   const bestSelling = products.filter((item) => item.best_selling === true);
   const combos = products.filter((item) => item.is_combo === true);

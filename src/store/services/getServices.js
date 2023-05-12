@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const PRODUCT_URL = "api/products/";
+const PRODUCT_URL = "api/products/test/";
 const getAllProducts = async () => {
   const resp = await axios.get(`${BASE_URL}${PRODUCT_URL}`);
   return resp.data;
@@ -15,7 +15,7 @@ const getAllBlogs = async () => {
   return resp.data;
 };
 
-const CATEGORY_URL = "api/products/categories/";
+const CATEGORY_URL = "api/products/test/categories/";
 const getAllCategories = async () => {
   const resp = await axios.get(`${BASE_URL}${CATEGORY_URL}`);
   return resp.data;

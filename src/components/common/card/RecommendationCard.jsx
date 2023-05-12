@@ -3,7 +3,7 @@ import Button from "../Button";
 const RecommendationCard = ({ product, marginVertical }) => {
   return (
     <div
-      className={`flex flex-col gap-2 cursor-pointer shadow-sm mt-0 ${marginVertical}`}
+      className={`flex flex-col gap-2 cursor-pointer shadow-md my-5 ${marginVertical}`}
     >
       <figure className="flex justify-center">
         <img
