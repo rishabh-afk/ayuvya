@@ -1,0 +1,24 @@
+.react-select button {
+    border: none;
+    padding-left: 0;
+    width: fit-content;
+    height: 100%;
+}
+
+.react-select button > span {
+    margin: 0;
+}
+
+.react-select ul {
+    width: 200px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: #333;
+}
+
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 50px white inset; /*your box-shadow*/
+    -webkit-text-fill-color: #333;
+}

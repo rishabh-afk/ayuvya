@@ -1,46 +1,46 @@
-import { useDispatch, useSelector } from "react-redux";
-import ImagesSwiper from "../components/product/productDetails/imageswiper/ImagesSwiper";
-import Layouts from "../components/UI/Layouts";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import Loader from "../components/common/Loader";
 import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Layouts from "../components/UI/Layouts";
+import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../components/common/Loader";
 import { setCurrentProduct } from "../store/slices/productSlice";
-import CommonDetails from "../components/product/productDetails/CommonDetails";
 // import CustomSwiper from "../components/common/custom/CustomSwiper";
 // import { platforms } from "../data/ottplatform";
 // import Platforms from "../components/common/card/Platforms";
 import Button from "../components/common/Button";
-import Benefits from "../components/product/productDetails/Benefits";
-import Ingredients from "../components/product/productDetails/Ingredients";
-import CustomerReview from "../components/product/productDetails/CustomerReview";
 import ProductCard from "../components/product/ProductCard";
 import Reviews from "../components/product/productDetails/Reviews";
 import HowToUse from "../components/product/productDetails/HowToUse";
+import Benefits from "../components/product/productDetails/Benefits";
+import Ingredients from "../components/product/productDetails/Ingredients";
+import CommonDetails from "../components/product/productDetails/CommonDetails";
+import CustomerReview from "../components/product/productDetails/CustomerReview";
+import ImagesSwiper from "../components/product/productDetails/imageswiper/ImagesSwiper";
 // import { addCartItem, fetchCartItems } from "../store/slices/cartSlice";
 // import { product } from "../data/ProductDetail";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
+  const { slug } = useParams();
   const productData = useSelector((state) => state.product.productDetails);
   // const productData = product;
   // const cartdata = useSelector((state) => state.cart.cartData);
-  const { productId } = location?.state ?? "";
+  // const { productId } = location?.state ?? "";
   useEffect(() => {
     const fetchProduct = async () => {
-      const BASE_URL = "http://192.168.0.117:8000/";
-      // const BASE_URL = process.env.REACT_APP_BASE_URL;
-      if (productId) {
-        const resp = await axios.get(`${BASE_URL}api/products/${productId}/`);
+      const BASE_URL = process.env.REACT_APP_BASE_URL;
+      if (slug) {
+        const resp = await axios.get(`${BASE_URL}api/products/test/${slug}/`);
         dispatch(setCurrentProduct(resp.data));
       } else {
-        navigate("/all");
+        navigate("/");
       }
     };
     fetchProduct();
-  }, [dispatch, productId, navigate]);
+  }, [dispatch, slug, navigate]);
 
   if (Object.keys(productData).length === 0) {
     return <Loader />;

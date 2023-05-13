@@ -24,10 +24,16 @@ const RoutesWrapper = () => {
     <Routes>
       <Route path="/">
         <Route index element={<Home />} />
+        {["lp/:slug", "product/:slug", "products/:slug", ":slug"].map(
+          (route, item) => {
+            return (
+              <Route key={item} path={route} element={<ProductDetail />} />
+            );
+          }
+        )}
         <Route path="collection" element={<Home />} />
         <Route path="collection/:category">
           <Route index element={<CategoryBasedProduct />} />
-          <Route path=":slug" element={<ProductDetail />} />
         </Route>
       </Route>
       <Route path="/blogs">

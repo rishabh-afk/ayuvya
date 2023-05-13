@@ -48,7 +48,7 @@ const BlogDetail = () => {
           <div className="w-full flex flex-row gap-4 mb-8 lg:flex-col lg:w-1/4">
             {productData.slice(18, 20).map((product) => {
               return (
-                <div key={product.id} className="w-1/2 lg:w-full">
+                <div key={product.id} className="w-1/2 lg:w-[90%]">
                   <ProductCard product={product} isNotSwiperProduct={true} />
                 </div>
               );

@@ -40,12 +40,7 @@ const ProductCard = ({
   };
 
   const buyNow = () => {
-    navigate(
-      `/${product?.product_category?.category_slug}/${product?.product_slug}`,
-      {
-        state: { productId: product?.product_slug, scroll: true },
-      }
-    );
+    navigate(`${product?.get_product_url}`);
   };
 
   return (
