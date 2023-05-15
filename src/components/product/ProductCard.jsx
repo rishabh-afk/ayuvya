@@ -7,6 +7,7 @@ import { addCartItem, fetchCart } from "../../store/slices/cartSlice";
 import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
 import productImg from "../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
+import { toast } from "react-toastify";
 
 const ProductCard = ({
   product,
@@ -18,6 +19,7 @@ const ProductCard = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const cartItems = useSelector((state) => state.cart);
 
   const addItemToCart = async (product) => {
     const data = {
@@ -33,14 +35,21 @@ const ProductCard = ({
         (response) => {
           if (response.meta.requestStatus === "fulfilled") {
             dispatch(fetchCartAuth());
+            toast.success("Item added successfully", {
+              position: "bottom-left",
+            });
           }
         }
       );
     } else {
       dispatch(addCartItem(data)).then(dispatch(fetchCart()));
-      const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
-      dispatch(getAllRelatedProducts(relatedIds?.related_product_Id));
     }
+    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
+    dispatch(
+      getAllRelatedProducts(
+        cartItems?.related_product_Id || relatedIds?.related_product_Id
+      )
+    );
   };
 
   const buyNow = () => {

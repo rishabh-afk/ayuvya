@@ -6,11 +6,11 @@ import {
   addToCartAuth,
   fetchCartAuth,
 } from "../../store/slices/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import imageData from "../../assets/images/product/Intimate-Wellness.webp";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import imageData from "../../assets/images/product/Intimate-Wellness.webp";
 import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 
 const CartItem = ({ product, isCheckoutPage }) => {
