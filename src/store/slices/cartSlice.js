@@ -5,9 +5,13 @@ import { toast } from "react-toastify";
 const initialState = {
   status: "loading",
   message: "",
+  coupon: "", // coupon code
+  final_amount: 0, //final cart amount
   items: [], // fetch cart items using apis
-  totalAmount: 0, // total amount of cart items
-  numberOfItems: 0, // number of items present in cart
+  number_of_items: 0, // number of items present in cart
+  online_discount: 0, // cart amount for online discount
+  coupon_discount: 0, // cart amount for coupon discount
+  total_amount: 0, // total cart amount without discounts
   related_product_Id: [], // related product based on product present in cart
 };
 
@@ -22,22 +26,6 @@ export const addToCartAuth = createAsyncThunk(
         cart: cartId,
       };
       return await cartServices.addItemToCart(cartdata, token);
-    } catch (e) {
-      const msg =
-        (e.response && e.response.data && e.response.data.message) ||
-        e.message ||
-        e.toString();
-      return thunkAPI.rejectWithValue(msg);
-    }
-  }
-);
-
-export const updateCartAuth = createAsyncThunk(
-  "update/updateCart",
-  async (data, thunkAPI) => {
-    try {
-      let token = localStorage.getItem("AYUVYA_TOKEN_USER");
-      return await cartServices.updateCartItem(data.items, data.item_id, token);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -95,13 +83,13 @@ const cartSlice = createSlice({
         if (itemExists) {
           itemExists.total_item_price += action.payload.price;
           itemExists.quantity += action.payload.quantity;
-          cart.totalAmount += action.payload.price;
+          cart.total_amount += action.payload.price;
           localStorage.setItem("AYUVYA_CART", JSON.stringify(cart));
         } else {
           state.items.push(action.payload);
-          state.numberOfItems += 1;
+          state.number_of_items += 1;
           state.related_product_Id.push(action.payload.id);
-          state.totalAmount += action.payload.price;
+          state.total_amount += action.payload.price;
           localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
         }
         toast.success("Item is added successfully", {
@@ -119,17 +107,17 @@ const cartSlice = createSlice({
       state.related_product_Id = state.related_product_Id.filter(
         (item) => item !== action.payload.id
       );
-      state.numberOfItems -= 1;
-      state.totalAmount -= total_item_price;
+      state.number_of_items -= 1;
+      state.total_amount -= total_item_price;
       localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
     },
     fetchCart: (state, action) => {
       const localData = JSON.parse(localStorage.getItem("AYUVYA_CART"));
       if (localData) {
         state.items = localData?.items;
-        state.totalAmount = localData?.totalAmount;
+        state.total_amount = localData?.total_amount;
         state.related_product_Id = localData?.related_product_Id;
-        state.numberOfItems = localData?.numberOfItems;
+        state.number_of_items = localData?.number_of_items;
       }
     },
     updateCartItem: (state, action) => {
@@ -142,9 +130,9 @@ const cartSlice = createSlice({
         itemExists.total_item_price = totalitemAmount;
         itemExists.quantity = action.payload.quantity;
         if (action.payload.type === "remove") {
-          cart.totalAmount -= action.payload.price;
+          cart.total_amount -= action.payload.price;
         } else {
-          cart.totalAmount += action.payload.price;
+          cart.total_amount += action.payload.price;
         }
         localStorage.setItem("AYUVYA_CART", JSON.stringify(cart));
       }
@@ -157,35 +145,9 @@ const cartSlice = createSlice({
       })
       .addCase(addToCartAuth.fulfilled, (state, action) => {
         state.status = "success";
-        const ids = [];
-        state.items = action.payload.items;
         localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
-        state.totalAmount = action.payload.totalAmount;
-        state.numberOfItems = action.payload.items.length;
-        state.related_product_Id = action.payload?.related_products.forEach(
-          (item) => {
-            ids.push(item.id);
-            if (ids.length === action.payload.related_products.length) {
-              return ids;
-            }
-          }
-        );
-        localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
-        toast.success("Item is added successfully", {
-          position: "bottom-left",
-        });
       })
       .addCase(addToCartAuth.rejected, (state, action) => {
-        state.status = "rejected";
-      })
-      .addCase(updateCartAuth.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(updateCartAuth.fulfilled, (state, action) => {
-        state.status = "success";
-        state.message = action.payload.message;
-      })
-      .addCase(updateCartAuth.rejected, (state, action) => {
         state.status = "rejected";
       })
       .addCase(fetchCartAuth.pending, (state) => {
@@ -193,22 +155,17 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCartAuth.fulfilled, (state, action) => {
         state.status = "success";
-        const ids = [];
-        if (action.payload?.cart) {
-          localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
-          state.items = action.payload.items;
-          state.numberOfItems = action.payload.items.length;
-          state.related_product_Id = action.payload?.related_products.forEach(
-            (item) => {
-              ids.push(item.id);
-              if (ids.length === action.payload.related_products.length) {
-                return ids;
-              }
-            }
-          );
-          state.totalAmount = action.payload.total_amount;
-          localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
-        }
+        state.items = action.payload.items;
+        state.coupon =
+          action.payload.coupon === null ? "none" : action.payload.coupon;
+        state.total_amount = action.payload.total_amount;
+        state.final_amount = action.payload.final_amount;
+        state.number_of_items = action.payload.items.length;
+        state.coupon_discount = action.payload.coupon_discount;
+        state.online_discount = action.payload.online_discount;
+        state.related_product_Id = action.payload?.items.map((item) => {
+          return item.id;
+        });
       })
       .addCase(fetchCartAuth.rejected, (state, action) => {
         state.status = "rejected";

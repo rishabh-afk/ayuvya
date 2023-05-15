@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCartItem, fetchCart } from "../../store/slices/cartSlice";
 import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
-// import productImg from "../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
+import productImg from "../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
 
 const ProductCard = ({
   product,
@@ -30,7 +30,11 @@ const ProductCard = ({
     };
     if (isLoggedIn) {
       dispatch(addToCartAuth([{ quantity: 1, product: product.id }])).then(
-        dispatch(fetchCartAuth())
+        (response) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            dispatch(fetchCartAuth());
+          }
+        }
       );
     } else {
       dispatch(addCartItem(data)).then(dispatch(fetchCart()));
@@ -58,7 +62,7 @@ const ProductCard = ({
               ? "transition delay-75 ease-in-out duration-200 group-hover:opacity-30"
               : ""
           }`}
-          src={product?.primary_image}
+          src={productImg || product?.primary_image}
           alt=""
         />
         {isNotSwiperProduct && (

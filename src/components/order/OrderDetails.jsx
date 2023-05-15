@@ -26,8 +26,8 @@ const OrderDetails = ({ paymentMode, cart }) => {
         <p className="">
           ₹{" "}
           {paymentMode === "online"
-            ? cart?.totalAmount - cart?.totalAmount / 10
-            : cart?.totalAmount}
+            ? cart?.total_amount - cart?.total_amount / 10
+            : cart?.total_amount}
         </p>
       </div>
       <motion.div
@@ -46,7 +46,7 @@ const OrderDetails = ({ paymentMode, cart }) => {
             );
           })}
         </div>
-        <Subtotal paymentMode={paymentMode} price={cart?.totalAmount} />
+        <Subtotal paymentMode={paymentMode} price={cart?.total_amount} />
       </motion.div>
       <div className="hidden lg:block">
         <div className="border-b">
@@ -60,7 +60,7 @@ const OrderDetails = ({ paymentMode, cart }) => {
             );
           })}
         </div>
-        <Subtotal paymentMode={paymentMode} price={cart?.totalAmount} />
+        <Subtotal paymentMode={paymentMode} price={cart?.total_amount} />
       </div>
     </div>
   );

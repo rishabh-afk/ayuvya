@@ -3,8 +3,10 @@ import {
   updateCartItem,
   removeCartItem,
   fetchCart,
+  addToCartAuth,
+  fetchCartAuth,
 } from "../../store/slices/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import imageData from "../../assets/images/product/Intimate-Wellness.webp";
@@ -14,40 +16,80 @@ import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 const CartItem = ({ product, isCheckoutPage }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(product.quantity);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const cartItems = useSelector((state) => state.cart);
+
+  //add quantity to the list of products
   const addItemQuantity = (id, quantity, price) => {
     setQuantity(quantity + 1);
-    const data = {
-      id: id,
-      quantity: quantity + 1,
-      price: price,
-    };
-    dispatch(updateCartItem(data));
-    dispatch(fetchCart());
+    if (isLoggedIn) {
+      dispatch(
+        addToCartAuth([{ quantity: quantity + 1, product: product.id }])
+      ).then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          dispatch(fetchCartAuth());
+        }
+      });
+    } else {
+      dispatch(
+        updateCartItem({
+          id: id,
+          quantity: quantity + 1,
+          price: price,
+        })
+      );
+      dispatch(fetchCart());
+    }
   };
+
+  //remove quantity from the list of products
   const removeItemQuantity = (id, quantity, price) => {
     if (quantity !== 1) {
       setQuantity(quantity - 1);
-      const data = {
-        id: id,
-        quantity: quantity - 1,
-        price: price,
-        type: "remove",
-      };
-      dispatch(updateCartItem(data));
-      dispatch(fetchCart());
+      if (isLoggedIn) {
+        dispatch(
+          addToCartAuth([{ quantity: quantity - 1, product: product.id }])
+        ).then((response) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            dispatch(fetchCartAuth());
+          }
+        });
+      } else {
+        dispatch(
+          updateCartItem({
+            id: id,
+            quantity: quantity - 1,
+            price: price,
+            type: "remove",
+          })
+        );
+        dispatch(fetchCart());
+      }
     } else {
       removeProductFromCart(id, price);
     }
   };
+
+  //remove product from cart
   const removeProductFromCart = async (id, price) => {
-    const data = {
-      id: id,
-      total_item_price: price,
-    };
-    dispatch(removeCartItem(data));
-    dispatch(fetchCart());
+    if (isLoggedIn) {
+      dispatch(addToCartAuth([{ quantity: 0, product: id }])).then(
+        (response) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            dispatch(fetchCartAuth());
+          }
+        }
+      );
+    } else {
+      dispatch(removeCartItem({ id: id, total_item_price: price }));
+      dispatch(fetchCart());
+    }
     const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
-    dispatch(getAllRelatedProducts(relatedIds?.related_product_Id));
+    dispatch(
+      getAllRelatedProducts(
+        cartItems?.related_product_Id || relatedIds?.related_product_Id
+      )
+    );
     toast("Product deleted successfully", { position: "top-center" });
   };
   return (

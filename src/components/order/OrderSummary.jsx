@@ -6,7 +6,7 @@ import CustomerDetails from "./CustomerDetails";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 
-const OrderSummary = ({ userDetails, totalAmount, orderId }) => {
+const OrderSummary = ({ userDetails, total_amount, orderId }) => {
   const navigate = useNavigate();
   const [copyToClip, setCopyToClip] = useState(false);
 
@@ -93,7 +93,7 @@ const OrderSummary = ({ userDetails, totalAmount, orderId }) => {
         <div className="border border-slate-300 bg-slate-100 rounded-lg p-4">
           <CustomerDetails
             userDetails={userDetails}
-            totalAmount={totalAmount}
+            total_amount={total_amount}
           />
         </div>
       </div>

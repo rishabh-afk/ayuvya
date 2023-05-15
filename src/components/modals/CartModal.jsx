@@ -44,12 +44,16 @@ const CartModal = (props) => {
 
   useEffect(() => {
     const relatedIds = JSON.parse(localStorage.getItem("Cart"));
-    dispatch(getAllRelatedProducts(relatedIds?.related_product_Id));
-  }, [dispatch]);
+    dispatch(
+      getAllRelatedProducts(
+        cartData.related_product_Id || relatedIds?.related_product_Id
+      )
+    );
+  }, [dispatch, cartData]);
 
   return (
     <Modal
-      isOpen={props.cartModal && cartData.items.length > 0}
+      isOpen={props.cartModal && cartData.number_of_items > 0}
       onRequestClose={props.handleClose}
       style={customStyles}
       contentLabel="Address Modal"
@@ -62,7 +66,7 @@ const CartModal = (props) => {
         <div className="bg-white h-screen overflow-y-scroll pt-20 pb-36">
           <div className="fixed top-0 bg-white z-50 h-20 w-96">
             <div className="flex justify-between px-5 py-3 font-semibold text-lg items-center">
-              <h3>Your Shopping Cart ({cartData?.numberOfItems || 0})</h3>
+              <h3>Your Shopping Cart ({cartData?.number_of_items || 0})</h3>
               <motion.div whileHover={{ scale: 1.2 }}>
                 <VscChromeClose
                   className="cursor-none lg:cursor-pointer"
@@ -118,7 +122,7 @@ const CartModal = (props) => {
             <div className="flex justify-between items-center">
               <h4 className="text-lg font-bold">SUBTOTAL</h4>
               <p className="text-md lg:text-xl font-semibold">
-                ₹ {cartData?.totalAmount}
+                ₹ {cartData?.total_amount}
               </p>
             </div>
             <p className="text-sm py-2">

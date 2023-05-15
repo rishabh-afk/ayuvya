@@ -9,7 +9,7 @@ const ProductBriefCard = ({
   isNotSwiperProduct,
 }) => {
   return (
-    <div className="flex flex-col items-center text-center p-4 gap-2 h-64">
+    <div className="flex flex-col items-center text-center p-4 gap-2 min-h-64">
       <h1 className={`font-semibold ${headingSize}`}>
         {product?.product_name.slice(0, 45)}{" "}
         {product?.product_name.length > 45 && <span>...</span>}

@@ -3,11 +3,11 @@ import SearchBar from "./SearchBar";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import NavbarIcons from "./NavbarIcons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CartModal from "../../modals/CartModal";
 import { product } from "../../../data/products";
 import { RxHamburgerMenu } from "react-icons/rx";
-// import { category } from "../../../data/categories";
+import { category } from "../../../data/categories";
 import { useState, useEffect, useRef } from "react";
 import { fetchCart } from "../../../store/slices/cartSlice";
 import AyuvyaBlackLogo from "../../../assets/logo/ayuvya_ayurveda_black.png";
@@ -15,8 +15,8 @@ import AyuvyaWhiteLogo from "../../../assets/logo/ayuvya_ayurveda_white.png";
 
 const Navbar = () => {
   //to show all categories on navbar & on sidebar
-  const categories = useSelector((state) => state.common.categories);
-  // const categories = category;
+  // const categories = useSelector((state) => state.common.categories);
+  const categories = category;
 
   //to show cart modal when user clicks
   const [cartModal, showCartModal] = useState(false);

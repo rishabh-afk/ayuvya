@@ -1,4 +1,4 @@
-const CustomerDetails = ({ userDetails, totalAmount }) => {
+const CustomerDetails = ({ userDetails, total_amount }) => {
   return (
     <div>
       <h4 className="text-2xl">Customer information</h4>
@@ -31,7 +31,7 @@ const CustomerDetails = ({ userDetails, totalAmount }) => {
         <h5 className="text-lg pb-2 text-gray-600">Payment method</h5>
         <div className="flex justify-between text-gray-500 text-sm">
           <p className="">Cash On Delivery (COD):</p>
-          <p className="">₹ {totalAmount}.00</p>
+          <p className="">₹ {total_amount}.00</p>
         </div>
       </div>
     </div>

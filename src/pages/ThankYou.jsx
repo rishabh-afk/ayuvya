@@ -64,7 +64,7 @@ const ThankYou = () => {
           >
             <OrderSummary
               userDetails={userDetails}
-              totalAmount={cart?.totalAmount}
+              total_amount={cart?.total_amount}
               orderId={orderId}
             />
           </motion.div>

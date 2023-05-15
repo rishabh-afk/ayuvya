@@ -3,7 +3,7 @@ import Button from "../Button";
 const RecommendationCard = ({ product, marginVertical }) => {
   return (
     <div
-      className={`flex flex-col gap-2 cursor-pointer shadow-md my-5 ${marginVertical}`}
+      className={`flex flex-col gap-2 cursor-pointer shadow-sm my-5 ${marginVertical}`}
     >
       <figure className="flex justify-center">
         <img
@@ -12,7 +12,7 @@ const RecommendationCard = ({ product, marginVertical }) => {
           alt=""
         />
       </figure>
-      <figcaption className="flex flex-col gap-1 py-2 text-center">
+      <figcaption className="flex flex-col gap-1 py-6 text-center">
         <h2 className="text-lg font-bold">
           {product.product_name.slice(0, 25)}
         </h2>

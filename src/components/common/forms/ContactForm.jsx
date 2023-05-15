@@ -20,7 +20,7 @@ const ContactForm = () => {
       phone: feedBack.countryCode + feedBack.phoneNumber,
     };
     const resp = await axios.post(
-      "http://192.168.0.117:8000/api/contact/create/",
+      "http://192.168.0.107:80/api/contact/create/",
       data,
       {
         headers: { "Content-Type": "application/json" },

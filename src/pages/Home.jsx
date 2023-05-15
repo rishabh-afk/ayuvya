@@ -8,8 +8,8 @@ import PlaystoreApp from "../components/Home/PlaystoreApp";
 import { useLocation, useNavigate } from "react-router-dom";
 import ShopByConcern from "../components/Home/ShopByConcern";
 import ProductSection from "../components/Home/ProductSection";
-import InstagramPosts from "../components/Home/InstagramPosts";
-import Blogs from "../components/Home/Blogs";
+// import InstagramPosts from "../components/Home/InstagramPosts";
+// import Blogs from "../components/Home/Blogs";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -33,9 +33,9 @@ const Home = () => {
       <WhyAyuvya />
       <ShopByConcern />
       <ProductSection />
-      <InstagramPosts />
+
       <Testimonials />
-      <Blogs />
+
       <PlaystoreApp />
     </Layouts>
   );
