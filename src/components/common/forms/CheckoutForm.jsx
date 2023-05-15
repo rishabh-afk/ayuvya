@@ -1,7 +1,7 @@
 import Form from "./Form";
 import axios from "axios";
 import Button from "../Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../forms/FormInput";
@@ -57,24 +57,20 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     if (user.payment_method === "COD") {
       handleCodOrder();
     } else {
+      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
       const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
       let data = [];
       cart.items.map((item) => {
         data.push({ product: item.id, quantity: item.quantity });
         return data;
       });
-      if (data.length === cart.items.length) {
+      if (!cartId && data.length === cart.items.length) {
         dispatch(addToCartAuth(data)).then(() => {
-          dispatch(createOrder(user)).then(async (response) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              localStorage.setItem(
-                "AYUVYA_ORDER_ID",
-                response.payload.order_id
-              );
-              handlePrepaidOrder(response.payload.order_token);
-            }
-          });
+          handlePrePaidOrder();
         });
+      }
+      if (cartId) {
+        handlePrePaidOrder();
       }
     }
   };
@@ -91,8 +87,17 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       sendOtp({ phone: user.phone });
     }
   };
+  // to create prepaid orders
+  const handlePrePaidOrder = () => {
+    dispatch(createOrder(user)).then(async (response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        localStorage.setItem("AYUVYA_ORDER_ID", response.payload.order_id);
+        handleCashFreePayment(response.payload.order_token);
+      }
+    });
+  };
   //to handle prepaid order
-  const handlePrepaidOrder = async (order_token) => {
+  const handleCashFreePayment = async (order_token) => {
     const cashfree = await load({
       mode: "sandbox", //or production
     });
@@ -155,7 +160,6 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       }
     }
   };
-
   // to handle changes of state
   const handleOnChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -164,6 +168,10 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
+  useEffect(() => {
+    setUser(userDetails);
+  }, [userDetails]);
 
   return (
     <div className="text-gray-700">
@@ -187,7 +195,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             id="phone"
             pattern="[0-9\/]*"
             maxLength="10"
-            value={user.phone || userDetails?.phone}
+            value={user.phone}
             onChange={handleOnChange}
             label="Phone Number *"
             autoFocus
@@ -199,8 +207,10 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="email"
             id="email"
             name="email"
+            maxLength="50"
+            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
             label="Email (Optional)"
-            value={user.email || userDetails?.email}
+            value={user.email}
             onChange={handleOnChange}
           />
         </div>
@@ -209,7 +219,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="checkbox"
             name="notification"
             id="notification"
-            value={user.notification || userDetails?.notification}
+            value={user.notification}
             onChange={handleOnChange}
             className="h-5 w-5 mt-2 rounded-md"
           />
@@ -224,7 +234,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               type="text"
               id="first_name"
               name="first_name"
-              value={user.first_name || userDetails?.first_name}
+              maxLength="25"
+              value={user.first_name}
               onChange={handleOnChange}
               label="First Name *"
               required
@@ -236,18 +247,22 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               id="last_name"
               label="Last Name"
               name="last_name"
-              value={user.last_name || userDetails?.last_name}
+              maxLength="25"
+              value={user.last_name}
               onChange={handleOnChange}
+              required
             />
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-2 md:gap-5 mt-0 lg:mt-3">
           <div className="w-full lg:w-1/3 mt-3 lg:mt-0">
             <Form
-              type="number"
+              type="text"
               id="pin_code"
               name="pin_code"
               label="Pincode *"
+              pattern="[0-9\/]*"
+              maxLength="6"
               onChange={handlePinCode}
               required
             />
@@ -257,7 +272,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               type="text"
               id="city"
               name="city"
-              value={userDetails?.city || user.city}
+              value={user.city}
               onChange={(e) =>
                 setUser({
                   ...user,
@@ -293,7 +308,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="text"
             id="address"
             name="address"
-            value={user.address || userDetails?.address}
+            maxLength="50"
+            value={user.address}
             onChange={handleOnChange}
             label="House number and area name *"
             required
@@ -304,7 +320,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="text"
             id="apartment"
             name="apartment"
-            value={user.apartment || userDetails?.apartment}
+            maxLength="25"
+            value={user.apartment}
             onChange={handleOnChange}
             label="Apartment, suite, etc. (optional)"
           />
@@ -315,7 +332,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               <select
                 id="country"
                 name="country"
-                value={user.country || userDetails?.country}
+                value={user.country}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
                 <option disabled>Select Country</option>
@@ -334,7 +351,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               <select
                 id="gender"
                 name="gender"
-                value={user.gender || userDetails?.gender}
+                value={user.gender}
                 onChange={handleOnChange}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
               >
@@ -359,7 +376,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             placeholder="Promo Code"
             name="promoCode"
             id="promoCode"
-            value={user.promoCode || userDetails?.promoCode}
+            value={user.promoCode}
             onChange={handleOnChange}
             type="text"
             className="py-3 w-full rounded-md font-medium outline-none"

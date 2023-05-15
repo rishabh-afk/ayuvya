@@ -18,6 +18,7 @@ const Checkout = () => {
 
   // Payment Types
   const handlePaymentType = async (typeOfPayment) => {
+    console.log(typeOfPayment)
     if (typeOfPayment === "COD") {
       setPaymentMode("offline");
     } else {

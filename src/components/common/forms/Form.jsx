@@ -9,7 +9,7 @@ const Form = (props) => {
       />
       <label
         htmlFor={props.id}
-        className="absolute rounded-lg text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-0 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-0 peer-focus:scale-75 peer-focus:-translate-y-4 left-3"
+        className="absolute rounded-lg text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-0 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:w-auto peer-placeholder-shown:top-1/2 peer-focus:top-0 peer-focus:scale-75 peer-focus:w-auto peer-focus:-translate-y-4 left-3"
       >
         {props.label}
       </label>
