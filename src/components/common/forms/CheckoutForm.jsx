@@ -8,7 +8,7 @@ import FormInput from "../forms/FormInput";
 import VerifyOtp from "../../modals/VerifyOtp";
 import { load } from "@cashfreepayments/cashfree-js";
 import { sendOTP } from "../../../store/slices/commonSlice";
-import { applyCoupon } from "../../../store/slices/cartSlice";
+import { addToCartAuth, applyCoupon } from "../../../store/slices/cartSlice";
 import { createOrder } from "../../../store/slices/orderSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  // customer details
   const [user, setUser] = useState({
     city: "",
     phone: "",
@@ -36,6 +37,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   const [otpModal, showOtpModal] = useState(false);
   const [otp, setOtp] = useState(null);
 
+  // send notification
   const sendOtp = async (data) => {
     dispatch(sendOTP(data)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
@@ -43,35 +45,53 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       }
     });
   };
+  // to close sendOtpModal
   const handleClose = () => {
     showOtpModal(false);
     setOtp(null);
   };
+  // to create a new checkout / order
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem("AYUVYA_USERDATA", JSON.stringify(user));
     if (user.payment_method === "COD") {
       handleCodOrder();
     } else {
-      dispatch(createOrder(user)).then(async (response) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          localStorage.setItem("AYUVYA_ORDER_ID", response.payload.order_id);
-          handlePrepaidOrder(response.payload.order_token);
-        }
+      const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+      let data = [];
+      cart.items.map((item) => {
+        data.push({ product: item.id, quantity: item.quantity });
+        return data;
       });
+      if (data.length === cart.items.length) {
+        dispatch(addToCartAuth(data)).then(() => {
+          dispatch(createOrder(user)).then(async (response) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              localStorage.setItem(
+                "AYUVYA_ORDER_ID",
+                response.payload.order_id
+              );
+              handlePrepaidOrder(response.payload.order_token);
+            }
+          });
+        });
+      }
     }
   };
 
+  // to handle COD orders, we need to check if the user is authorized or not
   const handleCodOrder = () => {
-    if (user.promoCode.length === 0 && !isLoggedIn) {
-      sendOtp({ phone: user.phone });
-    } else if (isLoggedIn) {
+    if (user.phone.length !== 10) {
+      toast.error("Invalid Phone Number");
+      return;
+    }
+    if (isLoggedIn) {
       handleCreateOrder();
     } else {
       sendOtp({ phone: user.phone });
-      handleCreateOrder();
     }
   };
+  //to handle prepaid order
   const handlePrepaidOrder = async (order_token) => {
     const cashfree = await load({
       mode: "sandbox", //or production
@@ -89,6 +109,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       }
     });
   };
+  //to handle a new order
   const handleCreateOrder = async () => {
     dispatch(createOrder(user)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
@@ -100,20 +121,24 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     });
   };
 
+  //apply promo Code to order
   const ApplyPromoCode = async (e) => {
     e.preventDefault();
-    if (user.phone.length === 10 && user.promoCode.length > 0 && isLoggedIn) {
+    if (user.phone.length !== 10) {
+      toast.error("Invalid Phone Number");
+      return;
+    }
+    if (user.promoCode.length < 1) {
+      toast.error("Invalid Promo Code");
+      return;
+    }
+    if (isLoggedIn) {
       dispatch(applyCoupon(user.promoCode));
-    } else if (
-      user.phone.length === 10 &&
-      user.promoCode.length > 0 &&
-      !isLoggedIn
-    ) {
-      sendOtp({ phone: user.phone });
     } else {
-      toast.warn("Please enter a phone number");
+      sendOtp({ phone: user.phone });
     }
   };
+  // handle pin code of user
   const handlePinCode = async (e) => {
     e.preventDefault();
     if (e.target.value.length === 6) {
@@ -131,6 +156,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     }
   };
 
+  // to handle changes of state
   const handleOnChange = (e) => {
     const { name, value, checked, type } = e.target;
     setUser((prevFields) => ({
@@ -148,7 +174,6 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         setOtp={setOtp}
         otp={otp}
         phone={user.phone}
-        user={user}
       />
       <h2 className="text-3xl text-black mb-4 hidden lg:block">
         Ayuvya Ayurveda

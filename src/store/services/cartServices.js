@@ -6,11 +6,8 @@ const CART_URL = "api/cart/item/";
 const addItemToCart = async (data, token) => {
   const resp = await axios.post(`${BASE_URL}${CART_URL}`, data, {
     headers:
-      token !== undefined || null
-        ? {
-            "Content-Type": "application/json",
-            Authorization: "Token " + token,
-          }
+      token !== null
+        ? { Authorization: "Token " + token }
         : { "Content-Type": "application/json" },
   });
   return resp.data;

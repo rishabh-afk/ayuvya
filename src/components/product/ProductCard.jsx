@@ -42,7 +42,8 @@ const ProductCard = ({
         }
       );
     } else {
-      dispatch(addCartItem(data)).then(dispatch(fetchCart()));
+      dispatch(addCartItem(data));
+      dispatch(fetchCart());
     }
     const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
     dispatch(

@@ -4,10 +4,9 @@ import OTPInput from "react-otp-input";
 import "react-toastify/dist/ReactToastify.css";
 import { VscChromeClose } from "react-icons/vsc";
 import { login } from "../../store/slices/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { verifyOTP } from "../../store/slices/commonSlice";
-import { useEffect } from "react";
 import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
 
 const customStyles = {
@@ -30,8 +29,8 @@ Modal.setAppElement("#root");
 
 const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
+  // resend otp
   const resendOTP = () => {
     const data = {
       phone: phone,
@@ -39,6 +38,7 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
     sendOtp(data);
     setOtp(null);
   };
+  //handleVerifyOtp
   const handleverifyOtp = async (e) => {
     e.preventDefault();
     const data = {
@@ -47,33 +47,26 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
     };
     dispatch(verifyOTP(data)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
-        if (isLoggedIn) {
-          const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
-          let data = [];
-          cart.items.map((item) => {
-            data.push({ product: item.id, quantity: item.quantity });
-            return data;
+        dispatch(login());
+        const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+        let data = [];
+        cart.items.map((item) => {
+          data.push({ product: item.id, quantity: item.quantity });
+          return data;
+        });
+        if (data.length === cart.items.length) {
+          dispatch(addToCartAuth(data)).then((response) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              dispatch(fetchCartAuth());
+              handleClose();
+            }
           });
-          if (data.length === cart.items.length) {
-            dispatch(addToCartAuth(data)).then((response) => {
-              if (response.meta.requestStatus === "fulfilled") {
-                dispatch(fetchCartAuth());
-                handleClose();
-              }
-            });
-          }
-        } else {
-          dispatch(login());
         }
       } else {
         toast.warn("Try again later");
       }
     });
   };
-
-  useEffect(() => {
-    dispatch(login());
-  }, [dispatch]);
 
   return (
     <div>
@@ -87,7 +80,7 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
         theme="dark"
       />
       <Modal
-        isOpen={otpModal}
+        isOpen={otpModal && phone.length === 10}
         onRequestClose={handleClose}
         style={customStyles}
         contentLabel="Verify OTP"
