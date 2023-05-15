@@ -28,7 +28,7 @@ const ContactForm = () => {
     );
     if (resp.status === 201) {
       toast("Your feedback has been submitted");
-      setFeedBack({});
+      setFeedBack(null);
     } else {
       toast("Something went wrong");
     }

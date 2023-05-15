@@ -26,7 +26,7 @@ const NewsLetterForm = () => {
     );
     if (resp.status === 201) {
       toast("Your feedback has been submitted");
-      setNewsletter({});
+      setNewsletter(null);
     } else {
       toast("Something went wrong");
     }
