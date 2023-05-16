@@ -11,7 +11,7 @@ const SearchBar = ({ openSearchBar }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ delay: 0.2 }}
-        className="flex justify-between pr-2 relative z-10 items-center w-full lg:w-3/4 border-2 rounded-md cursor-none lg:cursor-pointer"
+        className="flex justify-between bg-white pr-2 relative z-10 items-center w-full lg:w-3/4 border-2 rounded-md cursor-none lg:cursor-pointer"
       >
         <input
           type="text"
@@ -26,7 +26,7 @@ const SearchBar = ({ openSearchBar }) => {
           className="w-full text-black outline-none py-[2px] lg:py-1 pl-2"
         />
         <motion.div whileHover={{ scale: 1.2 }}>
-          <VscChromeClose onClick={() => openSearchBar(false)} size={20} />
+          <VscChromeClose onClick={() => openSearchBar(false)} size={20} color="black" />
         </motion.div>
       </motion.div>
     </>

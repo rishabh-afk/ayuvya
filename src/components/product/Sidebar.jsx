@@ -33,7 +33,7 @@ const Sidebar = () => {
         <CustomSwiper
           data={categories.slice(0, 6)}
           componentToBeRender={ConcernCard}
-          marginHorizontal="mx-4"
+          marginHorizontal="mx-1"
           navigation={false}
           noOfSlidePerView={[
             {

@@ -1,12 +1,18 @@
 import { AiFillStar } from "react-icons/ai";
 import ProgressBar from "./ProgressBar";
 
-const ProgressBarWithStars = ({ iconSize, percent, noOfStar, reviewCount }) => {
+const ProgressBarWithStars = ({
+  iconSize,
+  percent,
+  noOfStar,
+  reviewCount,
+  className,
+}) => {
   const coloredIcons = new Array(noOfStar).fill(null);
   const uncoloredIcons = new Array(5 - noOfStar).fill(null);
 
   return (
-    <div className="flex gap-5 items-center">
+    <div className={`flex gap-5 items-center ${className}`}>
       <div className="flex">
         {coloredIcons.map((item, i) => {
           return <AiFillStar key={i} size={iconSize} color="#ffd700" />;

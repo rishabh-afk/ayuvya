@@ -24,12 +24,12 @@ const Sidebar = ({ setSidebar, categories }) => {
           <img className="w-24" src={AyuvyaBlackLogo} alt="" />
           <VscChromeClose
             onClick={handleClick}
-            size={20}
+            size={25}
             className="font-bold"
           />
         </div>
-        <div className="flex flex-col gap-3 text-xl font-semibold pb-6">
-          <Link onClick={handleClick} to={"/all"}>
+        <div className="flex flex-col gap-3 text-2xl font-semibold pb-6">
+          <Link onClick={handleClick} to={"/collection/all"}>
             All Products
           </Link>
           {categories.map((category) => {
@@ -37,7 +37,7 @@ const Sidebar = ({ setSidebar, categories }) => {
               <Link
                 key={category.id}
                 onClick={handleClick}
-                to={`/${category.category_slug}`}
+                to={`/collection/${category.category_slug}`}
               >
                 {category.category_name}
               </Link>

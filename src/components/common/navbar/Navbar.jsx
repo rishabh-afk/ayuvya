@@ -86,7 +86,7 @@ const Navbar = () => {
           <div className="w-24 lg:hidden">
             <Link to={"/"}>
               <img
-                className="cursor-none lg:cursor-pointer"
+                className="cursor-none lg:cursor-pointer ml-6"
                 src={AyuvyaWhiteLogo}
                 alt="Ayuvya Logo"
               />
