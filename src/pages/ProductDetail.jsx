@@ -1,69 +1,62 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import config from "../config/config";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import Layouts from "../components/UI/Layouts";
-import { useNavigate, useParams } from "react-router-dom";
+import { platforms } from "../data/ottplatform";
 import Loader from "../components/common/Loader";
-import { setCurrentProduct } from "../store/slices/productSlice";
-// import CustomSwiper from "../components/common/custom/CustomSwiper";
-// import { platforms } from "../data/ottplatform";
-// import Platforms from "../components/common/card/Platforms";
-import Button from "../components/common/Button";
+import { useNavigate, useParams } from "react-router-dom";
+import Platforms from "../components/common/card/Platforms";
 import ProductCard from "../components/product/ProductCard";
 import Reviews from "../components/product/productDetails/Reviews";
+import CustomSwiper from "../components/common/custom/CustomSwiper";
 import HowToUse from "../components/product/productDetails/HowToUse";
 import Benefits from "../components/product/productDetails/Benefits";
+import Recommendation from "../components/common/card/Recommendation";
 import Ingredients from "../components/product/productDetails/Ingredients";
 import CommonDetails from "../components/product/productDetails/CommonDetails";
 import CustomerReview from "../components/product/productDetails/CustomerReview";
 import ImagesSwiper from "../components/product/productDetails/imageswiper/ImagesSwiper";
-// import { addCartItem, fetchCartItems } from "../store/slices/cartSlice";
-// import { product } from "../data/ProductDetail";
+import AddProductButton from "../components/product/productDetails/AddProductButton";
+import SafeAndEffective from "../components/product/productDetails/SafeAndEffective";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
-  // const location = useLocation();
   const navigate = useNavigate();
   const { slug } = useParams();
-  const productData = useSelector((state) => state.product.productDetails);
-  // const productData = product;
-  // const cartdata = useSelector((state) => state.cart.cartData);
-  // const { productId } = location?.state ?? "";
+  const [product, setProduct] = useState();
+
   useEffect(() => {
     const fetchProduct = async () => {
-      const BASE_URL = process.env.REACT_APP_BASE_URL;
-      if (slug) {
-        const resp = await axios.get(`${BASE_URL}api/products/test/${slug}/`);
-        dispatch(setCurrentProduct(resp.data));
-      } else {
-        navigate("/");
+      try {
+        const BASE_URL = config.REACT_APP_BASE_URL;
+        if (slug) {
+          const resp = await axios.get(`${BASE_URL}api/products/test/${slug}/`);
+          setProduct(resp.data);
+        }
+      } catch (error) {
+        if (error.response.status === 404) {
+          navigate("/collection/all");
+        }
       }
     };
     fetchProduct();
   }, [dispatch, slug, navigate]);
 
-  if (Object.keys(productData).length === 0) {
+  if (!product) {
     return <Loader />;
   }
-  const addToCart = (id) => {
-    // const data = {
-    //   product: id,
-    //   quantity: 1,
-    // };
-    // dispatch(addCartItem(data));
-    // dispatch(fetchCartItems());
-  };
 
   return (
     <Layouts>
       <section className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row mx-3 lg:mx-16 my-8">
           <div className="w-full md:w-1/2 p-1 lg:p-4">
-            <ImagesSwiper images={productData.product_images} />
+            <ImagesSwiper images={product?.product_images} />
           </div>
           <div className="w-full md:w-1/2 p-1 lg:p-4">
-            <CommonDetails product={productData} />
-            {/* <div className="border-y bg-slate-100 h-auto cursor-none lg:cursor-pointer my-4">
+            <CommonDetails product={product} />
+            <div className="border-y bg-slate-100 h-auto cursor-none lg:cursor-pointer my-4">
               <div className="my-4">
                 <CustomSwiper
                   componentToBeRender={Platforms}
@@ -83,73 +76,44 @@ const ProductDetail = () => {
                   ]}
                 />
               </div>
-            </div> */}
-            <div className="flex mt-3 flex-col gap-5">
-              <Button
-                handler={() => addToCart(productData.id)}
-                className="w-full md:w-3/4 bg-white border-2 border-slate-200 py-3"
-              >
-                <span className="text-3xl font-bold text-[#7d8801] text-center mx-auto">
-                  Add To Cart
-                </span>
-              </Button>
-              <Button className="w-full md:w-3/4 bg-[#7d8801] border-2 border-[#7d8801] py-3">
-                <span className="text-3xl font-bold text-white text-center mx-auto">
-                  Buy Now
-                </span>
-              </Button>
             </div>
+            <AddProductButton product={product} />
           </div>
         </div>
         <div className="mx-4 lg:mx-10">
-          {productData.ingredient_section.length > 0 && (
-            <Ingredients ingredients={productData.ingredient_section} />
+          {product?.ingredient_section && (
+            <Ingredients ingredients={product?.ingredient_section} />
           )}
-          {productData.benefits_section && (
+          {product?.benefits_section && (
             <Benefits
-              benefits={productData.benefits_section[0]}
-              title={productData.benefits_section[0].title}
+              benefits={product?.benefits_section[0]}
+              title={product?.benefits_section[0]?.title}
             />
           )}
           <CustomerReview
-            review_count={productData.review_count}
-            rating_five={productData.rating_five}
-            rating_four={productData.rating_four}
-            rating_three={productData.rating_three}
-            rating_two={productData.rating_two}
-            rating_one={productData.rating_one}
+            review_count={product?.review_count}
+            rating_five={product?.rating_five}
+            rating_four={product?.rating_four}
+            rating_three={product?.rating_three}
+            rating_two={product?.rating_two}
+            rating_one={product?.rating_one}
           />
         </div>
-        {productData.reviews.length > 0 && (
+        {product?.reviews && (
           <Reviews
-            reviews={productData.reviews}
-            review_count={productData.review_count}
+            reviews={product?.reviews}
+            review_count={product?.review_count}
           />
         )}
-        {productData.related_products.length > 0 && (
-          <h4 className="text-3xl font-bold mx-4 lg:mx-24 mb-5">
-            Products you can't miss
-          </h4>
+        {product?.related_products && (
+          <Recommendation
+            title={"Products you can't miss"}
+            componentToBeRender={ProductCard}
+            related_products={product?.related_products}
+          />
         )}
-        <div className="flex flex-wrap mx-3 lg:mx-20">
-          {productData &&
-            productData.related_products.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className="w-1/2 md:w-1/3 lg:w-1/4 p-2 lg:p-3"
-                >
-                  <ProductCard
-                    key={item.id}
-                    product={item}
-                    headingSize="text-lg"
-                  />
-                </div>
-              );
-            })}
-        </div>
-        {productData.how_to_use_section &&
-          productData.how_to_use_section.map((item) => {
+        {product?.how_to_use_section &&
+          product?.how_to_use_section.map((item) => {
             return (
               <div key={item.id}>
                 <h4 className="text-2xl font-semibold">{item?.title}</h4>
@@ -157,22 +121,8 @@ const ProductDetail = () => {
               </div>
             );
           })}
-        {productData.safe_and_effective && (
-          <div className="text-center">
-            <h2 className="text-4xl font-semibold">100% Safe & Effective</h2>
-            <div className="flex gap-4 justify-center my-10">
-              {productData.safe_and_effective.map((item) => {
-                return (
-                  <img
-                    key={item.id}
-                    src={item.image}
-                    alt={item.title}
-                    className="w-28"
-                  />
-                );
-              })}
-            </div>
-          </div>
+        {product?.safe_and_effective && (
+          <SafeAndEffective safe_and_effective={product?.safe_and_effective} />
         )}
       </section>
     </Layouts>

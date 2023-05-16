@@ -2,6 +2,7 @@ import axios from "axios";
 import Button from "../Button";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import config from "../../../config/config";
 
 const ContactForm = () => {
   const [feedBack, setFeedBack] = useState({
@@ -19,13 +20,10 @@ const ContactForm = () => {
       message: feedBack.comment,
       phone: feedBack.countryCode + feedBack.phoneNumber,
     };
-    const resp = await axios.post(
-      "http://192.168.0.107:80/api/contact/create/",
-      data,
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const BASE_URL = config.REACT_APP_BASE_URL;
+    const resp = await axios.post(`${BASE_URL}api/contact/create/`, data, {
+      headers: { "Content-Type": "application/json" },
+    });
     if (resp.status === 201) {
       toast("Your feedback has been submitted");
       setFeedBack(null);

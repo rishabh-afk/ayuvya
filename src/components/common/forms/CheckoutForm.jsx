@@ -11,6 +11,7 @@ import { sendOTP } from "../../../store/slices/commonSlice";
 import { addToCartAuth, applyCoupon } from "../../../store/slices/cartSlice";
 import { createOrder } from "../../../store/slices/orderSlice";
 import { useNavigate } from "react-router-dom";
+import config from "../../../config/config";
 
 const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   const dispatch = useDispatch();
@@ -148,8 +149,9 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   const handlePinCode = async (e) => {
     e.preventDefault();
     if (e.target.value.length === 6) {
+      const BASE_URL = config.REACT_APP_BASE_URL;
       const resp = await axios.get(
-        "http://192.168.0.107:80/check-pincode/?pincode=" + e.target.value
+        `${BASE_URL}check-pincode/?pincode=` + e.target.value
       );
       if (resp.data) {
         setUser({

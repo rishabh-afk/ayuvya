@@ -3,6 +3,7 @@ import Button from "../Button";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { MdEmail } from "react-icons/md";
+import config from "../../../config/config";
 
 const NewsLetterForm = () => {
   const [newsLetter, setNewsletter] = useState({
@@ -17,13 +18,10 @@ const NewsLetterForm = () => {
       email: newsLetter.email,
       phone_number: newsLetter.countryCode + newsLetter.phoneNumber,
     };
-    const resp = await axios.post(
-      "http://192.168.0.107:80/api/newsletter/create/",
-      data,
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const BASE_URL = config.REACT_APP_BASE_URL;
+    const resp = await axios.post(`${BASE_URL}api/newsletter/create/`, data, {
+      headers: { "Content-Type": "application/json" },
+    });
     if (resp.status === 201) {
       toast("Your feedback has been submitted");
       setNewsletter(null);
