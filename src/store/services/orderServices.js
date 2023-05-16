@@ -1,7 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import config from "../../config/config";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = config.REACT_APP_BASE_URL;
 
 const CREATE_ORDER_COD_URL = "api/checkout/create/order/";
 const createOrder = async (data, token) => {

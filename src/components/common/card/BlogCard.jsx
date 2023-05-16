@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CardHoc from "../../UI/cardHoc"
+import CardHoc from "../../UI/cardHoc";
 import Button from "../Button";
 
 const BlogCard = ({ product, isBlogPage, marginVertical }) => {
@@ -13,8 +13,8 @@ const BlogCard = ({ product, isBlogPage, marginVertical }) => {
       bg-white cursor-none lg:cursor-pointer ${marginVertical}`}
       >
         {isBlogPage && (
-          <span className="absolute bg-black text-white opacity-50 px-4 rounded-tl-md rounded-br-md">
-            {product.category.category}
+          <span className="absolute bg-black text-white opacity-50 px-4 py-1 rounded-tl-md rounded-br-md">
+            {product.category == null ? "New" : product.category.category}
           </span>
         )}
         <figure>

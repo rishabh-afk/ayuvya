@@ -1,6 +1,7 @@
 import axios from "axios";
+import config from "../../config/config";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = config.REACT_APP_BASE_URL;
 const CART_URL = "api/cart/item/";
 
 const addItemToCart = async (data, token) => {

@@ -1,8 +1,8 @@
-import SocialMedia from "../SocialMedia";
-import { VscChromeClose } from "react-icons/vsc";
-import { Link } from "react-router-dom";
-import AyuvyaBlackLogo from "../../../assets/logo/ayuvya_ayurveda_black.png";
 import { motion } from "framer-motion";
+import SocialMedia from "../SocialMedia";
+import { Link } from "react-router-dom";
+import { VscChromeClose } from "react-icons/vsc";
+import AyuvyaBlackLogo from "../../../assets/logo/ayuvya_ayurveda_black.png";
 
 const Sidebar = ({ setSidebar, categories }) => {
   const handleClick = () => {

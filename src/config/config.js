@@ -1,5 +1,5 @@
 const config = {
-    REACT_APP_BASE_URL: process.env.REACT_APP_BASE_URL || "http://localhost:5000/",
-  };
-  export default config;
-  
+  REACT_APP_BASE_URL:
+    "http://35.202.144.166/ayuvya/" || process.env.REACT_APP_BASE_URL,
+};
+export default config;

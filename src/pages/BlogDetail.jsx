@@ -6,6 +6,7 @@ import axios from "axios";
 import Loader from "../components/common/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/product/ProductCard";
+import config from "../config/config";
 
 const BlogDetail = () => {
   const location = useLocation();
@@ -15,8 +16,7 @@ const BlogDetail = () => {
   const productData = useSelector((state) => state.product.products);
   useEffect(() => {
     const fetchBlog = async () => {
-      const BASE_URL = "http://192.168.0.107:80/";
-      // const BASE_URL = process.env.REACT_APP_BASE_URL;
+      const BASE_URL = config.REACT_APP_BASE_URL;
       if (blogSlug) {
         const resp = await axios.get(`${BASE_URL}api/blogs/test/${blogSlug}/`);
         dispatch(setCurrentBlog(resp.data));

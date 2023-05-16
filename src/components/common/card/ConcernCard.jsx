@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import concernImg from "../../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
+// import concernImg from "../../../assets/images/product/Skin-Care_Shop_by_concern_New_Webp.webp";
 
 const ConcernCard = ({ product }) => {
   return (
@@ -9,7 +9,7 @@ const ConcernCard = ({ product }) => {
           <figure>
             <img
               className="rounded-t-md w-full aspect-square object-cover"
-              src={concernImg || product?.category_image}
+              src={product?.category_image}
               alt={product?.category_name}
             />
           </figure>

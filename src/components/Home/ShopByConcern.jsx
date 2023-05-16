@@ -1,12 +1,12 @@
+import { useSelector } from "react-redux";
 import HeadingText from "../product/HeadingText";
-import CustomSwiper from "../common/custom/CustomSwiper";
 import ConcernCard from "../common/card/ConcernCard";
-// import { useSelector } from "react-redux";
-import { category } from "../../data/categories";
+import CustomSwiper from "../common/custom/CustomSwiper";
+// import { category } from "../../data/categories";
 
 const ShopByConcern = () => {
-  const categories = category;
-  // const categories = useSelector((state) => state.common.categories);
+  // const categories = category;
+  const categories = useSelector((state) => state.common.categories);
   return (
     <>
       {categories.length > 0 && (

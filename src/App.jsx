@@ -1,24 +1,28 @@
+import { useDispatch } from "react-redux";
 import RoutesWrapper from "./RoutesWrapper";
 import { Suspense, useEffect } from "react";
 import Loader from "./components/common/Loader";
-import { useDispatch } from "react-redux";
 import { login } from "./store/slices/authSlice";
-// import { getAllBlogs } from "./store/slices/blogSlice";
+import { getAllBlogs } from "./store/slices/blogSlice";
 import { fetchCartAuth } from "./store/slices/cartSlice";
-// import { getAllProducts } from "./store/slices/productSlice";
-// import { getAllCategories } from "./store/slices/commonSlice";
+import { getAllProducts } from "./store/slices/productSlice";
+import { getAllCategories } from "./store/slices/commonSlice";
+import { getAllRelatedProducts } from "./store/slices/commonSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+  const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
   // const loading = useSelector((state) => state.product.status);
   useEffect(() => {
     dispatch(login());
-    dispatch(fetchCartAuth());
-    // dispatch(getAllBlogs());
-    // dispatch(getAllProducts());
-    // dispatch(getAllCategories());
-    // dispatch(getAllRelatedProducts());
-  }, [dispatch]);
+    if (cartId !== null) {
+      dispatch(fetchCartAuth());
+    }
+    dispatch(getAllBlogs());
+    dispatch(getAllProducts());
+    dispatch(getAllCategories());
+    dispatch(getAllRelatedProducts());
+  }, [dispatch, cartId]);
   // if (loading !== "success") {
   //   return <Loader />;
   // }
