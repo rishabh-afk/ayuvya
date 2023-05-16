@@ -114,12 +114,12 @@ const CartItem = ({ product, isCheckoutPage }) => {
         </h2>
         {!isCheckoutPage && (
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 w-fit">
+            <div className="flex items-center border border-gray-300 rounded-sm gap-2 w-fit">
               <span
                 onClick={() =>
                   removeItemQuantity(product.id, quantity, product.price)
                 }
-                className="cursor-none lg:cursor-pointer text-xl font-medium border shadow-lg px-2 rounded-md hover:shadow-2xl"
+                className="cursor-none lg:cursor-pointer text-xl font-medium px-2 rounded-md hover:shadow-2xl"
               >
                 -
               </span>
@@ -130,7 +130,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
                 onClick={() =>
                   addItemQuantity(product.id, quantity, product.price)
                 }
-                className="cursor-none lg:cursor-pointer text-xl font-medium border shadow-lg px-2 rounded-md hover:shadow-2xl"
+                className="cursor-none lg:cursor-pointer text-xl font-medium px-2 rounded-md hover:shadow-2xl"
               >
                 +
               </span>

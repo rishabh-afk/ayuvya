@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loader from "../components/common/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "../components/order/OrderDetails";
 import OrderSummary from "../components/order/OrderSummary";
 import { verifyPaymentStatus } from "../store/slices/orderSlice";
-import { useNavigate } from "react-router-dom";
 
 const variants = {
   initial: { y: -500 },
@@ -14,17 +14,20 @@ const variants = {
 };
 
 const ThankYou = () => {
-  const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
-  const [thankYou, showThankYou] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [thankYou, showThankYou] = useState(false);
+
+  const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
   const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
   const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
   const payment_status = useSelector((state) => state.order.payment_status);
+
   useEffect(() => {
     if (orderId === null) {
       return navigate("/");
     }
+    // prepaid order status
     if (orderId.includes("order")) {
       dispatch(
         verifyPaymentStatus({
@@ -34,9 +37,6 @@ const ThankYou = () => {
       if (payment_status === "SUCCESS") {
         showThankYou(true);
       } else if (payment_status === "FAILED") {
-        localStorage.removeItem("AYUVYA_CART");
-        localStorage.removeItem("AYUVYA_USERDATA");
-        localStorage.removeItem("AYUVYA_CART-CARTID");
         navigate("/");
       } else {
         dispatch(
@@ -45,15 +45,14 @@ const ThankYou = () => {
           })
         );
       }
+      // COD orders
     } else {
       showThankYou(true);
     }
   }, [orderId, dispatch, payment_status, navigate]);
   return (
     <>
-      {!thankYou ? (
-        <Loader />
-      ) : (
+      {thankYou ? (
         <div className="lg:pl-20 flex flex-col lg:flex-row">
           <motion.div
             variants={variants}
@@ -78,6 +77,8 @@ const ThankYou = () => {
             <OrderDetails cart={cart} />
           </motion.div>
         </div>
+      ) : (
+        <Loader />
       )}
     </>
   );

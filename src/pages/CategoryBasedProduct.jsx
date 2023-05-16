@@ -12,12 +12,14 @@ const CategoryBasedProduct = () => {
   const products = useSelector((state) => state.product.products);
   const loading = useSelector((state) => state.product.status);
   // const products = product;
+
   const category_name =
     category.split("-").join(" ").charAt(0).toUpperCase() +
     category.split("-").join(" ").slice(1);
   const filteredProducts = products.filter(
     (item) => item.product_category.category_slug === category
   );
+
   if (filteredProducts.length === 0 && category !== "all") {
     navigate("/collection/all");
   }

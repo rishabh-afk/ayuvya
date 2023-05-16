@@ -18,7 +18,7 @@ const ProductSection = () => {
         data={newLaunches}
         marginVertical="my-10"
         category="New Launches"
-        cardHeadingSize="text-2xl"
+        cardHeadingSize="text-xl"
         componentToBeRender={ProductCard}
         marginHorizontal={"md:mx-16 mx-4"}
         noOfSlidePerView={[
@@ -43,6 +43,7 @@ const ProductSection = () => {
         data={bestSelling}
         marginVertical="my-10"
         height={"h-48 md:h-72"}
+        headingSIze={"text-lg"}
         cardHeadingSize="lg:text-md"
         category="Best Selling Products"
         componentToBeRender={ProductCard}
@@ -70,7 +71,7 @@ const ProductSection = () => {
         marginTop="mt-10"
         navigation={true}
         marginVertical="my-10"
-        cardHeadingSize="text-2xl"
+        cardHeadingSize="text-xl"
         category="Best Selling Combos"
         componentToBeRender={ProductCard}
         marginHorizontal={"md:mx-16 mx-4"}

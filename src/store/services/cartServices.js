@@ -1,16 +1,24 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import config from "../../config/config";
 
 const BASE_URL = config.REACT_APP_BASE_URL;
 const CART_URL = "api/cart/item/";
 
 const addItemToCart = async (data, token) => {
-  const resp = await axios.post(`${BASE_URL}${CART_URL}`, data, {
-    headers:
-      token !== null
-        ? { Authorization: "Token " + token }
-        : { "Content-Type": "application/json" },
-  });
+  const resp = await toast.promise(
+    axios.post(`${BASE_URL}${CART_URL}`, data, {
+      headers:
+        token !== null
+          ? { Authorization: "Token " + token }
+          : { "Content-Type": "application/json" },
+    }),
+    {
+      pending: "Please wait...",
+      success: "Item updated successfully!",
+      error: "Failed to update",
+    }
+  );
   return resp.data;
 };
 

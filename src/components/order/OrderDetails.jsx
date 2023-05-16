@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { BsCart3 } from "react-icons/bs";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { motion } from "framer-motion";
 import CartItem from "../cart/CartItem";
 import Subtotal from "../cart/Subtotal";
-import { motion } from "framer-motion";
+import { BsCart3 } from "react-icons/bs";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const variants = {
   open: { rotate: 180 },

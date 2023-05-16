@@ -9,45 +9,49 @@ const ProductBriefCard = ({
   isNotSwiperProduct,
 }) => {
   return (
-    <div className="flex flex-col items-center text-center px-2 py-4 md:p-4 gap-2 min-h-64">
-      <h1 className={`font-semibold break-all ${headingSize}`}>
-        {product?.product_name.slice(0, 40)}{" "}
-        {product?.product_name.length > 40 && <span>...</span>}
-      </h1>
-      <div className="flex flex-wrap justify-center items-center">
-        <div className="flex text-sm items-center">
-          <ProgressBarWithStars
-            iconSize={25}
-            noOfStar={Math.round(product?.rating || 5)}
-            className="hidden lg:block"
-          />
-          <ProgressBarWithStars
-            iconSize={20}
-            noOfStar={Math.round(product?.rating || 5)}
-            className="lg:hidden"
-          />
-          <span className="px-2 break-words">{product?.rating}</span>
+    <div
+      className={`text-center px-2 py-4 md:p-4 gap-1 ${
+        isNotSwiperProduct ? "h-64" : "h-[13rem]"
+      } lg:h-48`}
+    >
+      <div className="flex flex-col items-center gap-1 h-36 md:h-32 lg:h-[7.5rem] pb-2">
+        <h1 className={`font-semibold leading-tight ${headingSize}`}>
+          {product?.product_name}
+        </h1>
+        <div className="flex flex-wrap justify-center items-center">
+          <div className="flex text-sm gap-2 items-center">
+            <ProgressBarWithStars
+              iconSize={18}
+              noOfStar={Math.round(product?.rating || 5)}
+              className="hidden lg:block"
+            />
+            <ProgressBarWithStars
+              iconSize={20}
+              noOfStar={Math.round(product?.rating || 5)}
+              className="lg:hidden"
+            />
+            <span className="break-words text-[13px]">
+              {product?.review_count}+ Reviews
+            </span>
+          </div>
         </div>
-        <span className="break-words text-sm">
-          ({product?.review_count}+ Reviews)
-        </span>
+        <div className="flex gap-2 font-semibold text-md">
+          <span className="line-through text-gray-500">
+            ₹ {product?.cut_price}
+          </span>
+          <span className="">₹ {product?.price}</span>
+        </div>
+        {isNotSwiperProduct && (
+          <span className="text-xs">
+            (save ₹ {product.cut_price - product.price})
+          </span>
+        )}
       </div>
-      <div className="flex gap-2 font-semibold text-xl">
-        <span className="line-through text-gray-500">
-          ₹ {product?.cut_price}
-        </span>
-        <span className="">₹ {product?.price}</span>
-      </div>
-      {isNotSwiperProduct && (
-        <span className="text-xs">
-          (save ₹ {product.cut_price - product.price})
-        </span>
-      )}
       <Button
         handler={buyNow}
         className={`bg-black ${
           isNotSwiperProduct ? "lg:hidden" : "hidden"
-        } text-md md:text-xl text-white rounded-lg outline-none hover:bg-gray-500 ${
+        } text-md md:text-xl text-white justify-center m-auto mb-2 rounded-lg outline-none hover:bg-gray-500 ${
           isNotSwiperProduct ? "px-6" : "px-4"
         }`}
       >
@@ -55,8 +59,8 @@ const ProductBriefCard = ({
       </Button>
       <Button
         handler={isNotSwiperProduct ? () => addItemToCart(product) : buyNow}
-        className={`bg-black text-md md:text-xl text-white rounded-lg outline-none hover:bg-gray-500 ${
-          isNotSwiperProduct ? "px-6" : "px-4"
+        className={`bg-black text-md md:text-xl m-auto justify-center  text-white rounded-md outline-none hover:bg-gray-500 ${
+          isNotSwiperProduct ? "px-6 lg:w-full" : "px-4"
         }`}
       >
         {isNotSwiperProduct ? "Add To Cart" : "Buy Now"}

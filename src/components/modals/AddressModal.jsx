@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { VscChromeClose } from "react-icons/vsc";
-import { GrFormAdd } from "react-icons/gr";
+import axios from "axios";
 import Modal from "react-modal";
-import FormInput from "../common/forms/FormInput";
+import { useState } from "react";
 import Button from "../common/Button";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import config from "../../config/config";
+import { GrFormAdd } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
+import { VscChromeClose } from "react-icons/vsc";
+import FormInput from "../common/forms/FormInput";
 
 const customStyles = {
   content: {
@@ -25,7 +26,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 const AddressModal = (props) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [address, setAddress] = useState({
     addressLine1: "",
     addressLine2: "",
@@ -37,10 +38,11 @@ const AddressModal = (props) => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const resp = await axios.post("http://localhost:5000/account", address);
-    // if (resp.data.message === "success") {
-    //   navigate("/account");
-    // }
+    const BASE_URL = config.REACT_APP_BASE_URL;
+    const resp = await axios.post(`${BASE_URL}account`, address);
+    if (resp.data.message === "success") {
+      navigate("/account");
+    }
   };
   return (
     <div>

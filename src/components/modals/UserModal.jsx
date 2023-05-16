@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { VscChromeClose } from "react-icons/vsc";
-import { CgAdd } from "react-icons/cg";
-import { RxCrossCircled } from "react-icons/rx";
-import placeholder from "../../assets/images/userPlaceholder.jpg";
+import axios from "axios";
 import Modal from "react-modal";
+import { useState } from "react";
 import Button from "../common/Button";
+import { CgAdd } from "react-icons/cg";
+import config from "../../config/config";
+import { useNavigate } from "react-router-dom";
+import { RxCrossCircled } from "react-icons/rx";
+import { VscChromeClose } from "react-icons/vsc";
 import FormInput from "../common/forms/FormInput";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import placeholder from "../../assets/images/userPlaceholder.jpg";
 
 const customStyles = {
   content: {
@@ -27,7 +28,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 const UserModal = (props) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [file, setFile] = useState({});
   const [user, setUser] = useState({
     name: props.user.firstName,
@@ -40,10 +41,11 @@ const UserModal = (props) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const resp = await axios.post("http://localhost:5000/account", address);
-    // if (resp.data.message === "success") {
-    //   navigate("/account");
-    // }
+    const BASE_URL = config.REACT_APP_BASE_URL;
+    const resp = await axios.post(`${BASE_URL}account`, user);
+    if (resp.data.message === "success") {
+      navigate("/account");
+    }
   };
   return (
     <div>

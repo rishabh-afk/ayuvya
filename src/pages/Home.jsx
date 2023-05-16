@@ -1,27 +1,15 @@
-import { useEffect } from "react";
+import Blogs from "../components/Home/Blogs";
 import Banner from "../components/Home/Banner";
 import Layouts from "../components/UI/Layouts";
 import MetaTags from "../components/meta/MetaTags";
 import WhyAyuvya from "../components/Home/WhyAyuvya";
 import Testimonials from "../components/Home/Testimonials";
 import PlaystoreApp from "../components/Home/PlaystoreApp";
-import { useLocation, useNavigate } from "react-router-dom";
 import ShopByConcern from "../components/Home/ShopByConcern";
 import ProductSection from "../components/Home/ProductSection";
 import InstagramPosts from "../components/Home/InstagramPosts";
-import Blogs from "../components/Home/Blogs";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  useEffect(() => {
-    if (
-      location.pathname === "/collection/" ||
-      location.pathname === "/collection"
-    ) {
-      navigate("/collection/all");
-    }
-  }, [navigate, location]);
   return (
     <Layouts>
       <MetaTags

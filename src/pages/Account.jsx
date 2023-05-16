@@ -1,17 +1,17 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useState } from "react";
-// import { Pagination } from "swiper";
-import Tabs from "../components/accounts/Tabs";
-import Layouts from "../components/UI/Layouts";
 import "swiper/css";
 import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+import { useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { BsBoxSeam } from "react-icons/bs";
+import { userData } from "../data/userDetails";
+import Tabs from "../components/accounts/Tabs";
+import Layouts from "../components/UI/Layouts";
 import { BiLogOutCircle } from "react-icons/bi";
 import UserDetail from "../components/accounts/UserDetail";
 import UserAddress from "../components/accounts/UserAddress";
-import { userData } from "../data/userDetails";
 import LogoutModal from "../components/modals/LogoutModal";
 
 const Account = () => {
@@ -54,7 +54,7 @@ const Account = () => {
         />
         <div className="flex justify-between mx-4 items-center mt-8 md:mb-8">
           <h2 className="text-xl text-[#5e0d8b] font-bold">
-            Hi, {userData.firstName} {userData.last_name}
+            Hi, {userData.firstName} {userData.lastName}
           </h2>
           <button
             onClick={logoutModal}
@@ -68,11 +68,12 @@ const Account = () => {
             slidesPerView={2}
             spaceBetween={20}
             slidesPerGroup={2}
-            // pagination={{
-            //   clickable: true,
-            // }}
-            // modules={[Pagination]}
-            // className="mySwiper"
+            navigation={true}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination, Navigation]}
+            className="mySwiper"
           >
             {PROFILE_TABS.map((tab) => (
               <SwiperSlide key={tab.id}>

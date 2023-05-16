@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { VscChromeClose } from "react-icons/vsc";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { verifyOTP } from "../../store/slices/commonSlice";
 import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
 
@@ -70,15 +70,6 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
 
   return (
     <div>
-      <ToastContainer
-        position="top-center"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        theme="dark"
-      />
       <Modal
         isOpen={otpModal && phone.length === 10}
         onRequestClose={handleClose}

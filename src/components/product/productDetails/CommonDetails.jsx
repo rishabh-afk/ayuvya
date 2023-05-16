@@ -1,14 +1,24 @@
 import { AiFillStar } from "react-icons/ai";
 import { MdVerified } from "react-icons/md";
+import AddProductButton from "./AddProductButton";
+import Platforms from "../../common/card/Platforms";
+import { platforms } from "../../../data/ottplatform";
+import CustomSwiper from "../../common/custom/CustomSwiper";
 
 const CommonDetails = (props) => {
   const items = new Array(Math.round(props.product?.rating)).fill(null);
   return (
     <div>
-      <h1 className="text-2xl lg:text-4xl font-bold">{props.product?.product_name}</h1>
-      <p className="text-xl lg:text-2xl py-2">{props.product?.product_nick_name}</p>
+      <h1 className="text-2xl lg:text-4xl font-bold">
+        {props.product?.product_name}
+      </h1>
+      <p className="text-xl lg:text-2xl py-2">
+        {props.product?.product_nick_name}
+      </p>
       <p className="flex items-end">
-        <span className="pr-2 text-3xl font-semibold">{props.product?.rating} </span>
+        <span className="pr-2 text-3xl font-semibold">
+          {props.product?.rating}{" "}
+        </span>
         {items.map((item, i) => {
           return <AiFillStar key={i} size={30} color="#ffd700" />;
         })}
@@ -25,6 +35,28 @@ const CommonDetails = (props) => {
           ₹ {props.product?.cut_price}.0
         </span>
       </div>
+      <div className="border-y bg-slate-100 h-16 cursor-none lg:cursor-pointer my-4">
+        <div className="my-4">
+          <CustomSwiper
+            componentToBeRender={Platforms}
+            navigation={false}
+            data={platforms}
+            noOfSlidePerView={[
+              {
+                0: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+                980: {
+                  slidesPerView: 4,
+                  spaceBetween: 25,
+                },
+              },
+            ]}
+          />
+        </div>
+      </div>
+      <AddProductButton product={props.product} />
     </div>
   );
 };

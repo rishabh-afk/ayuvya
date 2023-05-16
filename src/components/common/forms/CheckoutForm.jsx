@@ -105,7 +105,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     });
     let checkoutOptions = {
       paymentSessionId: order_token,
-      returnUrl: `http://localhost:3000/thank-you`,
+      returnUrl: `http://35.202.144.166/ayuvya/thank-you`,
     };
     cashfree.checkout(checkoutOptions).then((result) => {
       if (result.error) {

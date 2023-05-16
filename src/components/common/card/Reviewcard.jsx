@@ -23,7 +23,7 @@ const Reviewcard = ({ product }) => {
           </div>
         </div>
       </div>
-      <div className="h-48 lg:h-40">
+      <div className="h-48 lg:h-48">
         <h2 className="text-2xl font-semibold py-2">{product.review_owner}</h2>
         <p className="text-sm">{product.review_description}</p>
       </div>

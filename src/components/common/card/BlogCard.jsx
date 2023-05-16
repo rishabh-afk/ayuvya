@@ -4,10 +4,7 @@ import Button from "../Button";
 
 const BlogCard = ({ product, isBlogPage, marginVertical }) => {
   return (
-    <Link
-      to={`/blogs/${product.slug}`}
-      state={{ blogSlug: product?.slug, scroll: true }}
-    >
+    <Link to={`/blogs/${product.slug}`}>
       <CardHoc
         className={`
       bg-white cursor-none lg:cursor-pointer ${marginVertical}`}

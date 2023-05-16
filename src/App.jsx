@@ -1,18 +1,18 @@
-import { useDispatch } from "react-redux";
-import RoutesWrapper from "./RoutesWrapper";
 import { Suspense, useEffect } from "react";
+import RoutesWrapper from "./RoutesWrapper";
 import Loader from "./components/common/Loader";
 import { login } from "./store/slices/authSlice";
 import { getAllBlogs } from "./store/slices/blogSlice";
+import { useDispatch } from "react-redux";
 import { fetchCartAuth } from "./store/slices/cartSlice";
 import { getAllProducts } from "./store/slices/productSlice";
 import { getAllCategories } from "./store/slices/commonSlice";
-import { getAllRelatedProducts } from "./store/slices/commonSlice";
 
 const App = () => {
   const dispatch = useDispatch();
   const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
   // const loading = useSelector((state) => state.product.status);
+
   useEffect(() => {
     dispatch(login());
     if (cartId !== null) {
@@ -21,8 +21,8 @@ const App = () => {
     dispatch(getAllBlogs());
     dispatch(getAllProducts());
     dispatch(getAllCategories());
-    dispatch(getAllRelatedProducts());
   }, [dispatch, cartId]);
+
   // if (loading !== "success") {
   //   return <Loader />;
   // }

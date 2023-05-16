@@ -60,9 +60,7 @@ const OrderSummary = ({ userDetails, total_amount, orderId }) => {
         </div>
       </div>
       <div className="flex flex-col gap-5">
-        {orderId.includes("order") ? (
-          <></>
-        ) : (
+        {!orderId.includes("order") && (
           <div className="flex justify-between border border-green-500 rounded-lg p-4 bg-green-300">
             <div className="w-3/5 text-green-700 flex flex-col gap-2">
               <p className="text-2xl font-semibold">Save ₹ 99.90</p>

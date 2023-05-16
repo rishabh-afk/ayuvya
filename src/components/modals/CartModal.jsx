@@ -37,7 +37,9 @@ const customStyles = {
   overlay: { background: "rgba(0, 0, 0, 0.6)", zIndex: 1000 },
 };
 Modal.setAppElement("#root");
+
 const CartModal = (props) => {
+  
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart);
   const related_products = useSelector((state) => state.common.relatedProducts);
