@@ -7,7 +7,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // import required modules
-import { Autoplay } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -23,15 +24,17 @@ const Banner = () => {
           pagination={{
             clickable: true,
           }}
-          modules={[Autoplay]}
+          modules={[Autoplay, Pagination, Navigation]}
         >
           {BANNERS.map((banner) => (
-            <SwiperSlide key={banner.id}>
-              <img
-                className="w-full object-contain cursor-none lg:cursor-pointer"
-                src={banner.image}
-                alt=""
-              />
+            <SwiperSlide>
+              <Link to={banner?.imageUrl} key={banner.id}>
+                <img
+                  className="w-full object-contain cursor-none lg:cursor-pointer"
+                  src={banner.image}
+                  alt=""
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -47,15 +50,17 @@ const Banner = () => {
           pagination={{
             clickable: true,
           }}
-          modules={[Autoplay]}
+          modules={[Autoplay, Pagination, Navigation]}
         >
           {MOBILE_BANNERS.map((banner) => (
-            <SwiperSlide key={banner.id}>
-              <img
-                className="w-full object-contain"
-                src={banner.image}
-                alt=""
-              />
+            <SwiperSlide>
+              <Link to={banner.imageUrl} key={banner.id}>
+                <img
+                  className="w-full object-contain"
+                  src={banner.image}
+                  alt=""
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

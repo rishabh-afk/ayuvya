@@ -17,59 +17,73 @@ export const BANNERS = [
   {
     id: 1,
     image: banner1,
+    imageUrl: "/collection/all",
   },
   {
     id: 2,
     image: banner2,
+    imageUrl: "/collection/all",
   },
   {
     id: 3,
     image: banner3,
+    imageUrl: "/collection/all",
   },
   {
     id: 4,
     image: banner4,
+    imageUrl: "/collection/all",
   },
   {
     id: 5,
     image: banner5,
+    imageUrl: "/collection/all",
   },
   {
     id: 6,
     image: banner6,
+    imageUrl: "/collection/all",
   },
   {
     id: 7,
     image: banner7,
+    imageUrl: "/collection/all",
   },
 ];
 export const MOBILE_BANNERS = [
   {
     id: 8,
     image: mobilebanner1,
+    imageUrl: "/collection/all",
   },
   {
     id: 9,
     image: mobilebanner2,
+    imageUrl: "/collection/all",
   },
   {
     id: 10,
     image: mobilebanner3,
+    imageUrl: "/collection/all",
   },
   {
     id: 11,
     image: mobilebanner4,
+    imageUrl: "/collection/all",
   },
   {
     id: 12,
     image: mobilebanner5,
+    imageUrl: "/collection/all",
   },
   {
     id: 13,
     image: mobilebanner6,
+    imageUrl: "/collection/all",
   },
   {
     id: 14,
     image: mobilebanner7,
+    imageUrl: "/collection/all",
   },
 ];
