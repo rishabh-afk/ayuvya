@@ -27,8 +27,8 @@ const Banner = () => {
           modules={[Autoplay, Pagination, Navigation]}
         >
           {BANNERS.map((banner) => (
-            <SwiperSlide>
-              <Link to={banner?.imageUrl} key={banner.id}>
+            <SwiperSlide key={banner.id}>
+              <Link to={banner?.imageUrl}>
                 <img
                   className="w-full object-contain cursor-none lg:cursor-pointer"
                   src={banner.image}
@@ -53,8 +53,8 @@ const Banner = () => {
           modules={[Autoplay, Pagination, Navigation]}
         >
           {MOBILE_BANNERS.map((banner) => (
-            <SwiperSlide>
-              <Link to={banner.imageUrl} key={banner.id}>
+            <SwiperSlide key={banner.id}>
+              <Link to={banner.imageUrl}>
                 <img
                   className="w-full object-contain"
                   src={banner.image}

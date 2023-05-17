@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   status: "loading",
+  couponStatus: "",
   message: "",
   coupon: "", // coupon code
   final_amount: 0, //final cart amount
@@ -171,13 +172,20 @@ const cartSlice = createSlice({
         state.status = "rejected";
       })
       .addCase(applyCoupon.pending, (state) => {
-        state.status = "loading";
+        state.couponStatus = "loading";
       })
       .addCase(applyCoupon.fulfilled, (state, action) => {
-        state.status = "success";
+        state.couponStatus = "success";
       })
       .addCase(applyCoupon.rejected, (state, action) => {
-        state.status = "rejected";
+        if (action.payload === "Request failed with status code 404") {
+          state.couponStatus = "404";
+          toast.warn("Coupon doesn't exist");
+        }
+        if (action.payload === "Request failed with status code 500") {
+          state.couponStatus = "500";
+          toast.warn("Invalid Coupon");
+        }
       });
   },
 });

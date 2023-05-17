@@ -14,21 +14,24 @@ const ContactForm = () => {
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = {
-      email: feedBack.emailId,
-      name: feedBack.username,
-      message: feedBack.comment,
-      phone: feedBack.countryCode + feedBack.phoneNumber,
-    };
-    const BASE_URL = config.REACT_APP_BASE_URL;
-    const resp = await axios.post(`${BASE_URL}api/contact/create/`, data, {
-      headers: { "Content-Type": "application/json" },
-    });
-    if (resp.status === 201) {
-      toast("Your feedback has been submitted");
-      setFeedBack(null);
-    } else {
+    try {
+      const data = {
+        email: feedBack.emailId,
+        name: feedBack.username,
+        message: feedBack.comment,
+        phone: feedBack.countryCode + feedBack.phoneNumber,
+      };
+      const BASE_URL = config.REACT_APP_BASE_URL;
+      const resp = await axios.post(`${BASE_URL}api/contact/create/`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      if (resp.status === 201) {
+        toast("Your feedback has been submitted");
+        setFeedBack(null);
+      }
+    } catch (error) {
       toast("Something went wrong");
+      setFeedBack(null);
     }
   };
   return (
@@ -43,13 +46,17 @@ const ContactForm = () => {
               <input
                 type="text"
                 id="username"
-                required
-                autoFocus
-                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                maxLength="50"
+                name="username"
                 placeholder=" "
+                pattern="^[^-\s][a-zA-Z \s]*$"
+                value={feedBack?.username || ""}
+                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
                 onChange={(e) =>
                   setFeedBack({ ...feedBack, username: e.target.value })
                 }
+                // required
+                autoFocus
               />
               <label
                 htmlFor="username"
@@ -64,12 +71,15 @@ const ContactForm = () => {
               <input
                 type="email"
                 id="emailId"
-                required
-                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                maxLength="50"
                 placeholder=" "
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                value={feedBack?.emailId || ""}
                 onChange={(e) =>
                   setFeedBack({ ...feedBack, emailId: e.target.value })
                 }
+                required
               />
               <label
                 htmlFor="emailId"
@@ -82,10 +92,14 @@ const ContactForm = () => {
           <div className="mt-5">
             <div className="relative">
               <input
-                type="number"
-                id="phoneNumber"
-                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                type="text"
+                maxLength="10"
                 placeholder=" "
+                id="phoneNumber"
+                name="phoneNumber"
+                pattern="[0-9\/]*"
+                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                value={feedBack?.phoneNumber || ""}
                 onChange={(e) =>
                   setFeedBack({ ...feedBack, phoneNumber: e.target.value })
                 }
@@ -104,12 +118,15 @@ const ContactForm = () => {
                 rows={5}
                 type="text"
                 id="comment"
-                required
-                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                name="comment"
                 placeholder=" "
+                maxLength="250"
+                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                value={feedBack?.comment || ""}
                 onChange={(e) =>
                   setFeedBack({ ...feedBack, comment: e.target.value })
                 }
+                required
               />
               <label
                 htmlFor="comment"

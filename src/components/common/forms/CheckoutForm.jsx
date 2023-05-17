@@ -3,20 +3,24 @@ import axios from "axios";
 import Button from "../Button";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../forms/FormInput";
-import VerifyOtp from "../../modals/VerifyOtp";
-import { load } from "@cashfreepayments/cashfree-js";
-import { sendOTP } from "../../../store/slices/commonSlice";
-import { addToCartAuth, applyCoupon } from "../../../store/slices/cartSlice";
-import { createOrder } from "../../../store/slices/orderSlice";
-import { useNavigate } from "react-router-dom";
 import config from "../../../config/config";
+import VerifyOtp from "../../modals/VerifyOtp";
+import { useNavigate } from "react-router-dom";
+import { VscChromeClose } from "react-icons/vsc";
+import { load } from "@cashfreepayments/cashfree-js";
+import { useDispatch, useSelector } from "react-redux";
+import { sendOTP } from "../../../store/slices/commonSlice";
+import { createOrder } from "../../../store/slices/orderSlice";
+import { motion } from "framer-motion";
+import { addToCartAuth, applyCoupon } from "../../../store/slices/cartSlice";
 
 const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const couponStatus = useSelector((state) => state.cart.couponStatus);
+
   // customer details
   const [user, setUser] = useState({
     city: "",
@@ -131,7 +135,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   //apply promo Code to order
   const ApplyPromoCode = async (e) => {
     e.preventDefault();
-    if (user.phone.length !== 10) {
+    if (!isLoggedIn && user.phone.length !== 10) {
       toast.error("Invalid Phone Number");
       return;
     }
@@ -189,26 +193,26 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 my-4">
         <div className="mt-3">
           <Form
+            id="phone"
             type="text"
             name="phone"
-            id="phone"
-            pattern="[0-9\/]*"
             maxLength="10"
-            autocomplete="off"
+            pattern="[0-9\/]*"
+            label="Phone Number *"
             value={user.phone || userDetails?.phone}
             onChange={handleOnChange}
-            label="Phone Number *"
-            autoFocus
             required
+            autoFocus
           />
         </div>
         <div className="mt-3">
           <Form
-            type="email"
             id="email"
+            type="email"
             name="email"
             maxLength="50"
             label="Email (Optional)"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             value={user.email || userDetails?.email}
             onChange={handleOnChange}
           />
@@ -216,11 +220,11 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         <div className="flex gap-3 items-center">
           <FormInput
             type="checkbox"
-            name="notification"
             id="notification"
+            name="notification"
+            className="h-5 w-5 mt-2 rounded-md"
             value={user.notification || userDetails?.notification}
             onChange={handleOnChange}
-            className="h-5 w-5 mt-2 rounded-md"
           />
           <label htmlFor="notification" className="text-sm">
             Keep me up to date on news and exclusive offers
@@ -231,13 +235,13 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
           <div className="w-full lg:w-1/2">
             <Form
               type="text"
+              maxlength="25"
               id="first_name"
               name="first_name"
-              maxlength="25"
-              autocomplete="off"
+              pattern="^[^-\s][a-zA-Z \s]*$"
+              label="First Name *"
               value={user.first_name || userDetails?.first_name}
               onChange={handleOnChange}
-              label="First Name *"
               required
             />
           </div>
@@ -245,10 +249,10 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             <Form
               type="text"
               id="last_name"
-              label="Last Name"
-              name="last_name"
-              autocomplete="off"
               maxLength="25"
+              name="last_name"
+              label="Last Name *"
+              pattern="^[^-\s][a-zA-Z \s]*$"
               value={user.last_name || userDetails?.last_name}
               onChange={handleOnChange}
               required
@@ -264,23 +268,21 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               label="Pincode *"
               pattern="[0-9\/]*"
               maxLength="6"
+              value={user.pin_code || userDetails?.pin_code}
               onChange={handlePinCode}
               required
             />
           </div>
           <div className="w-full lg:w-1/3 mt-3 lg:mt-0">
             <Form
-              type="text"
               id="city"
+              type="text"
               name="city"
-              value={user.city || userDetails?.city}
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  city: e.target.value,
-                })
-              }
+              maxLength="25"
+              pattern="^[^-\s][a-zA-Z \s]*$"
               label="City/district *"
+              value={user.city || userDetails?.city}
+              onChange={handleOnChange}
               required
             />
           </div>
@@ -289,11 +291,15 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               <select
                 id="state"
                 name="state"
-                required
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                required
               >
-                <option disabled>Select state</option>
-                <option value={user?.state}>{user?.state}</option>
+                <option value="" disabled>
+                  Select state
+                </option>
+                <option value={user?.state ? user?.state : "Delhi"}>
+                  {user?.state ? user?.state : "Delhi"}
+                </option>
               </select>
               <label
                 htmlFor="state"
@@ -308,12 +314,12 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
           <Form
             type="text"
             id="address"
-            name="address"
             maxLength="75"
-            autocomplete="off"
+            name="address"
+            pattern="^[#.0-9a-zA-Z\s,-]+$"
+            label="House number and area name *"
             value={user.address || userDetails?.address}
             onChange={handleOnChange}
-            label="House number and area name *"
             required
           />
         </div>
@@ -321,12 +327,12 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
           <Form
             type="text"
             id="apartment"
-            name="apartment"
             maxLength="25"
-            autocomplete="off"
+            name="apartment"
+            pattern="^[#.0-9a-zA-Z\s,-]+$"
+            label="Apartment, suite, etc. (optional)"
             value={user.apartment || userDetails?.apartment}
             onChange={handleOnChange}
-            label="Apartment, suite, etc. (optional)"
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2 md:gap-5">
@@ -337,9 +343,14 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
                 name="country"
                 value={user.country || userDetails?.country}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                required
               >
-                <option disabled>Select Country</option>
-                <option value="India">India</option>
+                <option value="" disabled>
+                  Select Country
+                </option>
+                <option selected value="India">
+                  India
+                </option>
               </select>
               <label
                 htmlFor="country"
@@ -354,14 +365,17 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               <select
                 id="gender"
                 name="gender"
+                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
                 value={user.gender || userDetails?.gender}
                 onChange={handleOnChange}
-                className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                required
               >
-                <option disabled value={"select Gender"}>
+                <option disabled value="">
                   Select Gender
                 </option>
-                <option value="Male">Male</option>
+                <option selected value="Male">
+                  Male
+                </option>
                 <option value="Female">Female</option>
                 <option value="Others">Others</option>
               </select>
@@ -376,13 +390,13 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         </div>
         <div className="border border-gray-300 rounded-full pl-4 pr-1 flex justify-between items-center mt-3">
           <input
-            placeholder="Promo Code"
-            name="promoCode"
+            type="text"
             id="promoCode"
+            name="promoCode"
+            placeholder="Promo Code"
+            className="py-3 w-full rounded-md font-medium outline-none"
             value={user.promoCode || userDetails?.promoCode}
             onChange={handleOnChange}
-            type="text"
-            className="py-3 w-full rounded-md font-medium outline-none"
           />
           <span
             onClick={ApplyPromoCode}
@@ -391,20 +405,35 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             Apply
           </span>
         </div>
+        {couponStatus === "success" ||
+          (couponStatus === "404" && (
+            <motion.div
+              initial={{ x: -800, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.2, type: "spring", stiffness: 100 }}
+              className="mt-1 ml-4"
+            >
+              <p className="relative bg-green-600 py-1 px-2 rounded-md text-white w-fit text-sm">
+                Applied!{" "}
+                <span className="absolute -top-2 shadow-3xl bg-white rounded-full p-[2px]">
+                  <VscChromeClose onClick={() => {}} color="black" size={14} />
+                </span>
+              </p>
+            </motion.div>
+          ))}
         <fieldset className="flex flex-col gap-3 lg:flex-row lg:gap-10 py-4">
           <div className="flex gap-3 items-center">
             <input
-              type="radio"
               id="COD"
+              type="radio"
               name="payment_method"
               value="COD"
-              checked={paymentMode === "offline"}
+              checked={
+                paymentMode === "offline" && user.payment_method === "COD"
+              }
               onChange={(e) => {
                 handlePaymentType(e.target.value);
-                setUser({
-                  ...user,
-                  payment_method: e.target.value,
-                });
+                setUser({ ...user, payment_method: e.target.value });
               }}
               className="h-7 w-7 rounded-md"
             />
@@ -417,14 +446,13 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               type="radio"
               id="Prepaid"
               name="payment_method"
+              checked={
+                paymentMode === "online" && user.payment_method === "Prepaid"
+              }
               value="Prepaid"
-              checked={paymentMode === "online"}
               onChange={(e) => {
                 handlePaymentType(e.target.value);
-                setUser({
-                  ...user,
-                  payment_method: e.target.value,
-                });
+                setUser({ ...user, payment_method: e.target.value });
               }}
               className="h-7 w-7 rounded-md"
             />
@@ -436,11 +464,11 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
         <div className="flex gap-3 items-center px-1">
           <FormInput
             type="checkbox"
-            name="saveInformation"
             id="saveInformation"
+            name="saveInformation"
+            className="h-5 w-5 mt-2 rounded-md"
             value={user.saveInformation || userDetails?.saveInformation}
             onChange={handleOnChange}
-            className="h-5 w-5 mt-2 rounded-md"
           />
           <label htmlFor="saveInformation" className="text-sm">
             Save this information for next time

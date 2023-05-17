@@ -14,21 +14,27 @@ const NewsLetterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      email: newsLetter.email,
-      phone_number: newsLetter.countryCode + newsLetter.phoneNumber,
-    };
-    const BASE_URL = config.REACT_APP_BASE_URL;
-    const resp = await axios.post(`${BASE_URL}api/newsletter/create/`, data, {
-      headers: { "Content-Type": "application/json" },
-    });
-    if (resp.status === 201) {
-      toast("Your feedback has been submitted");
-      setNewsletter(null);
-    } else {
+    try {
+      const data = {
+        email: newsLetter.email,
+        phone_number: newsLetter?.countryCode + newsLetter.phoneNumber,
+      };
+      console.log(data);
+      const BASE_URL = config.REACT_APP_BASE_URL;
+      const resp = await axios.post(`${BASE_URL}api/newsletter/create/`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      if (resp.status === 201) {
+        toast("Your feedback has been submitted");
+        setNewsletter(null);
+      }
+    } catch (error) {
       toast("Something went wrong");
+      console.log(newsLetter);
+      setNewsletter(null);
     }
   };
+
   return (
     <>
       <p className="text-lg lg:text-xl py-8 lg:py-6">
@@ -41,14 +47,18 @@ const NewsLetterForm = () => {
             <MdEmail size={30} className="text-gray-400" />
           </div>
           <input
-            type="email"
-            placeholder="EMAIL ADDRESS"
-            name="email"
             id="email"
+            type="email"
+            name="email"
+            maxLength="50"
+            placeholder="EMAIL ADDRESS"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             className="border border-gray-300 text-gray-400 text-lg rounded-full py-3 bg-white block w-full pl-20"
+            value={newsLetter?.email || ""}
             onChange={(e) =>
               setNewsletter({ ...newsLetter, email: e.target.value })
             }
+            required
           />
         </div>
         <div className="relative mb-1">
@@ -62,26 +72,31 @@ const NewsLetterForm = () => {
                   countryCode: e.target.value || +91,
                 });
               }}
-              value={newsLetter.countryCode}
+              value={newsLetter?.countryCode || "+91"}
               className="text-lg text-gray-400 w-16 outline-none"
               style={{ background: "none" }}
             >
-              <option disabled value="none">
+              <option disabled value="">
                 Select Country Code
               </option>
-              <option value={"+91"}>+91</option>
+              <option selected value={"+91"}>
+                +91
+              </option>
             </select>
           </div>
           <input
             type="number"
-            placeholder="PHONE NUMBER"
-            name="phoneNumber"
+            maxLength="10"
             id="phoneNumber"
+            name="phoneNumber"
+            pattern="[0-9\/]*"
+            placeholder="PHONE NUMBER"
+            className="border border-gray-300 text-gray-400 text-lg rounded-full py-3 bg-white block w-full pl-20"
+            value={newsLetter?.phoneNumber || ""}
             onChange={(e) =>
               setNewsletter({ ...newsLetter, phoneNumber: e.target.value })
             }
             required
-            className="border border-gray-300 text-gray-400 text-lg rounded-full py-3 bg-white block w-full pl-20"
           />
         </div>
         <Button
@@ -91,37 +106,6 @@ const NewsLetterForm = () => {
           <span className="font-semibold text-black px-7 py-1">SIGN UP</span>
         </Button>
       </form>
-      {/* <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <FormInput
-          type="email"
-          placeholder="EMAIL ADDRESS"
-          name="email"
-          id="email"
-          className="rounded-full w-full py-3 px-5"
-          onChange={(e) =>
-            setNewsletter({ ...newsLetter, email: e.target.value })
-          }
-        />
-        <FormInput
-          type="number"
-          placeholder="PHONE NUMBER"
-          name="phoneNumber"
-          id="phoneNumber"
-          className="rounded-full w-full py-3 px-5"
-          onChange={(e) =>
-            setNewsletter({
-              ...newsLetter,
-              phoneNumber: e.target.value,
-            })
-          }
-        />
-        <Button
-          className="border-white outline-none bg-white w-fit rounded-full"
-          type="submit"
-        >
-          <span className="font-semibold text-black px-7 py-1">SIGN UP</span>
-        </Button>
-      </form> */}
     </>
   );
 };
