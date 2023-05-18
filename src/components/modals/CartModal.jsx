@@ -65,7 +65,7 @@ const CartModal = (props) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="bg-white h-screen overflow-y-scroll pt-20 pb-36">
+        <div className="bg-white min-h-screen overflow-x-hidden pt-20 pb-36">
           <div className="fixed top-0 bg-white z-50 h-20 w-96">
             <div className="flex justify-between px-5 py-3 font-semibold text-lg items-center">
               <h3>Your Shopping Cart ({cartData?.number_of_items || 0})</h3>
