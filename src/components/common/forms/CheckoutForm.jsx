@@ -58,7 +58,6 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   // to create a new checkout / order
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("user", user);
     localStorage.setItem("AYUVYA_USERDATA", JSON.stringify(user));
     if (user.payment_method === "COD") {
       handleCodOrder();
@@ -66,16 +65,18 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
       const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
       const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
       let data = [];
-      cart.items.map((item) => {
-        data.push({ product: item.id, quantity: item.quantity });
-        return data;
-      });
+      if (cart !== null) {
+        cart.items.map((item) => {
+          data.push({ product: item.id, quantity: item.quantity });
+          return data;
+        });
+      }
       if (!cartId && data.length === cart.items.length) {
         dispatch(addToCartAuth(data)).then(() => {
           handlePrePaidOrder();
         });
       }
-      if (cartId) {
+      if (cartId || cart === null) {
         handlePrePaidOrder();
       }
     }
@@ -109,7 +110,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     });
     let checkoutOptions = {
       paymentSessionId: order_token,
-      returnUrl: `http://35.202.144.166/ayuvya/thank-you`,
+      returnUrl: `http://localhost:3000/thank-you`,
+      // returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com//thank-you`,
     };
     cashfree.checkout(checkoutOptions).then((result) => {
       if (result.error) {
@@ -316,7 +318,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             id="address"
             maxLength="75"
             name="address"
-            pattern="^[#.0-9a-zA-Z\s,-]+$"
+            pattern="^[^-\s][a-zA-Z0-9 \s]*$"
             label="House number and area name *"
             value={user.address || userDetails?.address}
             onChange={handleOnChange}
@@ -329,7 +331,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             id="apartment"
             maxLength="25"
             name="apartment"
-            pattern="^[#.0-9a-zA-Z\s,-]+$"
+            pattern="^[^-\s][a-zA-Z0-9 \s]*$"
             label="Apartment, suite, etc. (optional)"
             value={user.apartment || userDetails?.apartment}
             onChange={handleOnChange}

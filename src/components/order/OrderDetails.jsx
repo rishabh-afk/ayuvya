@@ -12,7 +12,6 @@ const variants = {
 
 const OrderDetails = ({ paymentMode, cart }) => {
   const [toggle, setToggle] = useState(false);
-  console.log(cart)
   return (
     <div className="h-auto">
       <h2 className="text-2xl lg:hidden py-4">Ayuvya Ayurveda</h2>
