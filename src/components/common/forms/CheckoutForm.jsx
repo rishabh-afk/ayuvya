@@ -110,8 +110,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
     });
     let checkoutOptions = {
       paymentSessionId: order_token,
-      returnUrl: `http://localhost:3000/thank-you`,
-      // returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com//thank-you`,
+      // returnUrl: `http://localhost:3000/thank-you`,
+      returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com/thank-you`,
     };
     cashfree.checkout(checkoutOptions).then((result) => {
       if (result.error) {
