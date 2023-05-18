@@ -19,7 +19,6 @@ const NewsLetterForm = () => {
         email: newsLetter.email,
         phone_number: newsLetter?.countryCode + newsLetter.phoneNumber,
       };
-      console.log(data);
       const BASE_URL = config.REACT_APP_BASE_URL;
       const resp = await axios.post(`${BASE_URL}api/newsletter/create/`, data, {
         headers: { "Content-Type": "application/json" },
@@ -52,7 +51,6 @@ const NewsLetterForm = () => {
             name="email"
             maxLength="50"
             placeholder="EMAIL ADDRESS"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             className="border border-gray-300 text-gray-400 text-lg rounded-full py-3 bg-white block w-full pl-20"
             value={newsLetter?.email || ""}
             onChange={(e) =>
@@ -79,7 +77,7 @@ const NewsLetterForm = () => {
               <option disabled value="">
                 Select Country Code
               </option>
-              <option selected value={"+91"}>
+              <option value={"+91"}>
                 +91
               </option>
             </select>

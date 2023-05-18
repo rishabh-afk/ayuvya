@@ -350,7 +350,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
                 <option value="" disabled>
                   Select Country
                 </option>
-                <option selected value="India">
+                <option value="India">
                   India
                 </option>
               </select>

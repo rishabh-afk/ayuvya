@@ -4,6 +4,7 @@ import Loader from "../components/common/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import SideBarLayout from "../components/UI/SideBarLayout";
 import ProductLayout from "../components/product/ProductLayout";
+import { useEffect } from "react";
 // import { product } from "../data/products";
 
 const CategoryBasedProduct = () => {
@@ -19,10 +20,11 @@ const CategoryBasedProduct = () => {
   const filteredProducts = products.filter(
     (item) => item.product_category.category_slug === category
   );
-
-  if (filteredProducts.length === 0 && category !== "all") {
-    navigate("/collection/all");
-  }
+  useEffect(() => {
+    if (filteredProducts.length === 0 && category !== "all") {
+      navigate("/collection/all");
+    }
+  });
   if (loading !== "success") {
     return <Loader />;
   }
