@@ -130,13 +130,13 @@ const Navbar = () => {
           <></>
         ) : (
           <NavbarIcons
-            className={"flex lg:hidden items-center"}
+            className={"flex lg:hidden items-baseline"}
             openSearchBar={openSearchBar}
             showCartModal={showCartModal}
           />
         )}
         <NavbarIcons
-          className={"hidden lg:flex items-center"}
+          className={"hidden lg:flex items-baseline"}
           openSearchBar={openSearchBar}
           showCartModal={showCartModal}
         />

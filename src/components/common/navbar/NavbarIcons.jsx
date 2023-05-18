@@ -37,7 +37,7 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
           onClick={() => {
             openSearchBar(true);
           }}
-          size={18}
+          size={24}
         />
       </motion.div>
       <motion.div
@@ -50,7 +50,7 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
             <HiOutlineShoppingBag
               className="cursor-none lg:cursor-pointer"
               title={"Your Cart is empty"}
-              size={20}
+              size={28}
             />
           </>
         ) : (
@@ -58,7 +58,7 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
             <HiOutlineShoppingBag
               className="cursor-none lg:cursor-pointer"
               onClick={() => showCartModal(true)}
-              size={20}
+              size={28}
             />
           </>
         )}
@@ -67,7 +67,7 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
           variants={variants}
           animate="show"
           initial="hide"
-          className="text-xs text-white relative bottom-[6px] left-1 bg-[#555] items-center flex justify-center w-5 aspect-square rounded-full"
+          className="text-xs font-medium text-white relative bg-black items-center flex justify-center w-4 h-4 rounded-full"
         >
           {cartData?.items.length ? cartData.items.length : 0}
         </motion.span>
