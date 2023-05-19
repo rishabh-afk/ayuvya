@@ -41,7 +41,7 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
         />
       </motion.div>
       <motion.div
-        whileHover={{ scale: 1.2 }}
+        whileHover={{ scale: 1.1 }}
         transition={{ ease: "easeInOut" }}
         className="flex"
       >
@@ -50,7 +50,7 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
             <HiOutlineShoppingBag
               className="cursor-none lg:cursor-pointer"
               title={"Your Cart is empty"}
-              size={28}
+              size={25}
             />
           </>
         ) : (
@@ -58,7 +58,7 @@ const NavbarIcons = ({ className, openSearchBar, showCartModal }) => {
             <HiOutlineShoppingBag
               className="cursor-none lg:cursor-pointer"
               onClick={() => showCartModal(true)}
-              size={28}
+              size={25}
             />
           </>
         )}

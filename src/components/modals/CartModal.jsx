@@ -27,7 +27,8 @@ const customStyles = {
     right: "0%",
     left: "auto",
     bottom: "auto",
-    width: "384px",
+    width: "100%",
+    maxWidth: "385px",
     height: "100%",
     padding: 0,
     borderRadius: "0px",
@@ -39,7 +40,6 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 const CartModal = (props) => {
-  
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart);
   const related_products = useSelector((state) => state.common.relatedProducts);
@@ -87,7 +87,7 @@ const CartModal = (props) => {
               initial={{ x: -250 }}
               animate={variants.animate}
               transition={variants.transition}
-              className="flex flex-col gap-2"
+              className="flex flex-col"
             >
               {cartData?.items.map((product, index) => {
                 return <CartItem key={index} product={product} />;

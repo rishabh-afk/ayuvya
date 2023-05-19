@@ -93,11 +93,11 @@ const CartItem = ({ product, isCheckoutPage }) => {
   };
   return (
     <div
-      className={`flex pr-4 gap-5 ${isCheckoutPage ? "pt-2" : "border-b pb-2"}`}
+      className={`flex gap-5 ${isCheckoutPage ? "pt-2" : "border-b"}`}
     >
       <figure className="relative">
         <img
-          className="w-20 lg:w-28 m-2 aspect-square rounded-md"
+          className="w-20 lg:w-24 m-2 aspect-square rounded-md"
           src={product?.primary_image}
           alt=""
         />
@@ -108,7 +108,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
         )}
       </figure>
       <figcaption className="w-2/3">
-        <h2 className="text-sm lg:text-base font-medium py-2">
+        <h2 className="text-sm lg:text-sm font-semibold py-2">
           {product?.product_name}
         </h2>
         {!isCheckoutPage && (

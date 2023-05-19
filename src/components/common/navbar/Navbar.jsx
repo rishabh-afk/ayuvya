@@ -92,9 +92,9 @@ const Navbar = () => {
           <SearchBar openSearchBar={openSearchBar} />
         ) : (
           <>
-            <div className="hidden lg:flex gap-6 text-sm">
+            <div className="hidden lg:flex gap-6 text-xs">
               <motion.div
-                whileHover={{ scale: 1.2 }}
+                whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
                 <Link to={"/collection/all"}>ALL PRODUCTS</Link>
@@ -103,7 +103,7 @@ const Navbar = () => {
                 return (
                   <motion.div
                     key={category.id}
-                    whileHover={{ scale: 1.2 }}
+                    whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <Link to={`/collection/${category.category_slug}`}>
