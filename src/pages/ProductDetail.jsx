@@ -14,6 +14,7 @@ import CommonDetails from "../components/product/productDetails/CommonDetails";
 import CustomerReview from "../components/product/productDetails/CustomerReview";
 import ImagesSwiper from "../components/product/productDetails/imageswiper/ImagesSwiper";
 import SafeAndEffective from "../components/product/productDetails/SafeAndEffective";
+import MetaTags from "../components/meta/MetaTags";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -43,6 +44,11 @@ const ProductDetail = () => {
 
   return (
     <Layouts>
+      <MetaTags
+        metaTitle={product?.meta_title}
+        metaDesc={product?.meta_description}
+        metaKey={product?.meta_keywords}
+      />
       <section className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row mx-3 md:mx-8 lg:mx-16 my-8">
           <div className="w-full lg:w-1/2 p-1 lg:p-4">
