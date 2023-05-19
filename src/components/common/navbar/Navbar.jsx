@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import NavbarIcons from "./NavbarIcons";
 import CartModal from "../../modals/CartModal";
-import { product } from "../../../data/products";
 import { RxHamburgerMenu } from "react-icons/rx";
 // import { category } from "../../../data/categories";
 import { useState, useEffect, useRef } from "react";
@@ -52,11 +51,7 @@ const Navbar = () => {
   };
   return (
     <div className="shadow-md">
-      <CartModal
-        handleClose={handleClose}
-        cartModal={cartModal}
-        product={product[0]}
-      />
+      <CartModal handleClose={handleClose} cartModal={cartModal} />
       <div className="flex justify-center items-center w-full h-9 bg-white text-black lg:bg-black lg:text-white">
         <p className="text-sm">Free Shipping | COD Available | 100% Herbal</p>
       </div>

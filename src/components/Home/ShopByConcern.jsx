@@ -32,7 +32,7 @@ const ShopByConcern = () => {
                   },
                   980: {
                     slidesPerView: 6,
-                    spaceBetween: 10,
+                    spaceBetween: 0,
                   },
                 },
               ]}

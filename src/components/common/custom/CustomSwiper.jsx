@@ -9,6 +9,7 @@ const CustomSwiper = ({
   height,
   modules,
   category,
+  platform,
   marginTop,
   navigation,
   headingText,
@@ -48,7 +49,10 @@ const CustomSwiper = ({
               modules={modules} // to import modules
             >
               {data.map((item) => (
-                <SwiperSlide key={item.id} className="px-2">
+                <SwiperSlide
+                  key={item.id}
+                  className={`${platform ? "" : "px-2"}`}
+                >
                   <Component
                     cardStarSize={cardStarSize} // size of the stars
                     product={item} // product of component

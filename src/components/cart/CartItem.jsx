@@ -10,7 +10,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import imageData from "../../assets/images/product/Intimate-Wellness.webp";
 import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 
 const CartItem = ({ product, isCheckoutPage }) => {
@@ -99,7 +98,7 @@ const CartItem = ({ product, isCheckoutPage }) => {
       <figure className="relative">
         <img
           className="w-20 lg:w-28 m-2 aspect-square rounded-md"
-          src={imageData || product?.product_image}
+          src={product?.primary_image}
           alt=""
         />
         {isCheckoutPage && (

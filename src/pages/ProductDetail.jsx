@@ -44,21 +44,17 @@ const ProductDetail = () => {
   return (
     <Layouts>
       <section className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row mx-3 lg:mx-16 my-8">
-          <div className="w-full md:w-1/2 p-1 lg:p-4">
+        <div className="flex flex-col lg:flex-row mx-3 md:mx-8 lg:mx-16 my-8">
+          <div className="w-full lg:w-1/2 p-1 lg:p-4">
             <ImagesSwiper images={product?.product_images} />
           </div>
-          <div className="w-full md:w-1/2 p-1 lg:p-4">
+          <div className="w-full lg:w-1/2 p-1 lg:p-4">
             <CommonDetails product={product} />
           </div>
         </div>
         <div className="mx-4 lg:mx-10">
           <Ingredients ingredients={product?.ingredient_section} />
-          <Benefits
-            benefits_section={product?.benefits_section}
-            benefits={product?.benefits_section[0]}
-            title={product?.benefits_section[0]?.title}
-          />
+          <Benefits benefits_section={product?.benefits_section} />
           <CustomerReview
             review_count={product?.review_count}
             rating_five={product?.rating_five}
@@ -77,15 +73,8 @@ const ProductDetail = () => {
           componentToBeRender={ProductCard}
           related_products={product?.related_products}
         />
-        {product?.how_to_use_section &&
-          product?.how_to_use_section.map((item) => {
-            return (
-              <div key={item.id}>
-                <h4 className="text-2xl font-semibold">{item?.title}</h4>
-                <HowToUse data={item.step} />
-              </div>
-            );
-          })}
+
+        <HowToUse how_to_use_section={product?.how_to_use_section} />
         <SafeAndEffective safe_and_effective={product?.safe_and_effective} />
       </section>
     </Layouts>

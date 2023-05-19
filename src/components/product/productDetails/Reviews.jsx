@@ -11,9 +11,9 @@ const Reviews = ({ reviews, review_count }) => {
           </h2>
           <CustomSwiper
             data={reviews}
+            navigation={true}
             componentToBeRender={Reviewcard}
-            navigation={false}
-            marginHorizontal={"md:mx-20 mx-4"}
+            marginHorizontal={"mx-4 md:mx-14 lg:mx-20"}
             noOfSlidePerView={[
               {
                 0: {

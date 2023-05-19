@@ -1,10 +1,8 @@
 const Platforms = ({ product }) => {
   return (
-    <img
-      className="mx-auto object-cover"
-      src={product.image_url}
-      alt={product.id}
-    />
+    <figure className="">
+      <img className="" src={product.image_url} alt={product.id} />
+    </figure>
   );
 };
 

@@ -4,6 +4,7 @@ import AddProductButton from "./AddProductButton";
 import Platforms from "../../common/card/Platforms";
 import { platforms } from "../../../data/ottplatform";
 import CustomSwiper from "../../common/custom/CustomSwiper";
+import Recommend from "./Recommend";
 
 const CommonDetails = (props) => {
   const items = new Array(Math.round(props.product?.rating)).fill(null);
@@ -35,12 +36,13 @@ const CommonDetails = (props) => {
           ₹ {props.product?.cut_price}.0
         </span>
       </div>
-      <div className="border-y bg-slate-100 h-16 cursor-none lg:cursor-pointer my-4">
-        <div className="my-4">
+      <div className="border-y border-gray-400 my-4">
+        <div className="py-4 bg-slate-100 h-16 cursor-none lg:cursor-pointer my-4">
           <CustomSwiper
-            componentToBeRender={Platforms}
+            platform={true}
             navigation={false}
             data={platforms}
+            componentToBeRender={Platforms}
             noOfSlidePerView={[
               {
                 0: {
@@ -56,6 +58,7 @@ const CommonDetails = (props) => {
           />
         </div>
       </div>
+      <Recommend recommend={props.product.recommend_section} />
       <AddProductButton product={props.product} />
     </div>
   );

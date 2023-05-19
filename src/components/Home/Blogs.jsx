@@ -9,24 +9,25 @@ const Blogs = () => {
       <CustomSwiper
         data={blogs}
         category="Blogs"
-        navigation={false}
-        cardHeadingSize="text-2xl"
-        marginHorizontal={"md:mx-16 mx-4"}
-        marginVertical={"my-10"}
+        navigation={true}
         marginTop={"mt-10"}
+        marginVertical={"my-10"}
+        cardHeadingSize="text-2xl"
         componentToBeRender={BlogCard}
+        marginHorizontal={"mx-4 md:mx-14 lg:mx-20"}
         noOfSlidePerView={[
           {
             0: {
               slidesPerView: 1,
+              spaceBetween:10
             },
             576: {
               slidesPerView: 2,
-              spaceBetween: 25,
+              spaceBetween: 10,
             },
             980: {
               slidesPerView: 3,
-              spaceBetween: 25,
+              spaceBetween: 10,
             },
           },
         ]}

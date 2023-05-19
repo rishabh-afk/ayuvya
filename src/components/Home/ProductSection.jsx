@@ -22,7 +22,7 @@ const ProductSection = () => {
         category="New Launches"                       // category name to be displayed
         cardHeadingSize="text-2xl"                    // size of the heading of the product
         cardDescriptionSize="text-lg"                 // size of the description of the product
-        productBriefHeight={"h-56"}                   // height of product description section
+        productBriefHeight={"h-40"}                   // height of product description section
         height={"h-88 md:h-84 lg:h-88"}               // height of image
         modules={[Autoplay, Navigation]}              // it defines how swiper works
         componentToBeRender={ProductCard}             // component to be rendered
@@ -49,7 +49,7 @@ const ProductSection = () => {
         data={bestSelling}                            // data to be displayed
         cardStarSize={25}                             // size of the star of the product
         marginVertical="my-10"                        // margin vertical position
-        productBriefHeight={"h-52"}                   // height of product description section
+        productBriefHeight={"h-28"}                   // height of product description section
         cardHeadingSize="lg:text-md"                  // size of the heading of the product
         cardDescriptionSize="text-md"                 // size of the description of the product
         height={"h-40 md:h-56 lg:h-68"}               // height of image
@@ -82,7 +82,7 @@ const ProductSection = () => {
         marginVertical="my-10"                        // margin vertical position
         cardHeadingSize="text-2xl"                     // size of the heading of the product
         cardDescriptionSize="text-lg"                 // size of the description of the product
-        productBriefHeight={"h-56"}                   // height of product description section
+        productBriefHeight={"h-36"}                   // height of product description section
         category="Best Selling Combos"                // category name to be displayed
         height={"h-88 md:h-84 lg:h-88"}               // height of image
         modules={[Autoplay, Navigation]}              // it defines how swiper works

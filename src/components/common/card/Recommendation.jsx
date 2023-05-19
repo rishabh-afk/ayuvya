@@ -7,7 +7,7 @@ const Recommendation = ({
     <>
       {related_products && (
         <>
-          <h4 className="text-3xl font-bold mx-4 lg:mx-24 mb-5">{title}</h4>
+          <h4 className="text-xl md:text-3xl font-bold mx-4 lg:mx-24 mb-5">{title}</h4>
           <div className="flex flex-wrap mx-3 lg:mx-20">
             {related_products.map((item) => {
               return (
@@ -18,7 +18,11 @@ const Recommendation = ({
                   <Component
                     key={item.id}
                     product={item}
-                    headingSize="text-lg"
+                    headingSize="text-sm"
+                    cardStarSize={20}
+                    isNotSwiperProduct={true}
+                    cardDescriptionSize={"text-md md:text-xl"}
+                    productBriefHeight={"h-36 md:h-32"}
                   />
                 </div>
               );

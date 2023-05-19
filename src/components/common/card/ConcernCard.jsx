@@ -5,7 +5,7 @@ const ConcernCard = ({ product }) => {
   return (
     <div className="px-1 pb-8">
       <Link to={`/collection/${product?.category_slug}`}>
-        <div className="shadow-xl rounded-md">
+        <div className="shadow-xl rounded-sm">
           <figure>
             <img
               className="rounded-t-md w-full aspect-square object-cover"

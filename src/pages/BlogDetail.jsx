@@ -68,3 +68,12 @@ const BlogDetail = () => {
 };
 
 export default BlogDetail;
+
+
+// {blog?.related_product.map((product) => {
+//   return (
+//     <div key={product.id} className="w-1/2 lg:w-[90%]">
+//       <ProductCard product={product} isNotSwiperProduct={true} />
+//     </div>
+//   );
+// })}

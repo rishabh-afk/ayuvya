@@ -1,4 +1,4 @@
-// import toast from "react-toastify";
+import { useState } from "react";
 import Button from "../../common/Button";
 import {
   addToCartAuth,
@@ -8,11 +8,17 @@ import {
 } from "../../../store/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRelatedProducts } from "../../../store/slices/commonSlice";
+import CartModal from "../../modals/CartModal";
 
 const AddProductButton = (product) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const cartItems = useSelector((state) => state.cart);
+  //to show cart modal when user clicks
+  const [cartModal, showCartModal] = useState(false);
+  function handleClose() {
+    showCartModal(false);
+  }
 
   const addItemToCart = async ({ product }) => {
     const data = {
@@ -28,6 +34,7 @@ const AddProductButton = (product) => {
         (response) => {
           if (response.meta.requestStatus === "fulfilled") {
             dispatch(fetchCartAuth());
+            showCartModal(true);
             // toast.success("Item added successfully", {
             //   position: "bottom-left",
             // });
@@ -37,6 +44,7 @@ const AddProductButton = (product) => {
     } else {
       dispatch(addCartItem(data));
       dispatch(fetchCart());
+      showCartModal(true);
     }
     const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
     dispatch(
@@ -48,15 +56,16 @@ const AddProductButton = (product) => {
 
   return (
     <div className="flex mt-3 flex-col gap-5">
+      <CartModal handleClose={handleClose} cartModal={cartModal} />
       <Button
         handler={() => addItemToCart(product)}
-        className="w-full md:w-3/4 bg-white border-2 border-slate-200 py-3"
+        className="w-full lg:w-3/4 bg-white border-2 border-slate-200 py-3"
       >
         <span className="text-3xl font-bold text-[#7d8801] text-center mx-auto">
           Add To Cart
         </span>
       </Button>
-      <Button className="w-full md:w-3/4 bg-[#7d8801] border-2 border-[#7d8801] py-3">
+      <Button className="w-full lg:w-3/4 bg-[#7d8801] border-2 border-[#7d8801] py-3">
         <span className="text-3xl font-bold text-white text-center mx-auto">
           Buy Now
         </span>

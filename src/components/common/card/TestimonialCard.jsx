@@ -14,9 +14,9 @@ const TestimonialCard = ({ product }) => {
             return <AiFillStar key={i} size={20} color="yellowGreen" />;
           })}
         </div>
-        <div className="text-center h-80">
+        <div className="text-center min-h-[18rem]">
           <h3 className="text-2xl font-normal pb-3">{product.title}</h3>
-          <p className="text-lg">{product.description}</p>
+          <p className="text-md">{product.description}</p>
           <p className="text-lg">
             - {product.name}, Buyer{" "}
             <span className="font-semibold text-lg">{product.productName}</span>

@@ -1,13 +1,14 @@
+import { useState } from "react";
 import CardHoc from "../UI/cardHoc";
 import Button from "../common/Button";
 import { toast } from "react-toastify";
+import CartModal from "../modals/CartModal";
 import { useNavigate } from "react-router-dom";
 import ProductBriefCard from "./ProductBriefCard";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartItem, fetchCart } from "../../store/slices/cartSlice";
 import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
-
 const ProductCard = ({
   product,
   isheight,
@@ -20,6 +21,11 @@ const ProductCard = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //to show cart modal when user clicks
+  const [cartModal, showCartModal] = useState(false);
+  function handleClose() {
+    showCartModal(false);
+  }
   const cartItems = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
@@ -38,6 +44,7 @@ const ProductCard = ({
         (response) => {
           if (response.meta.requestStatus === "fulfilled") {
             dispatch(fetchCartAuth());
+            showCartModal(true);
             toast.success("Item added successfully", {
               position: "bottom-left",
             });
@@ -47,6 +54,7 @@ const ProductCard = ({
     } else {
       dispatch(addCartItem(data));
       dispatch(fetchCart());
+      showCartModal(true);
     }
     const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
     dispatch(
@@ -64,6 +72,7 @@ const ProductCard = ({
     <CardHoc
       className={`bg-white cursor-none lg:cursor-pointer ${marginVertical} `}
     >
+      <CartModal handleClose={handleClose} cartModal={cartModal} />
       <div
         className={`w-auto rounded-t-lg relative flex justify-center text-white ${
           isNotSwiperProduct ? "h-48 md:h-64 bg-white/60 group" : isheight

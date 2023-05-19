@@ -1,5 +1,4 @@
 import ott1 from "../assets/images/featured/1.webp";
-import ott2 from "../assets/images/featured/2.webp";
 import ott3 from "../assets/images/featured/3.webp";
 import ott4 from "../assets/images/featured/4.webp";
 import ott6 from "../assets/images/featured/6.webp";
@@ -13,10 +12,6 @@ export const platforms = [
   {
     id: 1,
     image_url: ott1,
-  },
-  {
-    id: 2,
-    image_url: ott2,
   },
   {
     id: 3,

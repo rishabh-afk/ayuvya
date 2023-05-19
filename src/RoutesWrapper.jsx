@@ -22,6 +22,7 @@ const CategoryBasedProduct = lazy(() => import("./pages/CategoryBasedProduct"));
 const RoutesWrapper = () => {
   const PRODUCT_ROUTES = [
     "lp/:slug",
+    "ayuvya/product/:slug",
     "product/:slug",
     "products/:slug",
     ":slug",
