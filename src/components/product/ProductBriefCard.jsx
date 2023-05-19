@@ -2,26 +2,29 @@ import ProgressBarWithStars from "../common/custom/ProgressBarWithStars";
 import Button from "../common/Button";
 
 const ProductBriefCard = ({
-  headingSize,
-  product,
-  addItemToCart,
   buyNow,
+  product,
+  headingSize,
+  cardStarSize,
+  addItemToCart,
   isNotSwiperProduct,
+  productBriefHeight,
+  cardDescriptionSize,
 }) => {
   return (
     <div
       className={`text-center px-2 py-4 md:p-4 gap-1 ${
-        isNotSwiperProduct ? "h-64" : "h-[13rem]"
-      } lg:h-48`}
+        isNotSwiperProduct ? "h-64" : productBriefHeight
+      }`}
     >
-      <div className="flex flex-col items-center gap-1 h-36 md:h-32 lg:h-[7.5rem] pb-2">
-        <h1 className={`font-semibold leading-tight ${headingSize}`}>
+      <div className={`flex flex-col items-center gap-1 pb-2`}>
+        <h2 className={`font-semibold leading-tight ${headingSize}`}>
           {product?.product_name}
-        </h1>
+        </h2>
         <div className="flex flex-wrap justify-center items-center">
           <div className="flex text-sm gap-2 items-center">
             <ProgressBarWithStars
-              iconSize={18}
+              iconSize={cardStarSize}
               noOfStar={Math.round(product?.rating || 5)}
               className="hidden lg:block"
             />
@@ -30,12 +33,12 @@ const ProductBriefCard = ({
               noOfStar={Math.round(product?.rating || 5)}
               className="lg:hidden"
             />
-            <span className="break-words text-[13px]">
+            <span className={`break-words ${cardDescriptionSize}`}>
               {product?.review_count}+ Reviews
             </span>
           </div>
         </div>
-        <div className="flex gap-2 font-semibold text-md">
+        <div className={`flex gap-2 font-semibold ${cardDescriptionSize}`}>
           <span className="line-through text-gray-500">
             ₹ {product?.cut_price}
           </span>

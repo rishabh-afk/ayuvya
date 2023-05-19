@@ -13,14 +13,18 @@ const ProductCard = ({
   product,
   isheight,
   headingSize,
+  cardStarSize,
   marginVertical,
+  productBriefHeight,
   isNotSwiperProduct,
+  cardDescriptionSize,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const cartItems = useSelector((state) => state.cart);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
+  // Add Item to cart
   const addItemToCart = async (product) => {
     const data = {
       quantity: 1,
@@ -52,7 +56,7 @@ const ProductCard = ({
       )
     );
   };
-
+  // to navigate to product Landing page
   const buyNow = () => {
     navigate(`${product?.get_product_url}`);
   };
@@ -92,11 +96,14 @@ const ProductCard = ({
         )}
       </div>
       <ProductBriefCard
-        headingSize={headingSize}
-        product={product}
-        addItemToCart={addItemToCart}
         buyNow={buyNow}
+        product={product}
+        headingSize={headingSize}
+        cardStarSize={cardStarSize}
+        addItemToCart={addItemToCart}
+        productBriefHeight={productBriefHeight}
         isNotSwiperProduct={isNotSwiperProduct}
+        cardDescriptionSize={cardDescriptionSize}
       />
     </CardHoc>
   );

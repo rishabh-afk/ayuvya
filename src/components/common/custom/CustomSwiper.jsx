@@ -1,65 +1,67 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import HeadingText from "../../product/HeadingText";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Autoplay, Navigation } from "swiper";
-// import { Autoplay, Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import HeadingText from "../../product/HeadingText";
 
 const CustomSwiper = ({
-  category,
-  height,
   data,
-  noOfSlidePerView,
+  height,
+  modules,
+  category,
+  marginTop,
+  navigation,
+  headingText,
+  cardStarSize,
+  marginVertical,
   cardHeadingSize,
   marginHorizontal,
-  marginVertical,
-  marginTop,
-  marginBottom,
-  headingText,
-  navigation,
+  noOfSlidePerView,
+  productBriefHeight,
+  cardDescriptionSize,
   componentToBeRender: Component,
 }) => {
   return (
     <>
       {data.length > 0 && (
         <div className="max-w-7xl m-auto mb-10">
-          <div className={`${marginTop && marginTop}`}>
+          <div className={`${marginTop}`}>
             <HeadingText heading={category} />
           </div>
           {headingText && (
-            <h3 className="font-semibold text-lg pb-4">{headingText}</h3>
+            <h3 className="font-semibold text-lg pb-4">{headingText}</h3> // To Show Heading Text
           )}
-          <div className={`${marginHorizontal} ${marginBottom}`}>
-            <div>
-              <Swiper
-                breakpoints={noOfSlidePerView[0]}
-                navigation={navigation}
-                loop={true}
-                slidesPerGroup={2}
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                }}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Autoplay, Navigation]}
-              >
-                {data.map((item) => (
-                  <SwiperSlide key={item.id}>
-                    <Component
-                      key={item.id}
-                      isheight={height}
-                      product={item}
-                      marginVertical={marginVertical}
-                      headingSize={cardHeadingSize}
-                      isBlogPage={false}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+          <div className={`${marginHorizontal}`}>
+            <Swiper
+              loop={true} // Loop or not
+              navigation={navigation} // to show navigation or not
+              breakpoints={noOfSlidePerView[0]} // Breakpoints based on screen orientation
+              autoplay={{
+                // to automatically autoplay or not
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                // to show pagination
+                clickable: true,
+              }}
+              modules={modules} // to import modules
+            >
+              {data.map((item) => (
+                <SwiperSlide key={item.id} className="px-2">
+                  <Component
+                    cardStarSize={cardStarSize} // size of the stars
+                    product={item} // product of component
+                    isheight={height} // height of component image
+                    isBlogPage={false} // isBlogPage or not
+                    headingSize={cardHeadingSize} // heading size of product
+                    marginVertical={marginVertical} // margin vertical
+                    productBriefHeight={productBriefHeight} // height of product brief section
+                    cardDescriptionSize={cardDescriptionSize} // height of product description section
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       )}

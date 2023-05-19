@@ -316,9 +316,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
           <Form
             type="text"
             id="address"
-            maxLength="75"
             name="address"
-            pattern="^[^-\s][a-zA-Z0-9 \s]*$"
+            pattern="[a-zA-Z0-9~`!#$%^&*()_=+|:';,.?\-\/ ]{15,100}"
             label="House number and area name *"
             value={user.address || userDetails?.address}
             onChange={handleOnChange}
@@ -329,9 +328,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
           <Form
             type="text"
             id="apartment"
-            maxLength="25"
             name="apartment"
-            pattern="^[^-\s][a-zA-Z0-9 \s]*$"
+            pattern="[a-zA-Z0-9~`!#$%^&*()_=+|:';,.?\-\/ ]{0,100}"
             label="Apartment, suite, etc. (optional)"
             value={user.apartment || userDetails?.apartment}
             onChange={handleOnChange}
