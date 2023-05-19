@@ -12,13 +12,17 @@ const Sidebar = () => {
   return (
     <>
       <div className="hidden lg:block">
-        <h2 className="text-3xl font-medium pb-5">Categories</h2>
+        <h2 className="text-2xl font-medium pb-5">Categories</h2>
         <ul className="flex flex-col gap-5">
           {categories.map((category) => {
             return (
               <li key={category.id}>
-                <Link to={`/collection/${category.category_slug}`} className="text-md">
-                  {location.pathname === `/collection/${category.category_slug}` ? (
+                <Link
+                  to={`/collection/${category.category_slug}`}
+                  className="text-sm font-medium text-gray-700"
+                >
+                  {location.pathname ===
+                  `/collection/${category.category_slug}` ? (
                     <span className="font-bold">{category.category_name}</span>
                   ) : (
                     <span>{category.category_name}</span>

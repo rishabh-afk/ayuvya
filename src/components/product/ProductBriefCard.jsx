@@ -1,5 +1,6 @@
 import ProgressBarWithStars from "../common/custom/ProgressBarWithStars";
 import Button from "../common/Button";
+import { Link } from "react-router-dom";
 
 const ProductBriefCard = ({
   buyNow,
@@ -12,15 +13,17 @@ const ProductBriefCard = ({
   cardDescriptionSize,
 }) => {
   return (
-    <div
-      className={`text-center px-2 py-4 md:p-4 gap-1 ${
-        isNotSwiperProduct ? "h-64" : productBriefHeight
-      }`}
-    >
-      <div className={`flex flex-col items-center gap-1 pb-2`}>
-        <h2 className={`font-semibold leading-tight ${headingSize}`}>
-          {product?.product_name}
-        </h2>
+    <div className={`text-center px-2 py-4 md:p-4 gap-1`}>
+      <div
+        className={`flex flex-col items-center gap-1 pb-2 ${productBriefHeight}`}
+      >
+        <Link to={`${product?.get_product_url}`}>
+          <h2
+            className={`font-semibold leading-tight hover:text-gray-700 transition-all duration-200 ${headingSize}`}
+          >
+            {product?.product_name}
+          </h2>
+        </Link>
         <div className="flex flex-wrap justify-center items-center">
           <div className="flex text-sm gap-2 items-center">
             <ProgressBarWithStars
@@ -33,8 +36,15 @@ const ProductBriefCard = ({
               noOfStar={Math.round(product?.rating || 5)}
               className="lg:hidden"
             />
-            <span className={`break-words ${cardDescriptionSize}`}>
-              {product?.review_count}+ Reviews
+            <span className="break-words flex text-[12px]">
+              {product?.review_count}+{" "}
+              <span
+                className={`${
+                  isNotSwiperProduct ? "hidden md:block" : "block"
+                }`}
+              >
+                Reviews
+              </span>
             </span>
           </div>
         </div>
@@ -53,7 +63,7 @@ const ProductBriefCard = ({
       <Button
         handler={buyNow}
         className={`bg-black ${
-          isNotSwiperProduct ? "lg:hidden" : "hidden"
+          isNotSwiperProduct ? "md:hidden" : "hidden"
         } text-md md:text-xl text-white justify-center m-auto mb-2 rounded-lg outline-none hover:bg-gray-500 ${
           isNotSwiperProduct ? "px-6" : "px-4"
         }`}
