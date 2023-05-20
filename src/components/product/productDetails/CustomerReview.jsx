@@ -11,7 +11,7 @@ const CustomerReview = ({
   return (
     <>
       {rating_five !== 0 && (
-        <section className="py-10 lg:mx-12">
+        <section className="py-10 lg:mx-6">
           <div className="w-full pb-4">
             <h2 className="text-2xl lg:text-4xl font-semibold">
               Customer Reviews

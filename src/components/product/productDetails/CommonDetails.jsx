@@ -10,23 +10,23 @@ const CommonDetails = (props) => {
   const items = new Array(Math.round(props.product?.rating)).fill(null);
   return (
     <div>
-      <h1 className="text-2xl lg:text-4xl font-bold">
+      <h1 className="text-2xl lg:text-3xl font-bold">
         {props.product?.product_name}
       </h1>
-      <p className="text-xl lg:text-2xl py-2">
+      <p className="text-xl lg:text-xl py-2">
         {props.product?.product_nick_name}
       </p>
       <p className="flex items-end">
-        <span className="pr-2 text-3xl font-semibold">
+        <span className="pr-2 text-xl md:text-2xl font-semibold">
           {props.product?.rating}{" "}
         </span>
         {items.map((item, i) => {
-          return <AiFillStar key={i} size={30} color="#ffd700" />;
+          return <AiFillStar key={i} size={25} color="#ffd700" />;
         })}
       </p>
       <p className="flex gap-2 py-2 items-center">
         <MdVerified size={25} color="blue" />
-        <span className="text-xl font-medium text-blue-300">
+        <span className="text-lg font-medium text-blue-300">
           {props.product?.review_count}+ reviews
         </span>
       </p>
@@ -58,7 +58,7 @@ const CommonDetails = (props) => {
           />
         </div>
       </div>
-      <Recommend recommend={props.product.recommend_section} />
+      <Recommend recommend={props.product?.recommend_section} />
       <AddProductButton product={props.product} />
     </div>
   );

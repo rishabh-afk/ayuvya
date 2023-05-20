@@ -1,9 +1,9 @@
 const Recommend = ({ recommend }) => {
-  const recommendedLength = recommend[0].recommend.length;
+  const recommendedLength = recommend[0]?.recommend.length;
   return (
     <>
       {recommend.length > 1 ? (
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap gap-5">
           {recommend.map((recommended, index) => {
             return (
               <div key={recommended.id} className="w-1/2">
@@ -14,7 +14,7 @@ const Recommend = ({ recommend }) => {
                       className="flex gap-5 items-center py-1"
                     >
                       <img
-                        className="w-10 text-red-300"
+                        className="w-8"
                         src={item?.image}
                         alt={item.title}
                       />
@@ -29,29 +29,25 @@ const Recommend = ({ recommend }) => {
       ) : (
         <div className="flex flex-wrap">
           <div className="w-1/2">
-            {recommend[0].recommend
+            {recommend[0]?.recommend
               .slice(0, Math.round(recommendedLength / 2))
               .map((item) => {
                 return (
                   <div key={item?.id} className="flex gap-5 items-center py-1">
-                    <img
-                      className="w-10 text-red-300"
-                      src={item?.image}
-                      alt={item.title}
-                    />
+                    <img className="w-8" src={item?.image} alt={item.title} />
                     <h2>{item.title}</h2>
                   </div>
                 );
               })}
           </div>
           <div className="w-1/2">
-            {recommend[0].recommend
+            {recommend[0]?.recommend
               .slice(Math.round(recommendedLength / 2), recommendedLength)
               .map((item) => {
                 return (
                   <div key={item?.id} className="flex gap-5 items-center py-1">
                     <img
-                      className="w-10 text-red-300"
+                      className="w-8"
                       src={item?.image}
                       alt={item.title}
                     />

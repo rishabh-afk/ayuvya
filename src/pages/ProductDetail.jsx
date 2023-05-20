@@ -58,7 +58,7 @@ const ProductDetail = () => {
             <CommonDetails product={product} />
           </div>
         </div>
-        <div className="mx-4 lg:mx-10">
+        <div className="mx-3 md:mx-8 lg:mx-24">
           <Ingredients ingredients={product?.ingredient_section} />
           <Benefits benefits_section={product?.benefits_section} />
           <CustomerReview

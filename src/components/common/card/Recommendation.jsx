@@ -7,8 +7,10 @@ const Recommendation = ({
     <>
       {related_products && (
         <>
-          <h4 className="text-xl md:text-3xl font-bold mx-4 lg:mx-24 mb-5">{title}</h4>
-          <div className="flex flex-wrap mx-3 lg:mx-20">
+          <h4 className="text-xl md:text-3xl font-bold mx-3 md:mx-8 lg:mx-24 mb-5">
+            {title}
+          </h4>
+          <div className="flex flex-wrap mx-3 md:mx-8 lg:mx-20">
             {related_products.map((item) => {
               return (
                 <div
