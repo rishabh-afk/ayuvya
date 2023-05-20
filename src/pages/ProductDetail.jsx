@@ -80,7 +80,10 @@ const ProductDetail = () => {
           related_products={product?.related_products}
         />
 
-        <HowToUse how_to_use_section={product?.how_to_use_section} />
+        <HowToUse
+          how_to_use_section={product?.how_to_use_section}
+          recommendation={product?.recommendation}
+        />
         <SafeAndEffective safe_and_effective={product?.safe_and_effective} />
       </section>
     </Layouts>

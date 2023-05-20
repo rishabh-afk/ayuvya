@@ -13,12 +13,12 @@ const Ingredients = ({ ingredients }) => {
                 <div className="flex flex-wrap justify-center">
                   {item.ingredient.map((ingredient) => {
                     return (
-                      <div key={ingredient.id} className="w-full md:w-1/3 p-2">
+                      <div key={ingredient.id} className="w-full md:w-1/3 p-3">
                         <div className="shadow-xl rounded-lg hover:shadow-md transition-all duration-300">
                           <img
                             src={ingredient?.ingredient_image}
                             alt={ingredient?.ingredient_name}
-                            className="rounded-xl"
+                            className="rounded-xl cursor-none lg:cursor-pointer"
                           />
                         </div>
                       </div>

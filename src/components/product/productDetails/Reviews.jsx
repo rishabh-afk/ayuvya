@@ -6,7 +6,7 @@ const Reviews = ({ reviews, review_count }) => {
     <>
       {reviews && (
         <>
-          <h2 className="border-b-2 border-[#182d4a] w-fit mx-4 lg:mx-20 font-semibold">
+          <h2 className="border-b-2 border-[#182d4a] w-fit mx-4 md:mx-8 lg:mx-20 font-semibold">
             Reviews ({review_count})
           </h2>
           <CustomSwiper

@@ -21,8 +21,11 @@ const Benefits = ({ benefits_section, benefits, title }) => {
                         <img
                           src={benefit?.benefit_image}
                           alt={benefit?.id}
-                          className=""
+                          className="rounded-xl cursor-none lg:cursor-pointer"
                         />
+                        <p className="text-xl md:text-3xl">
+                          {benefit?.description}
+                        </p>
                       </div>
                     );
                   })}

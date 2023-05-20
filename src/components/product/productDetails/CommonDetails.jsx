@@ -17,7 +17,7 @@ const CommonDetails = (props) => {
         {props.product?.product_nick_name}
       </p>
       <p className="flex items-end">
-        <span className="pr-2 text-xl md:text-2xl font-semibold">
+        <span className="pr-2 text-xl md:text-3xl font-semibold">
           {props.product?.rating}{" "}
         </span>
         {items.map((item, i) => {
@@ -26,11 +26,11 @@ const CommonDetails = (props) => {
       </p>
       <p className="flex gap-2 py-2 items-center">
         <MdVerified size={25} color="blue" />
-        <span className="text-lg font-medium text-blue-300">
+        <span className="text-xl font-medium text-blue-300">
           {props.product?.review_count}+ reviews
         </span>
       </p>
-      <div className="flex gap-4 text-2xl font-bold">
+      <div className="flex gap-4 text-3xl font-semibold">
         <span className="">₹ {props.product?.price}.0</span>
         <span className="line-through text-gray-400">
           ₹ {props.product?.cut_price}.0
