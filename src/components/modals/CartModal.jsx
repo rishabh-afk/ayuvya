@@ -1,14 +1,12 @@
 import Modal from "react-modal";
-import { useEffect } from "react";
 import Button from "../common/Button";
 import { motion } from "framer-motion";
 import CartItem from "../cart/CartItem";
 import { Link } from "react-router-dom";
 import { VscChromeClose } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CustomSwiper from "../common/custom/CustomSwiper";
 import RecommendationCard from "../common/card/RecommendationCard";
-import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 
 const variants = {
   animate: {
@@ -40,18 +38,8 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 const CartModal = (props) => {
-  const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart);
   const related_products = useSelector((state) => state.common.relatedProducts);
-
-  useEffect(() => {
-    const relatedIds = JSON.parse(localStorage.getItem("Cart"));
-    dispatch(
-      getAllRelatedProducts(
-        cartData.related_product_Id || relatedIds?.related_product_Id
-      )
-    );
-  }, [dispatch, cartData]);
 
   return (
     <Modal
