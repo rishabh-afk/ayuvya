@@ -1,15 +1,15 @@
-const Subtotal = ({ price, paymentMode }) => {
+const Subtotal = ({ cart }) => {
   return (
     <div>
       <div className="flex flex-col gap-5 py-8 text-gray-600 border-b">
         <p className="flex justify-between text-xl">
           <span className="">Subtotal</span>
-          <span className="">₹ {price}</span>
+          <span className="">₹ {cart?.total_amount}</span>
         </p>
-        {paymentMode === "online" && (
+        {cart?.payment_type === "Prepaid" && (
           <p className="flex justify-between text-xl">
             <span className="">Online Discount</span>
-            <span className="">₹ {(price / 10).toFixed(2)}</span>
+            <span className="">₹ {cart?.online_discount}</span>
           </p>
         )}
         <p className="flex justify-between text-xl">
@@ -19,9 +19,7 @@ const Subtotal = ({ price, paymentMode }) => {
       </div>
       <p className="flex justify-between text-xl border-b py-6 text-gray-700">
         <span className="">Total</span>
-        <span className="">
-          ₹ {paymentMode === "online" ? price - price / 10 : price}
-        </span>
+        <span className="">₹ {cart?.final_amount}</span>
       </p>
     </div>
   );

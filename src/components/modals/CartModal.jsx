@@ -109,11 +109,11 @@ const CartModal = (props) => {
                   {
                     0: {
                       slidesPerView: 1.5,
-                      spaceBetween: 20,
+                      spaceBetween: 10,
                     },
                     400: {
                       slidesPerView: 2,
-                      spaceBetween: 10,
+                      spaceBetween: 0,
                     },
                   },
                 ]}

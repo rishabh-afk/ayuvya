@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 
 const initialState = {
   status: "loading",
-  couponStatus: "",
+  couponStatus: false,
   message: "",
   coupon: "", // coupon code
   final_amount: 0, //final cart amount
   items: [], // fetch cart items using apis
+  payment_type: "Prepaid", // type of payment
   number_of_items: 0, // number of items present in cart
   online_discount: 0, // cart amount for online discount
   coupon_discount: 0, // cart amount for coupon discount
@@ -114,11 +115,26 @@ const cartSlice = createSlice({
     },
     fetchCart: (state, action) => {
       const localData = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+      state.status = "success";
       if (localData) {
         state.items = localData?.items;
+        state.coupon = localData?.coupon;
         state.total_amount = localData?.total_amount;
-        state.related_product_Id = localData?.related_product_Id;
+        state.couponStatus = localData?.couponStatus ? true : false;
+        state.final_amount =
+          localData?.payment_type === "Prepaid"
+            ? localData?.total_amount - (10 * localData?.total_amount) / 100
+            : localData?.total_amount;
         state.number_of_items = localData?.number_of_items;
+        state.coupon_discount = localData?.couponStatus
+          ? localData?.coupon_discount
+          : 0;
+        state.online_discount =
+          localData?.payment_type === "Prepaid"
+            ? (10 * localData?.total_amount) / 100
+            : 0;
+        state.related_product_Id = localData?.related_product_Id;
+        localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
       }
     },
     updateCartItem: (state, action) => {
@@ -137,6 +153,10 @@ const cartSlice = createSlice({
         }
         localStorage.setItem("AYUVYA_CART", JSON.stringify(cart));
       }
+    },
+    selectPaymentMode: (state, action) => {
+      state.payment_type = action.payload;
+      localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
     },
   },
   extraReducers: (builder) => {
@@ -190,7 +210,12 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addCartItem, removeCartItem, fetchCart, updateCartItem } =
-  cartSlice.actions;
+export const {
+  addCartItem,
+  removeCartItem,
+  fetchCart,
+  updateCartItem,
+  selectPaymentMode,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

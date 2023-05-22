@@ -20,8 +20,8 @@ const Recommendation = ({
                   <Component
                     key={item.id}
                     product={item}
-                    headingSize="text-md"
                     cardStarSize={20}
+                    headingSize="text-md"
                     isNotSwiperProduct={true}
                     cardDescriptionSize={"text-md md:text-xl"}
                     productBriefHeight={"h-36 md:h-32"}

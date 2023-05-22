@@ -2,6 +2,7 @@ import Form from "./Form";
 import axios from "axios";
 import Button from "../Button";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import FormInput from "../forms/FormInput";
 import config from "../../../config/config";
@@ -12,33 +13,48 @@ import { load } from "@cashfreepayments/cashfree-js";
 import { useDispatch, useSelector } from "react-redux";
 import { sendOTP } from "../../../store/slices/commonSlice";
 import { createOrder } from "../../../store/slices/orderSlice";
-import { motion } from "framer-motion";
-import { addToCartAuth, applyCoupon } from "../../../store/slices/cartSlice";
+import {
+  addToCartAuth,
+  applyCoupon,
+  selectPaymentMode,
+  fetchCart,
+} from "../../../store/slices/cartSlice";
 
-const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
+const CheckoutForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userDetail = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
+  const paymentMode = useSelector((state) => state.cart.payment_type);
   const couponStatus = useSelector((state) => state.cart.couponStatus);
 
+  const handlePaymentType = async (typeOfPayment) => {
+    dispatch(selectPaymentMode(typeOfPayment));
+    dispatch(fetchCart());
+  };
+
   // customer details
-  const [user, setUser] = useState({
-    city: "",
-    phone: "",
-    state: "",
-    email: "",
-    address: "",
-    pin_code: "",
-    apartment: "",
-    last_name: "",
-    promoCode: "",
-    first_name: "",
-    gender: "Male",
-    country: "India",
-    notification: "false",
-    saveInformation: "false",
-    payment_method: "Prepaid",
-  });
+  const [user, setUser] = useState(
+    userDetail
+      ? userDetail
+      : {
+          city: "",
+          phone: "",
+          state: "",
+          email: "",
+          address: "",
+          pin_code: "",
+          apartment: "",
+          last_name: "",
+          promoCode: "",
+          first_name: "",
+          gender: "",
+          country: "India",
+          notification: "",
+          saveInformation: "",
+          payment_method: "Prepaid",
+        }
+  );
   const [otpModal, showOtpModal] = useState(false);
   const [otp, setOtp] = useState(null);
 
@@ -153,7 +169,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
   };
   // handle pin code of user
   const handlePinCode = async (e) => {
-    e.preventDefault();
+    setUser({ ...user, pin_code: e.target.value });
     if (e.target.value.length === 6) {
       const BASE_URL = config.REACT_APP_BASE_URL;
       const resp = await axios.get(
@@ -199,9 +215,9 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             type="text"
             name="phone"
             maxLength="10"
-            pattern="[0-9\/]*"
+            pattern="[6-9]{1}[0-9]{9}"
             label="Phone Number *"
-            value={user.phone || userDetails?.phone}
+            value={user.phone}
             onChange={handleOnChange}
             required
             autoFocus
@@ -215,7 +231,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             maxLength="50"
             label="Email (Optional)"
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            value={user.email || userDetails?.email}
+            value={user.email}
             onChange={handleOnChange}
           />
         </div>
@@ -225,7 +241,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             id="notification"
             name="notification"
             className="h-5 w-5 mt-2 rounded-md"
-            value={user.notification || userDetails?.notification}
+            value={user.notification}
             onChange={handleOnChange}
           />
           <label htmlFor="notification" className="text-sm">
@@ -237,12 +253,12 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
           <div className="w-full lg:w-1/2">
             <Form
               type="text"
-              maxlength="25"
+              maxlength="50"
               id="first_name"
               name="first_name"
-              pattern="^[^-\s][a-zA-Z \s]*$"
+              pattern="[a-zA-Z ]{3,50}"
               label="First Name *"
-              value={user.first_name || userDetails?.first_name}
+              value={user.first_name}
               onChange={handleOnChange}
               required
             />
@@ -251,11 +267,11 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             <Form
               type="text"
               id="last_name"
-              maxLength="25"
+              maxLength="50"
               name="last_name"
               label="Last Name *"
-              pattern="^[^-\s][a-zA-Z \s]*$"
-              value={user.last_name || userDetails?.last_name}
+              pattern="[a-zA-Z ]{3,50}"
+              value={user.last_name}
               onChange={handleOnChange}
               required
             />
@@ -268,9 +284,9 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               id="pin_code"
               name="pin_code"
               label="Pincode *"
-              pattern="[0-9\/]*"
+              pattern="^[1-9][0-9]{5}$"
               maxLength="6"
-              value={user.pin_code || userDetails?.pin_code}
+              value={user.pin_code}
               onChange={handlePinCode}
               required
             />
@@ -280,10 +296,10 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               id="city"
               type="text"
               name="city"
-              maxLength="25"
-              pattern="^[^-\s][a-zA-Z \s]*$"
+              maxLength="50"
+              pattern="[a-zA-Z ]{3,50}"
               label="City/district *"
-              value={user.city || userDetails?.city}
+              value={user.city}
               onChange={handleOnChange}
               required
             />
@@ -296,7 +312,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
                 required
               >
-                <option value="" disabled>
+                <option value="" disabled selected>
                   Select state
                 </option>
                 <option value={user?.state ? user?.state : "Delhi"}>
@@ -319,8 +335,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             name="address"
             pattern="[a-zA-Z0-9~`!#$%^&*()_=+|:';,.?\-\/ ]{15,100}"
             label="House number and area name *"
-            value={user.address || userDetails?.address}
-            onChange={handleOnChange}
+            value={user.address}
+            onChange={(e) => setUser({ ...user, address: e.target.value })}
             required
           />
         </div>
@@ -331,8 +347,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             name="apartment"
             pattern="[a-zA-Z0-9~`!#$%^&*()_=+|:';,.?\-\/ ]{0,100}"
             label="Apartment, suite, etc. (optional)"
-            value={user.apartment || userDetails?.apartment}
-            onChange={handleOnChange}
+            value={user.apartment}
+            onChange={(e) => setUser({ ...user, apartment: e.target.value })}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2 md:gap-5">
@@ -341,16 +357,14 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               <select
                 id="country"
                 name="country"
-                value={user.country || userDetails?.country}
+                value={user.country}
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
                 required
               >
                 <option value="" disabled>
                   Select Country
                 </option>
-                <option value="India">
-                  India
-                </option>
+                <option value="India">India</option>
               </select>
               <label
                 htmlFor="country"
@@ -366,16 +380,13 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
                 id="gender"
                 name="gender"
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
-                value={user.gender || userDetails?.gender}
-                onChange={handleOnChange}
+                onChange={(e) => setUser({ ...user, gender: e.target.value })}
                 required
               >
-                <option disabled value="">
+                <option selected disabled value="">
                   Select Gender
                 </option>
-                <option selected value="Male">
-                  Male
-                </option>
+                <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Others">Others</option>
               </select>
@@ -395,7 +406,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             name="promoCode"
             placeholder="Promo Code"
             className="py-3 w-full rounded-md font-medium outline-none"
-            value={user.promoCode || userDetails?.promoCode}
+            value={user.promoCode}
             onChange={handleOnChange}
           />
           <span
@@ -428,9 +439,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               type="radio"
               name="payment_method"
               value="COD"
-              checked={
-                paymentMode === "offline" && user.payment_method === "COD"
-              }
+              checked={paymentMode === "COD"}
               onChange={(e) => {
                 handlePaymentType(e.target.value);
                 setUser({ ...user, payment_method: e.target.value });
@@ -446,10 +455,8 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
               type="radio"
               id="Prepaid"
               name="payment_method"
-              checked={
-                paymentMode === "online" && user.payment_method === "Prepaid"
-              }
               value="Prepaid"
+              checked={paymentMode === "Prepaid"}
               onChange={(e) => {
                 handlePaymentType(e.target.value);
                 setUser({ ...user, payment_method: e.target.value });
@@ -467,7 +474,7 @@ const CheckoutForm = ({ handlePaymentType, paymentMode, userDetails }) => {
             id="saveInformation"
             name="saveInformation"
             className="h-5 w-5 mt-2 rounded-md"
-            value={user.saveInformation || userDetails?.saveInformation}
+            value={user.saveInformation}
             onChange={handleOnChange}
           />
           <label htmlFor="saveInformation" className="text-sm">
