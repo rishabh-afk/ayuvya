@@ -126,8 +126,8 @@ const CheckoutForm = () => {
     });
     let checkoutOptions = {
       paymentSessionId: order_token,
-      // returnUrl: `http://localhost:3000/thank-you`,
-      returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com/thank-you`,
+      returnUrl: `http://localhost:3000/thank-you`,
+      // returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com/thank-you`,
     };
     cashfree.checkout(checkoutOptions).then((result) => {
       if (result.error) {
@@ -253,7 +253,7 @@ const CheckoutForm = () => {
           <div className="w-full lg:w-1/2">
             <Form
               type="text"
-              maxlength="50"
+              maxLength="50"
               id="first_name"
               name="first_name"
               pattern="[a-zA-Z ]{3,50}"
@@ -310,9 +310,10 @@ const CheckoutForm = () => {
                 id="state"
                 name="state"
                 className="block px-2.5 pb-2.5 pt-4 w-full text-lg text-gray-500 bg-transparent rounded-lg border border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+                onChange={(e) => setUser({ ...user, state: e.target.value })}
                 required
               >
-                <option value="" disabled selected>
+                <option value="select" disabled>
                   Select state
                 </option>
                 <option value={user?.state ? user?.state : "Delhi"}>
@@ -383,7 +384,7 @@ const CheckoutForm = () => {
                 onChange={(e) => setUser({ ...user, gender: e.target.value })}
                 required
               >
-                <option selected disabled value="">
+                <option disabled selected value="select">
                   Select Gender
                 </option>
                 <option value="Male">Male</option>

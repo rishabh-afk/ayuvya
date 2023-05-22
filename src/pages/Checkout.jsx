@@ -17,10 +17,12 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const payment_type = useSelector((state) => state.cart.payment_type);
 
   useEffect(() => {
     if (cart.status !== "success") {
       dispatch(fetchCart());
+      localStorage.setItem("AYUVYA_PAYMENT_METHOD", "Prepaid");
     }
     if (cart.status === "success" && cart && cart?.items.length === 0) {
       navigate("/");
@@ -47,7 +49,7 @@ const Checkout = () => {
             transition={variants.transition}
             className="w-full lg:w-[45%] px-6 lg:p-12 bg-gray-100 border-l border-[#e1e1e1] order-first lg:order-last"
           >
-            <OrderDetails cart={cart} />
+            <OrderDetails cart={cart} payment_type={payment_type} />
           </motion.div>
         </div>
       ) : (

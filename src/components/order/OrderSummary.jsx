@@ -1,13 +1,18 @@
 import { useState } from "react";
 import Button from "../common/Button";
+import { motion } from "framer-motion";
 import { TiTick } from "react-icons/ti";
+import { useDispatch } from "react-redux";
 import { BsClipboard } from "react-icons/bs";
 import CustomerDetails from "./CustomerDetails";
-import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { load } from "@cashfreepayments/cashfree-js";
+import { updateCODOrder } from "../../store/slices/orderSlice";
+import { toast } from "react-toastify";
 
-const OrderSummary = ({ userDetails, total_amount, orderId }) => {
+const OrderSummary = ({ userDetails, final_amount, orderId, payment_type }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [copyToClip, setCopyToClip] = useState(false);
 
   const backToHome = async () => {
@@ -24,6 +29,38 @@ const OrderSummary = ({ userDetails, total_amount, orderId }) => {
       setCopyToClip(false);
     }, 3000);
   };
+  // to create prepaid orders
+  const handlePrePaidOrder = () => {
+    const user = {
+      ...userDetails,
+      orderId: orderId,
+    };
+    dispatch(updateCODOrder(user)).then(async (response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
+        handleCashFreePayment(response.payload.order_token);
+      }
+    });
+  };
+  //to handle prepaid order
+  const handleCashFreePayment = async (order_token) => {
+    const cashfree = await load({
+      mode: "sandbox", //or production
+    });
+    let checkoutOptions = {
+      paymentSessionId: order_token,
+      returnUrl: `http://localhost:3000/thank-you`,
+      // returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com/thank-you`,
+    };
+    cashfree.checkout(checkoutOptions).then((result) => {
+      if (result.error) {
+        toast.error(result.error.message);
+      }
+      if (result.redirect) {
+        console.log("Redirection");
+      }
+    });
+  };
   return (
     <div>
       <h2 className="text-3xl text-black mb-4 hidden lg:block">
@@ -38,7 +75,7 @@ const OrderSummary = ({ userDetails, total_amount, orderId }) => {
             id="copyToClipboard"
             className="inline-flex items-center text-lg"
           >
-            Order #{orderId.includes("order") ? orderId.slice(6) : orderId}
+            Order #{orderId}
             <div className="pl-2">
               {copyToClip ? (
                 <motion.div
@@ -60,16 +97,18 @@ const OrderSummary = ({ userDetails, total_amount, orderId }) => {
         </div>
       </div>
       <div className="flex flex-col gap-5">
-        {!orderId.includes("order") && (
+        {payment_type === "COD" && (
           <div className="flex justify-between border border-green-500 rounded-lg p-4 bg-green-300">
             <div className="w-3/5 text-green-700 flex flex-col gap-2">
-              <p className="text-2xl font-semibold">Save ₹ 99.90</p>
+              <p className="text-2xl font-semibold">
+                Save ₹ {((final_amount * 10) / 100).toFixed(2)}
+              </p>
               <p className="text-sm">
                 Pay Online on this order by making your payment online
               </p>
             </div>
             <Button
-              handler={() => navigate("/checkout")}
+              handler={handlePrePaidOrder}
               className="text-white h-fit bg-blue-500 px-4 hover:bg-blue-500/90 rounded-lg relative z-50"
             >
               <span className="text-lg">Pay Online</span>
@@ -91,7 +130,7 @@ const OrderSummary = ({ userDetails, total_amount, orderId }) => {
         <div className="border border-slate-300 bg-slate-100 rounded-lg p-4">
           <CustomerDetails
             userDetails={userDetails}
-            total_amount={total_amount}
+            final_amount={final_amount}
           />
         </div>
       </div>

@@ -29,6 +29,30 @@ export const createOrder = createAsyncThunk(
   }
 );
 
+export const updateCODOrder = createAsyncThunk(
+  "order/updateCODOrder",
+  async (user, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("AYUVYA_TOKEN_USER");
+      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      const orderId = user.orderId;
+      const data = {
+        ...user,
+        cart: cartId,
+        payment_method: "Prepaid",
+        clicked_payonline_on_thankyoupage: true,
+      };
+      return await orderServices.updateCODOrder(data, orderId, token);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
 export const verifyPaymentStatus = createAsyncThunk(
   "order/verifyPayment",
   async (data, thunkAPI) => {
@@ -67,6 +91,16 @@ const orderSlice = createSlice({
         state.payment_status = action.payload.payment_status;
       })
       .addCase(verifyPaymentStatus.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(updateCODOrder.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(updateCODOrder.fulfilled, (state, action) => {
+        state.status = "success";
+        state.orderDetails = action.payload;
+      })
+      .addCase(updateCODOrder.rejected, (state, action) => {
         state.status = "rejected";
       });
   },

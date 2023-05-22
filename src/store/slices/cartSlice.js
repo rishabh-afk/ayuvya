@@ -115,6 +115,7 @@ const cartSlice = createSlice({
     },
     fetchCart: (state, action) => {
       const localData = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+      const paymentType = localStorage.getItem("AYUVYA_PAYMENT_METHOD");
       state.status = "success";
       if (localData) {
         state.items = localData?.items;
@@ -122,7 +123,7 @@ const cartSlice = createSlice({
         state.total_amount = localData?.total_amount;
         state.couponStatus = localData?.couponStatus ? true : false;
         state.final_amount =
-          localData?.payment_type === "Prepaid"
+          paymentType === "Prepaid"
             ? localData?.total_amount - (10 * localData?.total_amount) / 100
             : localData?.total_amount;
         state.number_of_items = localData?.number_of_items;
@@ -130,11 +131,14 @@ const cartSlice = createSlice({
           ? localData?.coupon_discount
           : 0;
         state.online_discount =
-          localData?.payment_type === "Prepaid"
-            ? (10 * localData?.total_amount) / 100
-            : 0;
+          paymentType === "Prepaid" ? (10 * localData?.total_amount) / 100 : 0;
         state.related_product_Id = localData?.related_product_Id;
         localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
+      }
+      if (paymentType === "Prepaid") {
+        localStorage.setItem("AYUVYA_PAYMENT_METHOD", "COD");
+      } else {
+        localStorage.setItem("AYUVYA_PAYMENT_METHOD", "Prepaid");
       }
     },
     updateCartItem: (state, action) => {
@@ -156,7 +160,7 @@ const cartSlice = createSlice({
     },
     selectPaymentMode: (state, action) => {
       state.payment_type = action.payload;
-      localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
+      localStorage.setItem("AYUVYA_PAYMENT_METHOD", action.payload);
     },
   },
   extraReducers: (builder) => {

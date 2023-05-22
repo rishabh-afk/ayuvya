@@ -10,7 +10,7 @@ const variants = {
   closed: { rotate: 0 },
 };
 
-const OrderDetails = ({ cart }) => {
+const OrderDetails = ({ cart, payment_type }) => {
   const [toggle, setToggle] = useState(false);
   return (
     <div className="h-auto">
@@ -25,9 +25,7 @@ const OrderDetails = ({ cart }) => {
         </div>
         <p className="">
           ₹{" "}
-          {cart?.payment_type === "Prepaid"
-            ? cart?.final_amount
-            : cart?.total_amount}
+          {payment_type === "Prepaid" ? cart?.final_amount : cart?.total_amount}
         </p>
       </div>
       <motion.div
@@ -46,7 +44,7 @@ const OrderDetails = ({ cart }) => {
             );
           })}
         </div>
-        <Subtotal cart={cart} />
+        <Subtotal cart={cart} payment_type={payment_type} />
       </motion.div>
       <div className="hidden lg:block">
         <div className="border-b">
@@ -60,7 +58,7 @@ const OrderDetails = ({ cart }) => {
             );
           })}
         </div>
-        <Subtotal cart={cart} />
+        <Subtotal cart={cart} payment_type={payment_type} />
       </div>
     </div>
   );

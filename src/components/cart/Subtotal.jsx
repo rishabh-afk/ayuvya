@@ -1,4 +1,4 @@
-const Subtotal = ({ cart }) => {
+const Subtotal = ({ cart, payment_type }) => {
   return (
     <div>
       <div className="flex flex-col gap-5 py-8 text-gray-600 border-b">
@@ -6,7 +6,7 @@ const Subtotal = ({ cart }) => {
           <span className="">Subtotal</span>
           <span className="">₹ {cart?.total_amount}</span>
         </p>
-        {cart?.payment_type === "Prepaid" && (
+        {payment_type === "Prepaid" && (
           <p className="flex justify-between text-xl">
             <span className="">Online Discount</span>
             <span className="">₹ {cart?.online_discount}</span>

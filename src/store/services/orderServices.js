@@ -27,6 +27,21 @@ const createOrder = async (data, token) => {
   return resp.data;
 };
 
+const UPDATE_ORDER_COD_URL = "api/checkout/create/order/";
+const updateCODOrder = async (data, orderId, token) => {
+  const resp = await axios.put(
+    `${BASE_URL}${UPDATE_ORDER_COD_URL}${orderId}/`,
+    data,
+    {
+      headers:
+        token !== null
+          ? { Authorization: "Token " + token }
+          : { "Content-Type": "application/json" },
+    }
+  );
+  return resp.data;
+};
+
 const VERIFY_PAYMENT_STATUS = "api/checkout/verify/payment/";
 const verifyPaymentStatus = async (data) => {
   const resp = await axios.post(`${BASE_URL}${VERIFY_PAYMENT_STATUS}`, data, {
@@ -35,6 +50,6 @@ const verifyPaymentStatus = async (data) => {
   return resp.data;
 };
 
-const orderServices = { createOrder, verifyPaymentStatus };
+const orderServices = { createOrder, verifyPaymentStatus, updateCODOrder };
 
 export default orderServices;

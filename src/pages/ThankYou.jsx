@@ -20,11 +20,12 @@ const ThankYou = () => {
   const [thankYou, showThankYou] = useState(false);
 
   const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
-  const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+  // const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
   const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
   const payment_status = useSelector((state) => state.order.payment_status);
-  const cartData = useSelector((state) => state.cart);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const cart = useSelector((state) => state.cart);
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const payment_type = useSelector((state) => state.cart.payment_type);
 
   useEffect(() => {
     if (orderId === null) {
@@ -32,11 +33,6 @@ const ThankYou = () => {
     }
     // prepaid order status
     if (orderId.includes("order")) {
-      dispatch(
-        verifyPaymentStatus({
-          order_id: orderId,
-        })
-      );
       if (payment_status === "SUCCESS") {
         dispatch(fetchCartAuth()).then(() => showThankYou(true));
       } else if (payment_status === "FAILED") {
@@ -66,10 +62,9 @@ const ThankYou = () => {
           >
             <OrderSummary
               userDetails={userDetails}
-              total_amount={
-                isLoggedIn ? cartData.total_amount : cart?.total_amount
-              }
+              final_amount={cart?.final_amount}
               orderId={orderId}
+              payment_type={payment_type}
             />
           </motion.div>
           <motion.div
@@ -79,7 +74,7 @@ const ThankYou = () => {
             transition={variants.transition}
             className="w-full lg:w-[45%] px-4 lg:p-12 bg-gray-100 border-l border-[#e1e1e1] order-first lg:order-last"
           >
-            <OrderDetails cart={isLoggedIn ? cartData : cart} />
+            <OrderDetails cart={cart} payment_type={payment_type} />
           </motion.div>
         </div>
       ) : (
