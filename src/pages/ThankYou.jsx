@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../components/common/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "../components/order/OrderDetails";
@@ -17,15 +17,14 @@ const variants = {
 const ThankYou = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [thankYou, showThankYou] = useState(false);
 
-  const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
-  // const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
-  const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
-  const payment_status = useSelector((state) => state.order.payment_status);
   const cart = useSelector((state) => state.cart);
-  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
+  const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
   const payment_type = useSelector((state) => state.cart.payment_type);
+  const payment_status = useSelector((state) => state.order.payment_status);
 
   useEffect(() => {
     if (orderId === null) {
@@ -34,7 +33,10 @@ const ThankYou = () => {
     // prepaid order status
     if (orderId.includes("order")) {
       if (payment_status === "SUCCESS") {
-        dispatch(fetchCartAuth()).then(() => showThankYou(true));
+        localStorage.getItem("SET_ROUTE_HISTORY", location.pathname);
+        dispatch(fetchCartAuth()).then(() => {
+          showThankYou(true);
+        });
       } else if (payment_status === "FAILED") {
         navigate("/");
       } else {
@@ -46,9 +48,10 @@ const ThankYou = () => {
       }
       // COD orders
     } else {
+      localStorage.getItem("SET_ROUTE_HISTORY", location.pathname);
       showThankYou(true);
     }
-  }, [orderId, dispatch, payment_status, navigate]);
+  }, [orderId, dispatch, payment_status, navigate, location]);
   return (
     <>
       {thankYou ? (

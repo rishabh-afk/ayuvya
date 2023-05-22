@@ -5,7 +5,7 @@ const initialAuthState = {
   isLoggedIn: false,
   status: "",
   message: "",
-  userToken: null,
+  userToken: "",
   userData: [],
 };
 
@@ -51,7 +51,7 @@ const authSlice = createSlice({
       let token = localStorage.getItem("AYUVYA_TOKEN_USER");
       if (token) {
         state.isLoggedIn = true;
-        state.accessToken = token;
+        state.userToken = token;
         state.status = "success";
       }
     },

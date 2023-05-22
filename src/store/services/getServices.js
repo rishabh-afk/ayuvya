@@ -46,6 +46,7 @@ const verifyOTP = async (data) => {
   if (resp.status === 200) {
     toast.success("Phone Number verified successfully!");
     localStorage.setItem("AYUVYA_TOKEN_USER", resp.data.token);
+    // localStorage.setItem("AYUVYA_CART-CARTID", resp.data?.cart);
   }
   return resp.data;
 };

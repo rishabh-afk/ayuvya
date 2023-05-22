@@ -162,6 +162,14 @@ const cartSlice = createSlice({
       state.payment_type = action.payload;
       localStorage.setItem("AYUVYA_PAYMENT_METHOD", action.payload);
     },
+    clearLocalStorage: (state, action) => {
+      localStorage.removeItem("AYUVYA_CART");
+      localStorage.removeItem("AYUVYA_PAYMENT_METHOD");
+      localStorage.removeItem("AYUVYA_CART-CARTID");
+      localStorage.removeItem("AYUVYA_NEW_ORDER_ID");
+      localStorage.removeItem("SET_ROUTE_HISTORY");
+      localStorage.removeItem("AYUVYA_ORDER_ID");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -220,6 +228,7 @@ export const {
   fetchCart,
   updateCartItem,
   selectPaymentMode,
+  clearLocalStorage,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
