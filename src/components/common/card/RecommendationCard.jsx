@@ -1,5 +1,4 @@
 import Button from "../Button";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { TbDiscount2 } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,15 +26,8 @@ const RecommendationCard = ({ product, marginVertical }) => {
       primary_image: product.primary_image,
     };
     if (isLoggedIn) {
-      dispatch(addToCartAuth([{ quantity: 1, product: product.id }])).then(
-        (response) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            dispatch(fetchCartAuth());
-            toast.success("Item added successfully", {
-              position: "bottom-left",
-            });
-          }
-        }
+      dispatch(addToCartAuth([{ quantity: 1, product: product.id }])).then(() =>
+        dispatch(fetchCartAuth())
       );
     } else {
       dispatch(addCartItem(data));
@@ -78,7 +70,9 @@ const RecommendationCard = ({ product, marginVertical }) => {
             handler={() => addItemToCart(product)}
             className="rounded-full border justify-center px-4 w-fit border-black hover:bg-black hover:text-white outline-none"
           >
-            <span className="text-xs font-semibold cursor-pointer">Add To Cart</span>
+            <span className="text-xs font-semibold cursor-pointer">
+              Add To Cart
+            </span>
           </Button>
         </div>
       </figcaption>

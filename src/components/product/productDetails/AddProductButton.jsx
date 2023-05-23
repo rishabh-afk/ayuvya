@@ -6,9 +6,9 @@ import {
   addCartItem,
   fetchCart,
 } from "../../../store/slices/cartSlice";
+import CartModal from "../../modals/CartModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRelatedProducts } from "../../../store/slices/commonSlice";
-import CartModal from "../../modals/CartModal";
 
 const AddProductButton = (product) => {
   const dispatch = useDispatch();
@@ -30,17 +30,19 @@ const AddProductButton = (product) => {
       primary_image: product?.product_images[0].product_image,
     };
     if (isLoggedIn) {
-      dispatch(addToCartAuth([{ quantity: 1, product: product.id }])).then(
-        (response) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            dispatch(fetchCartAuth());
-            showCartModal(true);
-            // toast.success("Item added successfully", {
-            //   position: "bottom-left",
-            // });
-          }
-        }
+      const alreadyExists = cartItems.items?.find(
+        (item) => item.id === product.id
       );
+      dispatch(
+        addToCartAuth([
+          {
+            quantity: alreadyExists ? alreadyExists.quantity + 1 : 1,
+            product: product.id,
+          },
+        ])
+      )
+        .then(() => dispatch(fetchCartAuth()))
+        .then(() => showCartModal(true));
     } else {
       dispatch(addCartItem(data));
       dispatch(fetchCart());

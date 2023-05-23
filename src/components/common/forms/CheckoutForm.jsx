@@ -60,11 +60,7 @@ const CheckoutForm = () => {
 
   // send notification
   const sendOtp = async (data) => {
-    dispatch(sendOTP(data)).then((response) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        showOtpModal(true);
-      }
-    });
+    dispatch(sendOTP(data)).then(() => showOtpModal(true));
   };
   // to close sendOtpModal
   const handleClose = () => {
@@ -112,12 +108,10 @@ const CheckoutForm = () => {
   };
   // to create prepaid orders
   const handlePrePaidOrder = () => {
-    dispatch(createOrder(user)).then(async (response) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
-        localStorage.setItem("AYUVYA_NEW_ORDER_ID", response.payload.order_id);
-        handleCashFreePayment(response.payload.order_token);
-      }
+    dispatch(createOrder(user)).then((response) => {
+      localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
+      localStorage.setItem("AYUVYA_NEW_ORDER_ID", response.payload.order_id);
+      handleCashFreePayment(response.payload.order_token);
     });
   };
   //to handle prepaid order
@@ -141,14 +135,14 @@ const CheckoutForm = () => {
   };
   //to handle a new order
   const handleCreateOrder = async () => {
-    dispatch(createOrder(user)).then((response) => {
-      if (response.meta.requestStatus === "fulfilled") {
+    dispatch(createOrder(user))
+      .then((response) => {
         localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
         navigate("/thank-you/");
-      } else {
-        toast.warn("Something went wrong!");
-      }
-    });
+      })
+      .catch((error) => {
+        toast.error("Something went wrong");
+      });
   };
 
   //apply promo Code to order

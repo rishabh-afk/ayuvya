@@ -35,12 +35,10 @@ const OrderSummary = ({ userDetails, final_amount, orderId, payment_type }) => {
       ...userDetails,
       orderId: orderId,
     };
-    dispatch(updateCODOrder(user)).then(async (response) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
-        localStorage.setItem("AYUVYA_NEW_ORDER_ID", response.payload.order_id);
-        handleCashFreePayment(response.payload.order_token);
-      }
+    dispatch(updateCODOrder(user)).then((response) => {
+      localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
+      localStorage.setItem("AYUVYA_NEW_ORDER_ID", response.payload.order_id);
+      handleCashFreePayment(response.payload.order_token);
     });
   };
   //to handle prepaid order

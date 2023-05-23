@@ -45,9 +45,9 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
       phone: phone,
       otp: otp,
     };
-    dispatch(verifyOTP(data)).then((response) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        dispatch(login());
+    dispatch(verifyOTP(data))
+      .then(() => dispatch(login()))
+      .then(() => {
         const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
         let data = [];
         cart.items.map((item) => {
@@ -55,17 +55,12 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
           return data;
         });
         if (data.length === cart.items.length) {
-          dispatch(addToCartAuth(data)).then((response) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              dispatch(fetchCartAuth());
-              handleClose();
-            }
-          });
+          dispatch(addToCartAuth(data))
+            .then(() => dispatch(fetchCartAuth()))
+            .then(() => handleClose());
         }
-      } else {
-        toast.warn("Try again later");
-      }
-    });
+      })
+      .catch((err) => toast.error("Try again later"));
   };
 
   return (

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import CardHoc from "../UI/cardHoc";
 import Button from "../common/Button";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import CartModal from "../modals/CartModal";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +27,7 @@ const ProductCard = ({
   function handleClose() {
     showCartModal(false);
   }
-  const cartItems = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   // Add Item to cart
@@ -42,17 +41,17 @@ const ProductCard = ({
       primary_image: product.primary_image,
     };
     if (isLoggedIn) {
-      dispatch(addToCartAuth([{ quantity: 1, product: product.id }])).then(
-        (response) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            dispatch(fetchCartAuth());
-            showCartModal(true);
-            toast.success("Item added successfully", {
-              position: "bottom-left",
-            });
-          }
-        }
-      );
+      const alreadyExists = cart.items?.find((item) => item.id === product.id);
+      dispatch(
+        addToCartAuth([
+          {
+            quantity: alreadyExists ? alreadyExists.quantity + 1 : 1,
+            product: product.id,
+          },
+        ])
+      )
+        .then(() => dispatch(fetchCartAuth()))
+        .then(() => showCartModal(true));
     } else {
       dispatch(addCartItem(data));
       dispatch(fetchCart());
@@ -61,7 +60,7 @@ const ProductCard = ({
     const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
     dispatch(
       getAllRelatedProducts(
-        cartItems?.related_product_Id || relatedIds?.related_product_Id
+        cart?.related_product_Id || relatedIds?.related_product_Id
       )
     );
   };
@@ -78,7 +77,7 @@ const ProductCard = ({
       <Link to={`${product?.get_product_url}`}>
         <div
           className={`w-auto rounded-t-lg relative flex justify-center text-white ${
-            isNotSwiperProduct ? "h-48 md:h-64 bg-white/60 group" : isheight
+            isNotSwiperProduct ? "h-52 md:h-68 bg-white/60 group" : isheight
           }`}
         >
           <img

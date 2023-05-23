@@ -4,7 +4,11 @@ import Loader from "./components/common/Loader";
 import { login } from "./store/slices/authSlice";
 import { getAllBlogs } from "./store/slices/blogSlice";
 import { useDispatch } from "react-redux";
-import { clearLocalStorage, fetchCart, fetchCartAuth } from "./store/slices/cartSlice";
+import {
+  clearLocalStorage,
+  fetchCart,
+  fetchCartAuth,
+} from "./store/slices/cartSlice";
 import { getAllProducts } from "./store/slices/productSlice";
 import { getAllCategories } from "./store/slices/commonSlice";
 import { useLocation } from "react-router-dom";

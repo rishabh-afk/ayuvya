@@ -20,15 +20,10 @@ const CartItem = ({ product, isCheckoutPage }) => {
 
   //add quantity to the list of products
   const addItemQuantity = (id, quantity, price) => {
-    setQuantity(quantity + 1);
     if (isLoggedIn) {
-      dispatch(
-        addToCartAuth([{ quantity: quantity + 1, product: product.id }])
-      ).then((response) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          dispatch(fetchCartAuth());
-        }
-      });
+      dispatch(addToCartAuth([{ quantity: quantity + 1, product: product.id }]))
+        .then(() => dispatch(fetchCartAuth()))
+        .then(() => setQuantity(quantity + 1));
     } else {
       dispatch(
         updateCartItem({
@@ -44,16 +39,14 @@ const CartItem = ({ product, isCheckoutPage }) => {
   //remove quantity from the list of products
   const removeItemQuantity = (id, quantity, price) => {
     if (quantity !== 1) {
-      setQuantity(quantity - 1);
       if (isLoggedIn) {
         dispatch(
           addToCartAuth([{ quantity: quantity - 1, product: product.id }])
-        ).then((response) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            dispatch(fetchCartAuth());
-          }
-        });
+        )
+          .then(() => dispatch(fetchCartAuth()))
+          .then(() => setQuantity(quantity - 1));
       } else {
+        setQuantity(quantity - 1);
         dispatch(
           updateCartItem({
             id: id,
@@ -71,30 +64,26 @@ const CartItem = ({ product, isCheckoutPage }) => {
 
   //remove product from cart
   const removeProductFromCart = async (id, price) => {
+    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
     if (isLoggedIn) {
-      dispatch(addToCartAuth([{ quantity: 0, product: id }])).then(
-        (response) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            dispatch(fetchCartAuth());
-          }
-        }
+      dispatch(addToCartAuth([{ quantity: 0, product: id }])).then(() =>
+        dispatch(fetchCartAuth())
       );
     } else {
       dispatch(removeCartItem({ id: id, total_item_price: price }));
       dispatch(fetchCart());
     }
-    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
+    // get all related items that are related to the cart item
     dispatch(
       getAllRelatedProducts(
         cartItems?.related_product_Id || relatedIds?.related_product_Id
       )
     );
-    toast("Product deleted successfully", { position: "top-center" });
+    toast.success("Product removed from cart!", { position: "top-center" });
   };
+
   return (
-    <div
-      className={`flex gap-5 ${isCheckoutPage ? "pt-2" : "border-b"}`}
-    >
+    <div className={`flex gap-5 ${isCheckoutPage ? "pt-2" : "border-b"}`}>
       <figure className="relative">
         <img
           className="w-20 lg:w-24 m-2 aspect-square rounded-md"
