@@ -12,7 +12,7 @@ import { getAllRelatedProducts } from "../../../store/slices/commonSlice";
 
 const RecommendationCard = ({ product, marginVertical }) => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   // Add Item to cart
@@ -26,19 +26,20 @@ const RecommendationCard = ({ product, marginVertical }) => {
       primary_image: product.primary_image,
     };
     if (isLoggedIn) {
-      dispatch(addToCartAuth([{ quantity: 1, product: product.id }])).then(() =>
-        dispatch(fetchCartAuth())
-      );
+      const alreadyExists = cart.items?.find((item) => item.id === product.id);
+      dispatch(
+        addToCartAuth([
+          {
+            quantity: alreadyExists ? alreadyExists.quantity + 1 : 1,
+            product: product.id,
+          },
+        ])
+      ).then(() => dispatch(fetchCartAuth()));
     } else {
       dispatch(addCartItem(data));
       dispatch(fetchCart());
     }
-    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
-    dispatch(
-      getAllRelatedProducts(
-        cartItems?.related_product_Id || relatedIds?.related_product_Id
-      )
-    );
+    dispatch(getAllRelatedProducts([product.id, ...cart?.related_product_Id]));
   };
   return (
     <div className={`flex flex-col gap-2 cursor-pointer ${marginVertical}`}>

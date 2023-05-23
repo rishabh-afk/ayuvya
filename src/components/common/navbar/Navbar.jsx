@@ -16,6 +16,7 @@ import AyuvyaWhiteLogo from "../../../assets/logo/ayuvya_ayurveda_white.png";
 const Navbar = () => {
   //to show all categories on navbar & on sidebar
   const categories = useSelector((state) => state.common.categories);
+  const blogStatus = useSelector((state) => state.blog.status);
   // const categories = category;
 
   //to show cart modal when user clicks
@@ -93,12 +94,19 @@ const Navbar = () => {
           <SearchBar openSearchBar={openSearchBar} />
         ) : (
           <>
-            <div className="hidden lg:flex gap-6 text-xs">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="hidden lg:flex gap-6 text-xs"
+            >
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                <Link to={"/collection/all"}>ALL PRODUCTS</Link>
+                {categories.length > 0 && (
+                  <Link to={"/collection/all"}>ALL PRODUCTS</Link>
+                )}
               </motion.div>
               {categories.map((category) => {
                 return (
@@ -117,9 +125,9 @@ const Navbar = () => {
                 whileHover={{ scale: 1.2 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                <Link to={"/blogs"}>BLOGS</Link>
+                {blogStatus === "success" && <Link to={"/blogs"}>BLOGS</Link>}
               </motion.div>
-            </div>
+            </motion.div>
           </>
         )}
         {searchBar ? (

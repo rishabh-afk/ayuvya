@@ -11,11 +11,15 @@ import {
   fetchCartAuth,
 } from "./store/slices/cartSlice";
 import { getAllProducts } from "./store/slices/productSlice";
-import { getAllCategories } from "./store/slices/commonSlice";
+import {
+  getAllCategories,
+  getAllRelatedProducts,
+} from "./store/slices/commonSlice";
 
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const cart = useSelector((state) => state.cart);
   const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
   const prevRoute = localStorage.getItem("SET_ROUTE_HISTORY");
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -40,6 +44,12 @@ const App = () => {
       }
     }
   }, [location, prevRoute, dispatch, isLoggedIn]);
+
+  useEffect(() => {
+    if (cart.items.length > 0) {
+      dispatch(getAllRelatedProducts(cart?.related_product_Id));
+    }
+  }, [dispatch, cart?.related_product_Id, cart.items.length]);
 
   return (
     <Suspense fallback={<Loader />}>
