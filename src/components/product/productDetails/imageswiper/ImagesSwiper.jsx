@@ -32,7 +32,12 @@ export default function App({ images }) {
         {images.map((productImg) => {
           return (
             <SwiperSlide key={productImg.id}>
-              <img src={productImg.product_image} alt="" className="" />
+              <img
+                src={productImg.product_image}
+                alt=""
+                className=""
+                loading="lazy"
+              />
             </SwiperSlide>
           );
         })}
@@ -49,7 +54,12 @@ export default function App({ images }) {
         {images.map((productImg) => {
           return (
             <SwiperSlide key={productImg.id}>
-              <img src={productImg.product_image} alt="" className="" />
+              <img
+                loading="lazy"
+                src={productImg.product_image}
+                alt=""
+                className=""
+              />
             </SwiperSlide>
           );
         })}

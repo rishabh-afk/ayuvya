@@ -57,9 +57,7 @@ const sendOTP = async (data) => {
   if (resp.status === 200) {
     toast.success("OTP is sent successfully");
     return resp.data;
-  } else {
-    toast.warn("Failed to send OTP. Try again later");
-  }
+  } else return toast.warn("Failed to send OTP. Try again later");
 };
 
 const services = {

@@ -4,7 +4,7 @@ import OTPInput from "react-otp-input";
 import "react-toastify/dist/ReactToastify.css";
 import { VscChromeClose } from "react-icons/vsc";
 import { login } from "../../store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { verifyOTP } from "../../store/slices/commonSlice";
 import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
@@ -29,7 +29,7 @@ Modal.setAppElement("#root");
 
 const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
   const dispatch = useDispatch();
-
+  const cart = useSelector((state) => state.cart);
   // resend otp
   const resendOTP = () => {
     const data = {
@@ -41,14 +41,10 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
   //handleVerifyOtp
   const handleverifyOtp = async (e) => {
     e.preventDefault();
-    const data = {
-      phone: phone,
-      otp: otp,
-    };
-    dispatch(verifyOTP(data))
-      .then(() => dispatch(login()))
+    if (otp.length !== 4 || otp.length === 0) return toast.warn("Invalid OTP");
+    dispatch(verifyOTP({ phone: phone, otp: otp }))
       .then(() => {
-        const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+        dispatch(login());
         let data = [];
         cart.items.map((item) => {
           data.push({ product: item.id, quantity: item.quantity });

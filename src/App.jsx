@@ -26,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(login());
-    if (cartId) {
+    if (cartId !== null) {
       dispatch(fetchCartAuth());
     }
     dispatch(getAllBlogs());
@@ -35,7 +35,10 @@ const App = () => {
   }, [dispatch, cartId]);
 
   useEffect(() => {
-    if (prevRoute === "/thank-you" && location.pathname !== "/thank-you") {
+    if (
+      (prevRoute === "/thank-you/" || "/thank-you") &&
+      location.pathname !== "/thank-you"
+    ) {
       dispatch(clearLocalStorage());
       if (isLoggedIn) {
         dispatch(fetchCartAuth());

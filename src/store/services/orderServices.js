@@ -21,7 +21,7 @@ const createOrder = async (data, token) => {
     {
       pending: "Please wait...",
       success: "Order created successfully!",
-      error: "Failed to initialize order! Try again later",
+      error: "Your order is duplicated!",
     }
   );
   return resp.data;

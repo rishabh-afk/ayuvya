@@ -6,7 +6,12 @@ const TestimonialCard = ({ product }) => {
   return (
     <CardHoc className="bg-white p-8 my-10 cursor-none lg:cursor-pointer">
       <figure className="flex justify-center">
-        <img className="rounded-full w-24" src={product.imageUrl} alt="" />
+        <img
+          loading="lazy"
+          className="rounded-full w-24"
+          src={product.imageUrl}
+          alt=""
+        />
       </figure>
       <figcaption className="flex flex-col justify-center items-center">
         <div className="flex gap-1 py-5">

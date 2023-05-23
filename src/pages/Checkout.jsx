@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/common/Loader";
-import { fetchCart } from "../store/slices/cartSlice";
+import { fetchCart, fetchCartAuth } from "../store/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "../components/order/OrderDetails";
 import CheckoutForm from "../components/common/forms/CheckoutForm";
@@ -17,17 +17,21 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const payment_type = useSelector((state) => state.cart.payment_type);
 
   useEffect(() => {
-    if (cart.status !== "success") {
-      dispatch(fetchCart());
-      localStorage.setItem("AYUVYA_PAYMENT_METHOD", "Prepaid");
+    if (cart.status !== "success" && isLoggedIn) {
+      dispatch(fetchCartAuth());
     }
+    if (cart.status !== "success" && !isLoggedIn) {
+      dispatch(fetchCart());
+    }
+    localStorage.setItem("AYUVYA_PAYMENT_METHOD", "Prepaid");
     if (cart.status === "success" && cart && cart?.items.length === 0) {
       navigate("/");
     }
-  }, [dispatch, cart, navigate]);
+  }, [dispatch, cart, navigate, isLoggedIn]);
 
   return (
     <>

@@ -8,7 +8,12 @@ const PlaystoreApp = () => {
     <div className="bg-[#f8f9fa]">
       <div className="max-w-7xl m-auto flex flex-col md:flex-row gap:14 md:gap-28 px-6 py-12 md:p-12 lg:px-24">
         <figure className="w-full md:w-1/4">
-          <img className="px-20 md:px-0" src={mobileApp} alt="Mobile" />
+          <img
+            loading="lazy"
+            className="px-20 md:px-0"
+            src={mobileApp}
+            alt="Mobile"
+          />
         </figure>
         <figcaption className="flex flex-col gap-5 py-8 w-full md:w-3/4">
           <h2 className="text-4xl font-semibold border-b-4 w-fit pb-2">

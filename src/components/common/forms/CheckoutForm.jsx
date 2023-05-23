@@ -60,7 +60,8 @@ const CheckoutForm = () => {
 
   // send notification
   const sendOtp = async (data) => {
-    dispatch(sendOTP(data)).then(() => showOtpModal(true));
+    showOtpModal(true);
+    dispatch(sendOTP(data));
   };
   // to close sendOtpModal
   const handleClose = () => {
@@ -96,15 +97,9 @@ const CheckoutForm = () => {
 
   // to handle COD orders, we need to check if the user is authorized or not
   const handleCodOrder = () => {
-    if (user.phone.length !== 10) {
-      toast.error("Invalid Phone Number");
-      return;
-    }
-    if (isLoggedIn) {
-      handleCreateOrder();
-    } else {
-      sendOtp({ phone: user.phone });
-    }
+    if (user.phone.length !== 10) return toast.error("Invalid Phone Number");
+    if (isLoggedIn) handleCreateOrder();
+    else sendOtp({ phone: user.phone });
   };
   // to create prepaid orders
   const handlePrePaidOrder = () => {
@@ -138,7 +133,7 @@ const CheckoutForm = () => {
     dispatch(createOrder(user))
       .then((response) => {
         localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
-        navigate("/thank-you/");
+        navigate("/thank-you");
       })
       .catch((error) => {
         toast.error("Something went wrong");
@@ -148,19 +143,16 @@ const CheckoutForm = () => {
   //apply promo Code to order
   const ApplyPromoCode = async (e) => {
     e.preventDefault();
-    if (!isLoggedIn && user.phone.length !== 10) {
-      toast.error("Invalid Phone Number");
-      return;
-    }
-    if (user.promoCode.length < 1) {
-      toast.error("Invalid Promo Code");
-      return;
-    }
-    if (isLoggedIn) {
-      dispatch(applyCoupon(user.promoCode));
-    } else {
-      sendOtp({ phone: user.phone });
-    }
+    const reg = ["1", "2", "3", "4", "5", "0"];
+    if (
+      (!isLoggedIn && user.phone.length !== 10) ||
+      (user.phone.length === 10 && reg.includes(user.phone[0]))
+    )
+      return toast.error("Invalid Phone Number");
+    if (user.promoCode.length < 1) return toast.error("Invalid Promo Code");
+    if (isLoggedIn) dispatch(applyCoupon(user.promoCode));
+    else sendOtp({ phone: user.phone });
+    localStorage.setItem("AYUVYA_USERDATA", JSON.stringify(user));
   };
   // handle pin code of user
   const handlePinCode = async (e) => {

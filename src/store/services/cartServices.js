@@ -23,13 +23,15 @@ const addItemToCart = async (data, token) => {
 };
 
 const fetchCart = async (token, cartId) => {
-  const resp = await axios.get(`${BASE_URL}${CART_URL}${cartId}/`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Token " + token,
-    },
-  });
-  return resp.data;
+  if (cartId !== null) {
+    const resp = await axios.get(`${BASE_URL}${CART_URL}${cartId}/`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + token,
+      },
+    });
+    return resp.data;
+  }
 };
 
 const APPLY_COUPON_URL = "api/cart/coupon/";

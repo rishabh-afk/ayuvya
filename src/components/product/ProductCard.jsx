@@ -59,7 +59,7 @@ const ProductCard = ({
     }
     dispatch(getAllRelatedProducts([product.id, ...cart?.related_product_Id]));
   };
-  
+
   return (
     <CardHoc
       className={`bg-white cursor-none lg:cursor-pointer ${marginVertical} `}
@@ -72,6 +72,7 @@ const ProductCard = ({
           }`}
         >
           <img
+            loading="lazy"
             className={`absolute rounded-t-lg h-full object-cover ${
               isNotSwiperProduct
                 ? "transition delay-75 ease-in-out duration-200 group-hover:opacity-30"

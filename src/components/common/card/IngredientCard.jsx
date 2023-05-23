@@ -7,7 +7,7 @@ const IngredientCard = ({ imageUrl, description, title }) => {
         <h2 className="text-xl font-semibold">{title}</h2>
         <p className="">{description}</p>
       </div>
-      <img src={imageUrl} alt="" className="w-32 rounded-full" />
+      <img loading="lazy" src={imageUrl} alt="" className="w-32 rounded-full" />
     </CardHoc>
   );
 };

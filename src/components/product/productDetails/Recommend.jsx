@@ -7,14 +7,21 @@ const Recommend = ({ recommend }) => {
           {recommend.map((recommended, index) => {
             return (
               <div key={recommended.id} className="w-1/2">
-                <h2 className="text-3xl font-semibold py-2">{recommended?.title}</h2>
+                <h2 className="text-3xl font-semibold py-2">
+                  {recommended?.title}
+                </h2>
                 {recommend[index]?.recommend.map((item) => {
                   return (
                     <div
                       key={item?.id}
                       className="flex gap-5 items-center py-1"
                     >
-                      <img className="w-8" src={item?.image} alt={item.title} />
+                      <img
+                        loading="lazy"
+                        className="w-8"
+                        src={item?.image}
+                        alt={item.title}
+                      />
                       <h2>{item.title}</h2>
                     </div>
                   );
@@ -31,7 +38,12 @@ const Recommend = ({ recommend }) => {
               .map((item) => {
                 return (
                   <div key={item?.id} className="flex gap-5 items-center py-1">
-                    <img className="w-8" src={item?.image} alt={item.title} />
+                    <img
+                      loading="lazy"
+                      className="w-8"
+                      src={item?.image}
+                      alt={item.title}
+                    />
                     <h2>{item.title}</h2>
                   </div>
                 );
@@ -43,7 +55,12 @@ const Recommend = ({ recommend }) => {
               .map((item) => {
                 return (
                   <div key={item?.id} className="flex gap-5 items-center py-1">
-                    <img className="w-8" src={item?.image} alt={item.title} />
+                    <img
+                      loading="lazy"
+                      className="w-8"
+                      src={item?.image}
+                      alt={item.title}
+                    />
                     <h2>{item.title}</h2>
                   </div>
                 );

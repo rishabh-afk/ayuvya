@@ -19,7 +19,12 @@ const HowToUse = ({ how_to_use_section, recommendation }) => {
                         className="w-full md:w-1/2 flex flex-col gap-2 py-5 items-center justify-start"
                       >
                         <figure>
-                          <img className="w-16 cursor-none lg:cursor-pointer" src={e.image} alt={e.title} />
+                          <img
+                            loading="lazy"
+                            className="w-16 cursor-none lg:cursor-pointer"
+                            src={e.image}
+                            alt={e.title}
+                          />
                         </figure>
                         <figcaption>
                           <h2 className="text-2xl font-semibold">{e.title}</h2>
@@ -63,7 +68,11 @@ const HowToUse = ({ how_to_use_section, recommendation }) => {
                   className="w-full md:w-1/2 flex flex-col py-5 items-center justify-start gap-2"
                 >
                   <figure>
-                    <img className="w-16 cursor-none lg:cursor-pointer" src={e.image} alt={e.title} />
+                    <img
+                      className="w-16 cursor-none lg:cursor-pointer"
+                      src={e.image}
+                      alt={e.title}
+                    />
                   </figure>
                   <figcaption>
                     <h2 className="text-2xl font-semibold">{e.title}</h2>
