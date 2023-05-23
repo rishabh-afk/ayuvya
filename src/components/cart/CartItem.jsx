@@ -8,15 +8,14 @@ import {
 } from "../../store/slices/cartSlice";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRelatedProducts } from "../../store/slices/commonSlice";
 
 const CartItem = ({ product, isCheckoutPage }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(product.quantity);
+  const cart = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const cartItems = useSelector((state) => state.cart);
 
   //add quantity to the list of products
   const addItemQuantity = (id, quantity, price) => {
@@ -35,7 +34,6 @@ const CartItem = ({ product, isCheckoutPage }) => {
       dispatch(fetchCart());
     }
   };
-
   //remove quantity from the list of products
   const removeItemQuantity = (id, quantity, price) => {
     if (quantity !== 1) {
@@ -61,10 +59,8 @@ const CartItem = ({ product, isCheckoutPage }) => {
       removeProductFromCart(id, price);
     }
   };
-
   //remove product from cart
   const removeProductFromCart = async (id, price) => {
-    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
     if (isLoggedIn) {
       dispatch(addToCartAuth([{ quantity: 0, product: id }])).then(() =>
         dispatch(fetchCartAuth())
@@ -73,13 +69,13 @@ const CartItem = ({ product, isCheckoutPage }) => {
       dispatch(removeCartItem({ id: id, total_item_price: price }));
       dispatch(fetchCart());
     }
-    // get all related items that are related to the cart item
     dispatch(
       getAllRelatedProducts(
-        cartItems?.related_product_Id || relatedIds?.related_product_Id
+        cart?.related_product_Id.filter((item) => {
+          return id !== item;
+        })
       )
     );
-    toast.success("Product removed from cart!", { position: "top-center" });
   };
 
   return (

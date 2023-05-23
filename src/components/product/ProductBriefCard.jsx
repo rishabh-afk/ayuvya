@@ -1,9 +1,9 @@
 import ProgressBarWithStars from "../common/custom/ProgressBarWithStars";
 import Button from "../common/Button";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProductBriefCard = ({
-  buyNow,
   product,
   headingSize,
   cardStarSize,
@@ -12,6 +12,7 @@ const ProductBriefCard = ({
   productBriefHeight,
   cardDescriptionSize,
 }) => {
+  const navigate = useNavigate();
   return (
     <div className={`text-center px-2 py-4 md:p-4 gap-1`}>
       <div
@@ -61,7 +62,7 @@ const ProductBriefCard = ({
         )}
       </div>
       <Button
-        handler={buyNow}
+        handler={() => navigate(`${product?.get_product_url}`)}
         className={`bg-black ${
           isNotSwiperProduct ? "md:hidden" : "hidden"
         } text-md md:text-xl text-white justify-center m-auto mb-2 rounded-lg outline-none hover:bg-gray-500 ${
@@ -71,7 +72,11 @@ const ProductBriefCard = ({
         Buy Now
       </Button>
       <Button
-        handler={isNotSwiperProduct ? () => addItemToCart(product) : buyNow}
+        handler={
+          isNotSwiperProduct
+            ? () => addItemToCart(product)
+            : () => navigate(`${product?.get_product_url}`)
+        }
         className={`bg-black text-md md:text-xl m-auto justify-center  text-white rounded-md outline-none hover:bg-gray-500 ${
           isNotSwiperProduct ? "px-6 lg:w-full" : "px-4"
         }`}

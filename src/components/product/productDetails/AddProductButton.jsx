@@ -13,7 +13,7 @@ import { getAllRelatedProducts } from "../../../store/slices/commonSlice";
 const AddProductButton = (product) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const cartItems = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
   //to show cart modal when user clicks
   const [cartModal, showCartModal] = useState(false);
   function handleClose() {
@@ -30,9 +30,7 @@ const AddProductButton = (product) => {
       primary_image: product?.product_images[0].product_image,
     };
     if (isLoggedIn) {
-      const alreadyExists = cartItems.items?.find(
-        (item) => item.id === product.id
-      );
+      const alreadyExists = cart.items?.find((item) => item.id === product.id);
       dispatch(
         addToCartAuth([
           {
@@ -48,12 +46,7 @@ const AddProductButton = (product) => {
       dispatch(fetchCart());
       showCartModal(true);
     }
-    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
-    dispatch(
-      getAllRelatedProducts(
-        cartItems?.related_product_Id || relatedIds?.related_product_Id
-      )
-    );
+    dispatch(getAllRelatedProducts([product.id, ...cart?.related_product_Id]));
   };
 
   return (

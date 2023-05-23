@@ -33,7 +33,7 @@ const ThankYou = () => {
     // prepaid order status
     if (orderId.includes("order")) {
       if (payment_status === "SUCCESS") {
-        localStorage.getItem("SET_ROUTE_HISTORY", location.pathname);
+        localStorage.setItem("SET_ROUTE_HISTORY", location.pathname);
         dispatch(fetchCartAuth()).then(() => {
           showThankYou(true);
         });
@@ -48,7 +48,7 @@ const ThankYou = () => {
       }
       // COD orders
     } else {
-      localStorage.getItem("SET_ROUTE_HISTORY", location.pathname);
+      localStorage.setItem("SET_ROUTE_HISTORY", location.pathname);
       showThankYou(true);
     }
   }, [orderId, dispatch, payment_status, navigate, location]);

@@ -1,3 +1,4 @@
+import React from "react";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import { motion } from "framer-motion";

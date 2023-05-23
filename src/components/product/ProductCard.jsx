@@ -57,18 +57,9 @@ const ProductCard = ({
       dispatch(fetchCart());
       showCartModal(true);
     }
-    const relatedIds = await JSON.parse(localStorage.getItem("AYUVYA_CART"));
-    dispatch(
-      getAllRelatedProducts(
-        cart?.related_product_Id || relatedIds?.related_product_Id
-      )
-    );
+    dispatch(getAllRelatedProducts([product.id, ...cart?.related_product_Id]));
   };
-  // to navigate to product Landing page
-  const buyNow = () => {
-    navigate(`${product?.get_product_url}`);
-  };
-
+  
   return (
     <CardHoc
       className={`bg-white cursor-none lg:cursor-pointer ${marginVertical} `}
@@ -93,7 +84,7 @@ const ProductCard = ({
             <>
               <div className="relative transition-all ease-in-out duration-200 delay-75 w-full h-full flex justify-center items-center opacity-0 group-hover:opacity-100">
                 <Button
-                  handler={buyNow}
+                  handler={() => navigate(`${product?.get_product_url}`)}
                   className="bg-black rounded-none py-2 px-6 text-lg hover:bg-gray-500"
                 >
                   Buy Now
@@ -107,7 +98,6 @@ const ProductCard = ({
         </div>
       </Link>
       <ProductBriefCard
-        buyNow={buyNow}
         product={product}
         headingSize={headingSize}
         cardStarSize={cardStarSize}
