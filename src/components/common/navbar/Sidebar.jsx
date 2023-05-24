@@ -29,9 +29,11 @@ const Sidebar = ({ setSidebar, categories }) => {
           />
         </div>
         <div className="flex flex-col gap-3 text-2xl font-semibold pb-6">
-          <Link onClick={handleClick} to={"/collection/all"}>
-            All Products
-          </Link>
+          {categories.length > 0 && (
+            <Link onClick={handleClick} to={"/collection/all"}>
+              All Products
+            </Link>
+          )}
           {categories.map((category) => {
             return (
               <Link
