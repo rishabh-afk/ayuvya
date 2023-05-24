@@ -105,27 +105,23 @@ const CheckoutForm = () => {
   const handlePrePaidOrder = () => {
     dispatch(createOrder(user)).then((response) => {
       localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
-      localStorage.setItem("AYUVYA_UPDATED_ORDER_ID", response.payload.order_id);
+      localStorage.setItem(
+        "AYUVYA_UPDATED_ORDER_ID",
+        response.payload.order_id
+      );
       handleCashFreePayment(response.payload.order_token);
     });
   };
   //to handle prepaid order
   const handleCashFreePayment = async (order_token) => {
-    const cashfree = await load({
-      mode: "sandbox", //or production
-    });
+    const cashfree = await load({ mode: config.CASHFREE_MODE });
     let checkoutOptions = {
       paymentSessionId: order_token,
-      returnUrl: `http://localhost:3000/thank-you`,
-      // returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com/thank-you`,
+      returnUrl: config.CASHFREE_RETURN_URL,
     };
     cashfree.checkout(checkoutOptions).then((result) => {
-      if (result.error) {
-        toast.error(result.error.message);
-      }
-      if (result.redirect) {
-        console.log("Redirection");
-      }
+      if (result.error) toast.error(result.error.message);
+      if (result.redirect) console.log("Redirection");
     });
   };
   //to handle a new order

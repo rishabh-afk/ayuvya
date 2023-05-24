@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Button from "../common/Button";
+import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { TiTick } from "react-icons/ti";
+import config from "../../config/config";
 import { useDispatch } from "react-redux";
 import { BsClipboard } from "react-icons/bs";
 import CustomerDetails from "./CustomerDetails";
 import { Link, useNavigate } from "react-router-dom";
 import { load } from "@cashfreepayments/cashfree-js";
 import { updateCODOrder } from "../../store/slices/orderSlice";
-import { toast } from "react-toastify";
 
 const OrderSummary = ({ userDetails, final_amount, orderId, payment_type }) => {
   const navigate = useNavigate();
@@ -37,27 +38,23 @@ const OrderSummary = ({ userDetails, final_amount, orderId, payment_type }) => {
     };
     dispatch(updateCODOrder(user)).then((response) => {
       localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
-      localStorage.setItem("AYUVYA_UPDATED_ORDER_ID", response.payload.order_id);
+      localStorage.setItem(
+        "AYUVYA_UPDATED_ORDER_ID",
+        response.payload.order_id
+      );
       handleCashFreePayment(response.payload.order_token);
     });
   };
   //to handle prepaid order
   const handleCashFreePayment = async (order_token) => {
-    const cashfree = await load({
-      mode: "sandbox", //or production
-    });
+    const cashfree = await load({ mode: config.CASHFREE_MODE });
     let checkoutOptions = {
       paymentSessionId: order_token,
-      returnUrl: `http://localhost:3000/thank-you`,
-      // returnUrl: `http://ayuvya-react-app.s3-website-ap-southeast-2.amazonaws.com/thank-you`,
+      returnUrl: config.CASHFREE_RETURN_URL,
     };
     cashfree.checkout(checkoutOptions).then((result) => {
-      if (result.error) {
-        toast.error(result.error.message);
-      }
-      if (result.redirect) {
-        console.log("Redirection");
-      }
+      if (result.error) toast.error(result.error.message);
+      if (result.redirect) console.log("Redirection");
     });
   };
   return (
