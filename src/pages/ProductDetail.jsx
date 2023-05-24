@@ -53,7 +53,8 @@ const ProductDetail = () => {
       <motion.section
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
+        transition={{ duration: 0.7, ease: "easeInOut" }}
+        key={product?.product_name}
         className="max-w-7xl mx-auto"
       >
         <div className="flex flex-col lg:flex-row mx-3 md:mx-8 lg:mx-16 my-8">
