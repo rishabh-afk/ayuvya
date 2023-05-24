@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "../config/config";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Layouts from "../components/UI/Layouts";
 import Loader from "../components/common/Loader";
@@ -9,9 +8,8 @@ import ProductCard from "../components/product/ProductCard";
 
 const BlogDetail = () => {
   const { slug } = useParams();
-  const [blog, setBlog] = useState();
   const navigate = useNavigate();
-  const productData = useSelector((state) => state.product.products);
+  const [blog, setBlog] = useState();
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -49,9 +47,9 @@ const BlogDetail = () => {
             <p className="py-8 text-xl">{blog.blog_description}</p>
           </div>
           <div className="w-full flex flex-row gap-4 mb-8 lg:flex-col lg:w-1/4">
-            {productData.slice(18, 20).map((product) => {
+            {blog?.related_product.map((product) => {
               return (
-                <div key={product.id} className="w-1/2 lg:w-[90%]">
+                <div key={product.id} className="w-1/2 lg:w-full lg:px-4">
                   <ProductCard product={product} isNotSwiperProduct={true} />
                 </div>
               );
@@ -68,12 +66,3 @@ const BlogDetail = () => {
 };
 
 export default BlogDetail;
-
-
-// {blog?.related_product.map((product) => {
-//   return (
-//     <div key={product.id} className="w-1/2 lg:w-[90%]">
-//       <ProductCard product={product} isNotSwiperProduct={true} />
-//     </div>
-//   );
-// })}

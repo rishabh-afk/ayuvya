@@ -39,13 +39,28 @@ export const getUser = createAsyncThunk(
   }
 );
 
+export const verifyOTP = createAsyncThunk(
+  "post/verifyOtp",
+  async (data, thunkAPI) => {
+    try {
+      return await authServices.verifyOTP(data);
+    } catch (e) {
+      const msg =
+        (e.response && e.response.data && e.response.data.message) ||
+        e.message ||
+        e.toString();
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
   reducers: {
     logout: (state) => {
       Object.assign(state, initialAuthState);
-      localStorage.removeItem("AYUVYA-AYURVEDA-252d-4e76-9b06");
+      localStorage.removeItem("AYUVYA-AYURVEDA-252D-4E76-9B06");
     },
     login: (state) => {
       let token = localStorage.getItem("AYUVYA_TOKEN_USER");
@@ -83,6 +98,19 @@ const authSlice = createSlice({
       .addCase(getUser.rejected, (state, action) => {
         state.isLoggedIn = false;
         state.message = action.payload;
+      })
+      .addCase(verifyOTP.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(verifyOTP.fulfilled, (state, action) => {
+        state.status = "success";
+        state.isLoggedIn = true;
+        state.userToken = action.payload.token;
+        localStorage.setItem("AYUVYA_TOKEN_USER", action.payload.token);
+        // localStorage.setItem("AYUVYA_CART_ID_8932_6754", action.payload.cart);
+      })
+      .addCase(verifyOTP.rejected, (state, action) => {
+        state.status = "rejected";
       });
   },
 });

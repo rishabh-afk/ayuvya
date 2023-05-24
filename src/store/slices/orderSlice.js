@@ -13,7 +13,7 @@ export const createOrder = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const token = localStorage.getItem("AYUVYA_TOKEN_USER");
-      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      const cartId = localStorage.getItem("AYUVYA_CART_ID_8932_6754");
       const data = {
         ...user,
         cart: cartId,
@@ -34,7 +34,7 @@ export const updateCODOrder = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const token = localStorage.getItem("AYUVYA_TOKEN_USER");
-      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      const cartId = localStorage.getItem("AYUVYA_CART_ID_8932_6754");
       const orderId = user.orderId;
       const data = {
         ...user,

@@ -3,10 +3,9 @@ import Button from "../common/Button";
 import OTPInput from "react-otp-input";
 import "react-toastify/dist/ReactToastify.css";
 import { VscChromeClose } from "react-icons/vsc";
-import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { verifyOTP } from "../../store/slices/commonSlice";
+import { verifyOTP } from "../../store/slices/authSlice";
 import { addToCartAuth, fetchCartAuth } from "../../store/slices/cartSlice";
 
 const customStyles = {
@@ -44,7 +43,6 @@ const VerifyOtp = ({ otpModal, handleClose, sendOtp, phone, setOtp, otp }) => {
     if (otp.length !== 4 || otp.length === 0) return toast.warn("Invalid OTP");
     dispatch(verifyOTP({ phone: phone, otp: otp }))
       .then(() => {
-        dispatch(login());
         let data = [];
         cart.items.map((item) => {
           data.push({ product: item.id, quantity: item.quantity });

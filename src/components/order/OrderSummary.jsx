@@ -16,10 +16,10 @@ const OrderSummary = ({ userDetails, final_amount, orderId, payment_type }) => {
   const [copyToClip, setCopyToClip] = useState(false);
 
   const backToHome = async () => {
-    localStorage.removeItem("AYUVYA_CART");
+    localStorage.removeItem("AYUVYA_CART_9731_8652");
     localStorage.removeItem("AYUVYA_ORDER_ID");
     localStorage.removeItem("AYUVYA_USERDATA");
-    localStorage.removeItem("AYUVYA_CART-CARTID");
+    localStorage.removeItem("AYUVYA_CART_ID_8932_6754");
     navigate("/");
   };
   const copyToClipboard = () => {
@@ -37,7 +37,7 @@ const OrderSummary = ({ userDetails, final_amount, orderId, payment_type }) => {
     };
     dispatch(updateCODOrder(user)).then((response) => {
       localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
-      localStorage.setItem("AYUVYA_NEW_ORDER_ID", response.payload.order_id);
+      localStorage.setItem("AYUVYA_UPDATED_ORDER_ID", response.payload.order_id);
       handleCashFreePayment(response.payload.order_token);
     });
   };

@@ -9,7 +9,7 @@ const loginUser = async (data) => {
   const resp = await axios.post(`${BASE_URL}${LOGIN_USER_URL}`, data);
   if (resp.data.result) {
     localStorage.setItem(
-      "AYUVYA-AYURVEDA-252d-4e76-9b06",
+      "AYUVYA-AYURVEDA-252D-4E76-9B06",
       resp.data.result.accessToken
     );
   }
@@ -31,6 +31,12 @@ const getUser = async (token) => {
   return resp.data;
 };
 
-const authServices = { getUser, loginUser };
+const VERIFY_OTP_URL = "api/auth/otp/verify/";
+const verifyOTP = async (data) => {
+  const resp = await axios.post(`${BASE_URL}${VERIFY_OTP_URL}`, data);
+  return resp.data;
+};
+
+const authServices = { getUser, loginUser, verifyOTP };
 
 export default authServices;

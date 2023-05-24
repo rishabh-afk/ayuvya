@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 import Loader from "../components/common/Loader";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchCartAuth } from "../store/slices/cartSlice";
+import { useNavigate, useLocation } from "react-router-dom";
 import OrderDetails from "../components/order/OrderDetails";
 import OrderSummary from "../components/order/OrderSummary";
 import { verifyPaymentStatus } from "../store/slices/orderSlice";
-import { fetchCartAuth } from "../store/slices/cartSlice";
 
 const variants = {
   initial: { y: -500 },
@@ -23,35 +23,24 @@ const ThankYou = () => {
   const cart = useSelector((state) => state.cart);
   const orderId = localStorage.getItem("AYUVYA_ORDER_ID");
   const userDetails = JSON.parse(localStorage.getItem("AYUVYA_USERDATA"));
-  const payment_type = useSelector((state) => state.cart.payment_type);
   const payment_status = useSelector((state) => state.order.payment_status);
+  
+  const showThankYouPage = useCallback(() => {
+    localStorage.setItem("SET_ROUTE_HISTORY", location.pathname);
+    showThankYou(true);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (orderId === null) {
       return navigate("/");
     }
-    // prepaid order status
     if (orderId.includes("order")) {
       if (payment_status === "SUCCESS") {
-        localStorage.setItem("SET_ROUTE_HISTORY", location.pathname);
-        dispatch(fetchCartAuth()).then(() => {
-          showThankYou(true);
-        });
-      } else if (payment_status === "FAILED") {
-        navigate("/");
-      } else {
-        dispatch(
-          verifyPaymentStatus({
-            order_id: orderId,
-          })
-        );
-      }
-      // COD orders
-    } else {
-      localStorage.setItem("SET_ROUTE_HISTORY", location.pathname);
-      showThankYou(true);
-    }
-  }, [orderId, dispatch, payment_status, navigate, location]);
+        dispatch(fetchCartAuth()).then(() => showThankYouPage());
+      } else if (payment_status === "FAILED") navigate("/");
+      else dispatch(verifyPaymentStatus({ order_id: orderId }));
+    } else showThankYouPage();
+  }, [orderId, dispatch, payment_status, navigate, location, showThankYouPage]);
   return (
     <>
       {thankYou ? (
@@ -67,7 +56,7 @@ const ThankYou = () => {
               userDetails={userDetails}
               final_amount={cart?.final_amount}
               orderId={orderId}
-              payment_type={payment_type}
+              payment_type={cart?.payment_type}
             />
           </motion.div>
           <motion.div
@@ -77,7 +66,7 @@ const ThankYou = () => {
             transition={variants.transition}
             className="w-full lg:w-[45%] px-4 lg:p-12 bg-gray-100 border-l border-[#e1e1e1] order-first lg:order-last"
           >
-            <OrderDetails cart={cart} payment_type={payment_type} />
+            <OrderDetails cart={cart} payment_type={cart?.payment_type} />
           </motion.div>
         </div>
       ) : (

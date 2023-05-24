@@ -3,7 +3,6 @@ import services from "../services/getServices";
 
 const initialState = {
   message: "",
-  concerns: [],
   categories: [],
   instaPosts: [],
   accessToken: "",
@@ -27,41 +26,11 @@ export const getAllCategories = createAsyncThunk(
   }
 );
 
-export const getAllConcerns = createAsyncThunk(
-  "get/concerns",
-  async (thunkAPI) => {
-    try {
-      return await services.getAllConcerns();
-    } catch (e) {
-      const msg =
-        (e.response && e.response.data && e.response.data.message) ||
-        e.message ||
-        e.toString();
-      return thunkAPI.rejectWithValue(msg);
-    }
-  }
-);
-
 export const getAllRelatedProducts = createAsyncThunk(
   "post/related-products",
   async (data, thunkAPI) => {
     try {
       return await services.getAllRelatedProducts(data);
-    } catch (e) {
-      const msg =
-        (e.response && e.response.data && e.response.data.message) ||
-        e.message ||
-        e.toString();
-      return thunkAPI.rejectWithValue(msg);
-    }
-  }
-);
-
-export const verifyOTP = createAsyncThunk(
-  "post/verifyOtp",
-  async (data, thunkAPI) => {
-    try {
-      return await services.verifyOTP(data);
     } catch (e) {
       const msg =
         (e.response && e.response.data && e.response.data.message) ||
@@ -120,18 +89,6 @@ const commonSlice = createSlice({
         state.categories = [];
         state.message = action.payload;
       })
-      .addCase(getAllConcerns.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(getAllConcerns.fulfilled, (state, action) => {
-        state.status = "success";
-        state.concerns = action.payload.results;
-      })
-      .addCase(getAllConcerns.rejected, (state, action) => {
-        state.status = "rejected";
-        state.concerns = [];
-        state.message = action.payload;
-      })
       .addCase(getAllRelatedProducts.pending, (state) => {
         state.status = "loading";
       })
@@ -143,17 +100,6 @@ const commonSlice = createSlice({
         state.status = "rejected";
         state.relatedProducts = [];
         state.message = action.payload;
-      })
-      .addCase(verifyOTP.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(verifyOTP.fulfilled, (state, action) => {
-        localStorage.setItem("AYUVYA_TOKEN_USER", action.payload.token);
-        state.isOTPVerified = "success";
-        state.accessToken = action.payload.token;
-      })
-      .addCase(verifyOTP.rejected, (state, action) => {
-        state.status = "rejected";
       })
       .addCase(sendOTP.pending, (state) => {
         state.status = "loading";

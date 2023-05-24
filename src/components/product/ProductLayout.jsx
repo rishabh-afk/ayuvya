@@ -1,8 +1,14 @@
 import ProductCard from "./ProductCard";
+import { motion } from "framer-motion";
 
 const ProductLayout = ({ pageTitle, products }) => {
   return (
-    <section>
+    <motion.section
+      initial={{ opacity: 0, y: -40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeInOut" }}
+      key={products.length}
+    >
       <p className="text-4xl mx-4 font-semibold mb-4">{pageTitle}</p>
       <div className="flex flex-wrap">
         {products.map((product) => {
@@ -24,7 +30,7 @@ const ProductLayout = ({ pageTitle, products }) => {
           );
         })}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -1,8 +1,10 @@
 import axios from "axios";
 import config from "../config/config";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Layouts from "../components/UI/Layouts";
 import Loader from "../components/common/Loader";
+import MetaTags from "../components/meta/MetaTags";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductCard from "../components/product/ProductCard";
 import Reviews from "../components/product/productDetails/Reviews";
@@ -12,9 +14,8 @@ import Recommendation from "../components/common/card/Recommendation";
 import Ingredients from "../components/product/productDetails/Ingredients";
 import CommonDetails from "../components/product/productDetails/CommonDetails";
 import CustomerReview from "../components/product/productDetails/CustomerReview";
-import ImagesSwiper from "../components/product/productDetails/imageswiper/ImagesSwiper";
 import SafeAndEffective from "../components/product/productDetails/SafeAndEffective";
-import MetaTags from "../components/meta/MetaTags";
+import ImagesSwiper from "../components/product/productDetails/imageswiper/ImagesSwiper";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -49,7 +50,12 @@ const ProductDetail = () => {
         metaDesc={product?.meta_description}
         metaKey={product?.meta_keywords}
       />
-      <section className="max-w-7xl mx-auto">
+      <motion.section
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+        className="max-w-7xl mx-auto"
+      >
         <div className="flex flex-col lg:flex-row mx-3 md:mx-8 lg:mx-16 my-8">
           <div className="w-full lg:w-1/2 p-1 lg:p-4">
             <ImagesSwiper images={product?.product_images} />
@@ -85,7 +91,7 @@ const ProductDetail = () => {
           recommendation={product?.recommendation}
         />
         <SafeAndEffective safe_and_effective={product?.safe_and_effective} />
-      </section>
+      </motion.section>
     </Layouts>
   );
 };

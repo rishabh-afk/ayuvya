@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/common/Loader";
 import { fetchCart, fetchCartAuth } from "../store/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "../components/order/OrderDetails";
@@ -18,24 +17,18 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const payment_type = useSelector((state) => state.cart.payment_type);
 
   useEffect(() => {
-    if (cart.status !== "success" && isLoggedIn) {
-      dispatch(fetchCartAuth());
+    if (cart.status !== "success") {
+      if (isLoggedIn) dispatch(fetchCartAuth());
+      else dispatch(fetchCart());
     }
-    if (cart.status !== "success" && !isLoggedIn) {
-      dispatch(fetchCart());
-    }
-    localStorage.setItem("AYUVYA_PAYMENT_METHOD", "Prepaid");
-    if (cart.status === "success" && cart && cart?.items.length === 0) {
-      navigate("/");
-    }
+    if (cart.status === "success" && cart?.items.length === 0) navigate("/");
   }, [dispatch, cart, navigate, isLoggedIn]);
 
   return (
     <>
-      {cart.status === "success" ? (
+      {cart.status === "success" && (
         <div className="lg:pl-20 flex flex-col lg:flex-row">
           <motion.div
             variants={variants}
@@ -53,11 +46,9 @@ const Checkout = () => {
             transition={variants.transition}
             className="w-full lg:w-[45%] px-6 lg:p-12 bg-gray-100 border-l border-[#e1e1e1] order-first lg:order-last"
           >
-            <OrderDetails cart={cart} payment_type={payment_type} />
+            <OrderDetails cart={cart} payment_type={cart?.payment_type} />
           </motion.div>
         </div>
-      ) : (
-        <Loader />
       )}
     </>
   );

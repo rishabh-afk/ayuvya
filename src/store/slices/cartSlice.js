@@ -22,10 +22,10 @@ export const addToCartAuth = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let token = localStorage.getItem("AYUVYA_TOKEN_USER");
-      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      const cartId = localStorage.getItem("AYUVYA_CART_ID_8932_6754");
       const cartdata = {
         items: data,
-        cart: cartId,
+        cart: cartId ? cartId : null,
       };
       return await cartServices.addItemToCart(cartdata, token);
     } catch (e) {
@@ -43,7 +43,7 @@ export const fetchCartAuth = createAsyncThunk(
   async (thunkAPI) => {
     try {
       let token = localStorage.getItem("AYUVYA_TOKEN_USER");
-      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      const cartId = localStorage.getItem("AYUVYA_CART_ID_8932_6754");
       return await cartServices.fetchCart(token, cartId);
     } catch (e) {
       const msg =
@@ -60,7 +60,7 @@ export const applyCoupon = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let token = localStorage.getItem("AYUVYA_TOKEN_USER");
-      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
+      const cartId = localStorage.getItem("AYUVYA_CART_ID_8932_6754");
       return await cartServices.applyCoupon(data, token, cartId);
     } catch (e) {
       const msg =
@@ -78,7 +78,7 @@ const cartSlice = createSlice({
   reducers: {
     addCartItem: (state, action) => {
       if (action.payload) {
-        let cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+        let cart = JSON.parse(localStorage.getItem("AYUVYA_CART_9731_8652"));
         let itemExists = cart?.items?.find(
           (cartItem) => cartItem.id === action.payload.id
         );
@@ -86,13 +86,13 @@ const cartSlice = createSlice({
           itemExists.total_item_price += action.payload.price;
           itemExists.quantity += action.payload.quantity;
           cart.total_amount += action.payload.price;
-          localStorage.setItem("AYUVYA_CART", JSON.stringify(cart));
+          localStorage.setItem("AYUVYA_CART_9731_8652", JSON.stringify(cart));
         } else {
           state.items.push(action.payload);
           state.number_of_items += 1;
           state.related_product_Id.push(action.payload.id);
           state.total_amount += action.payload.price;
-          localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
+          localStorage.setItem("AYUVYA_CART_9731_8652", JSON.stringify(state));
         }
         toast.success("Item is added successfully", {
           position: "bottom-left",
@@ -100,7 +100,7 @@ const cartSlice = createSlice({
       }
     },
     removeCartItem: (state, action) => {
-      let cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+      let cart = JSON.parse(localStorage.getItem("AYUVYA_CART_9731_8652"));
       let itemExists = cart?.items?.find(
         (cartItem) => cartItem.id === action.payload.id
       );
@@ -111,10 +111,12 @@ const cartSlice = createSlice({
       );
       state.number_of_items -= 1;
       state.total_amount -= total_item_price;
-      localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
+      localStorage.setItem("AYUVYA_CART_9731_8652", JSON.stringify(state));
     },
     fetchCart: (state, action) => {
-      const localData = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+      const localData = JSON.parse(
+        localStorage.getItem("AYUVYA_CART_9731_8652")
+      );
       const paymentType = localStorage.getItem("AYUVYA_PAYMENT_METHOD");
       state.status = "success";
       if (localData) {
@@ -133,17 +135,15 @@ const cartSlice = createSlice({
         state.online_discount =
           paymentType === "Prepaid" ? (10 * localData?.total_amount) / 100 : 0;
         state.related_product_Id = localData?.related_product_Id;
-        localStorage.setItem("AYUVYA_CART", JSON.stringify(state));
+        localStorage.setItem("AYUVYA_CART_9731_8652", JSON.stringify(state));
       }
-      if (paymentType === "Prepaid") {
+      if (paymentType === "Prepaid")
         localStorage.setItem("AYUVYA_PAYMENT_METHOD", "COD");
-      } else {
-        localStorage.setItem("AYUVYA_PAYMENT_METHOD", "Prepaid");
-      }
+      else localStorage.setItem("AYUVYA_PAYMENT_METHOD", "Prepaid");
     },
     updateCartItem: (state, action) => {
       if (action.payload) {
-        let cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+        let cart = JSON.parse(localStorage.getItem("AYUVYA_CART_9731_8652"));
         const itemExists = cart?.items?.find(
           (cartItem) => cartItem.id === action.payload.id
         );
@@ -155,7 +155,7 @@ const cartSlice = createSlice({
         } else {
           cart.total_amount += action.payload.price;
         }
-        localStorage.setItem("AYUVYA_CART", JSON.stringify(cart));
+        localStorage.setItem("AYUVYA_CART_9731_8652", JSON.stringify(cart));
       }
     },
     selectPaymentMode: (state, action) => {
@@ -163,12 +163,13 @@ const cartSlice = createSlice({
       localStorage.setItem("AYUVYA_PAYMENT_METHOD", action.payload);
     },
     clearLocalStorage: (state, action) => {
-      localStorage.removeItem("AYUVYA_CART");
-      localStorage.removeItem("AYUVYA_PAYMENT_METHOD");
-      localStorage.removeItem("AYUVYA_CART-CARTID");
-      localStorage.removeItem("AYUVYA_NEW_ORDER_ID");
-      localStorage.removeItem("SET_ROUTE_HISTORY");
+      Object.assign(state, initialState);
       localStorage.removeItem("AYUVYA_ORDER_ID");
+      localStorage.removeItem("SET_ROUTE_HISTORY");
+      localStorage.removeItem("AYUVYA_CART_9731_8652");
+      localStorage.removeItem("AYUVYA_PAYMENT_METHOD");
+      localStorage.removeItem("AYUVYA_UPDATED_ORDER_ID");
+      localStorage.removeItem("AYUVYA_CART_ID_8932_6754");
     },
   },
   extraReducers: (builder) => {
@@ -178,7 +179,11 @@ const cartSlice = createSlice({
       })
       .addCase(addToCartAuth.fulfilled, (state, action) => {
         state.status = "success";
-        localStorage.setItem("AYUVYA_CART-CARTID", action.payload.cart);
+        const cartIdAlreadyExist = localStorage.getItem(
+          "AYUVYA_CART_ID_8932_6754"
+        );
+        if (!cartIdAlreadyExist)
+          localStorage.setItem("AYUVYA_CART_ID_8932_6754", action.payload.cart);
       })
       .addCase(addToCartAuth.rejected, (state, action) => {
         state.status = "rejected";

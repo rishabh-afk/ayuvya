@@ -75,8 +75,8 @@ const CheckoutForm = () => {
     if (user.payment_method === "COD") {
       handleCodOrder();
     } else {
-      const cartId = localStorage.getItem("AYUVYA_CART-CARTID");
-      const cart = JSON.parse(localStorage.getItem("AYUVYA_CART"));
+      const cartId = localStorage.getItem("AYUVYA_CART_ID_8932_6754");
+      const cart = JSON.parse(localStorage.getItem("AYUVYA_CART_9731_8652"));
       let data = [];
       if (cart !== null) {
         cart.items.map((item) => {
@@ -105,7 +105,7 @@ const CheckoutForm = () => {
   const handlePrePaidOrder = () => {
     dispatch(createOrder(user)).then((response) => {
       localStorage.setItem("AYUVYA_ORDER_ID", response.payload.get_order_id);
-      localStorage.setItem("AYUVYA_NEW_ORDER_ID", response.payload.order_id);
+      localStorage.setItem("AYUVYA_UPDATED_ORDER_ID", response.payload.order_id);
       handleCashFreePayment(response.payload.order_token);
     });
   };

@@ -22,12 +22,6 @@ const getAllCategories = async () => {
   return resp.data;
 };
 
-const CONCERN_URL = "api/products/concern/";
-const getAllConcerns = async () => {
-  const resp = await axios.get(`${BASE_URL}${CONCERN_URL}`);
-  return resp.data;
-};
-
 const RELATED_PRODUCT_URL = "api/products/related/";
 const getAllRelatedProducts = async (data) => {
   const resp = await axios.post(`${BASE_URL}${RELATED_PRODUCT_URL}`, data);
@@ -37,17 +31,6 @@ const getAllRelatedProducts = async (data) => {
 const INSTA_POSTS_URL = "api/insta/feed/";
 const getInstaPosts = async (data) => {
   const resp = await axios.get(`${BASE_URL}${INSTA_POSTS_URL}`);
-  return resp.data;
-};
-
-const VERIFY_OTP_URL = "api/auth/otp/verify/";
-const verifyOTP = async (data) => {
-  const resp = await axios.post(`${BASE_URL}${VERIFY_OTP_URL}`, data);
-  if (resp.status === 200) {
-    toast.success("Phone Number verified successfully!");
-    localStorage.setItem("AYUVYA_TOKEN_USER", resp.data.token);
-    // localStorage.setItem("AYUVYA_CART-CARTID", resp.data?.cart);
-  }
   return resp.data;
 };
 
@@ -62,10 +45,8 @@ const sendOTP = async (data) => {
 
 const services = {
   sendOTP,
-  verifyOTP,
   getAllBlogs,
   getInstaPosts,
-  getAllConcerns,
   getAllProducts,
   getAllCategories,
   getAllRelatedProducts,
