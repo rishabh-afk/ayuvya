@@ -52,3 +52,16 @@
 .mySwiper .swiper-slide-thumb-active {
   filter: brightness(120%);
 }
+
+.swiper-button-next {
+  background: #1f2e5b;
+  padding: 0 25px;
+  right: 0px;
+  z-index: 1000000;
+  border-radius: 5px;
+  width: 10px;
+  height: 5px;
+}
+.swiper-button-next:hover {
+  background: #13255b;
+}

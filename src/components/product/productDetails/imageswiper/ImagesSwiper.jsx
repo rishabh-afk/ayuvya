@@ -20,6 +20,7 @@ export default function App({ images }) {
       <Swiper
         style={{
           "--swiper-navigation-color": "#fff",
+          "--swiper-navigation-background": "#fff",
           "--swiper-pagination-color": "#fff",
         }}
         spaceBetween={10}
